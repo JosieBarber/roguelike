@@ -5,12 +5,14 @@ class_name Planning
 var player: Player
 var selected_card_index: int = -1
 var card_rects: Array = []
-var selected_indices: Array = []
+var selected_cards: Array = []
+var temp_deck: Array = []
 
 func _ready():
 	player = get_parent().get_node("Player")
 	player.initialize("Player1", 100)
 	_create_test_deck()
+	temp_deck = player.player_deck.duplicate()
 	display_deck()
 	_create_draw_button()
 
@@ -22,20 +24,21 @@ func _create_test_deck():
 
 func draw_hand():
 	player.player_hand.clear()
-	selected_indices.sort()
-	selected_indices.reverse()
-	for index in selected_indices:
-		if index >= 0 and index < player.player_deck.size() and player.player_hand.size() < 7:
-			player.player_hand.append(player.player_deck[index])
-			player.player_deck.remove_at(index)
-	selected_indices.clear()
+	for card in selected_cards:
+		player.player_hand.append(card)
+	selected_cards.clear()
 	display_deck()
 	display_selected_queue()
 
 func select_card(card_index: int):
-	if card_index not in selected_indices and selected_indices.size() < 7:
-		selected_indices.append(card_index)
-		print("Selected card index: ", card_index)
+	if temp_deck.size() > card_index and selected_cards.size() < 7:
+		var selected_card = temp_deck[card_index]
+		selected_cards.append(selected_card)
+		temp_deck.remove_at(card_index)
+		print("Selected card: ", selected_card.card_name)
+	elif selected_cards.size() >= 7:
+		print("Hand is full")
+	display_deck()
 	display_selected_queue()
 
 func display_deck():
@@ -43,19 +46,18 @@ func display_deck():
 	for child in get_children():
 		if child is CardDisplay:
 			child.queue_free()
-	for i in range(player.player_deck.size()):
-		if i not in selected_indices:
-			var card_display = CardDisplay.new(player.player_deck[i].card_name, player.player_deck[i].card_damage)
-			card_display.position = Vector2(10, (i * 35) + 20)
-			add_child(card_display)
-			card_rects.append(Rect2(card_display.position, Vector2(200, 30)))
+	for i in range(temp_deck.size()):
+		var card_display = CardDisplay.new(temp_deck[i].card_name, temp_deck[i].card_damage)
+		card_display.position = Vector2(10, (i * 35) + 20)
+		add_child(card_display)
+		card_rects.append(Rect2(card_display.position, Vector2(200, 30)))
 
 func display_selected_queue():
 	var selected_queue = get_node("/root/Planning_Phase/SelectedQueue")
 	for child in selected_queue.get_children():
 		child.queue_free()
-	for i in range(selected_indices.size()):
-		var card_display = CardDisplay.new(player.player_deck[selected_indices[i]].card_name, player.player_deck[selected_indices[i]].card_damage)
+	for i in range(selected_cards.size()):
+		var card_display = CardDisplay.new(selected_cards[i].card_name, selected_cards[i].card_damage)
 		card_display.position = Vector2(10, (i * 35) + 20)
 		selected_queue.add_child(card_display)
 
@@ -63,7 +65,6 @@ func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		for i in range(card_rects.size()):
 			if card_rects[i].has_point(event.position):
-				print("card " + str(i + 1) + " clicked")
 				select_card(i)
 				break
 
