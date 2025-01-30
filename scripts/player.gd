@@ -63,5 +63,4 @@ func _input(event):
 			if card_rects[i].has_point(event.position):
 				print("card " + str(i + 1) + " clicked")
 				draw_hand([i])
-				# display_deck()
 				break
