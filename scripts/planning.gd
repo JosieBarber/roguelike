@@ -80,8 +80,8 @@ func _on_draw_button_pressed():
 	draw_hand()
 
 func transition_to_attack_phase():
-	var area = Area.new()
-	var possible_enemies = area.get_possible_enemies("Forest")
+	var enemGen = enemyGeneration.new()
+	var possible_enemies = enemGen.get_possible_enemies("Forest")
 	var random_enemy = possible_enemies[randi() % possible_enemies.size()]
 	var attack_scene = preload("res://scenes/Attack_Phase.tscn").instantiate()
 	attack_scene.set("player", player)

@@ -14,5 +14,15 @@ func _ready():
 	# Print out the enemy details
 	print("Enemy name: ", enemy.enemy_name)
 	print("Enemy health: ", enemy.enemy_health)
+
+	print("Enemy deck: ")
 	for card in enemy.enemy_deck:
-		print("Enemy card: ", card.card_name)
+		print(card.card_name)
+
+	print("Enemy active deck: ")
+	for card in enemy.active_deck:
+		print(card.card_name)
+
+	print("Enemy hand: ")
+	for card in enemy.enemy_hand:
+		print(card.card_name)
