@@ -6,13 +6,12 @@ var player: Player
 var selected_card_index: int = -1
 var card_rects: Array = []
 var selected_cards: Array = []
-var temp_deck: Array = []
 
 func _ready():
 	player = get_parent().get_node("Player")
 	player.initialize("JosiePosie", 50)
 	_create_test_deck()
-	temp_deck = player.player_deck.duplicate()
+	player.active_deck = player.player_deck.duplicate()
 	display_deck()
 	_create_draw_button()
 
@@ -27,15 +26,15 @@ func draw_hand():
 	for card in selected_cards:
 		player.player_hand.append(card)
 	selected_cards.clear()
-	# display_deck()
-	display_selected_queue() # This shouldn't be necessary, I'm not sure why it has to be here tbh
+	display_deck()
+	display_selected_queue()
 	transition_to_attack_phase()
 
 func select_card(card_index: int):
-	if temp_deck.size() > card_index and selected_cards.size() < 7:
-		var selected_card = temp_deck[card_index]
+	if player.active_deck.size() > card_index and selected_cards.size() < 7:
+		var selected_card = player.active_deck[card_index]
 		selected_cards.append(selected_card)
-		temp_deck.remove_at(card_index)
+		player.active_deck.remove_at(card_index)
 		print("Selected card: ", selected_card.card_name)
 	elif selected_cards.size() >= 7:
 		print("Hand is full")
@@ -47,8 +46,8 @@ func display_deck():
 	for child in get_children():
 		if child is CardDisplay:
 			child.queue_free()
-	for i in range(temp_deck.size()):
-		var card_display = CardDisplay.new(temp_deck[i].card_name, temp_deck[i].card_damage)
+	for i in range(player.active_deck.size()):
+		var card_display = CardDisplay.new(player.active_deck[i].card_name, player.active_deck[i].card_damage)
 		card_display.position = Vector2(10, (i * 35) + 20)
 		add_child(card_display)
 		card_rects.append(Rect2(card_display.position, Vector2(200, 30)))
@@ -81,7 +80,11 @@ func _on_draw_button_pressed():
 	draw_hand()
 
 func transition_to_attack_phase():
+	var area = Area.new()
+	var possible_enemies = area.get_possible_enemies("Forest")
+	var random_enemy = possible_enemies[randi() % possible_enemies.size()]
 	var attack_scene = preload("res://scenes/Attack_Phase.tscn").instantiate()
 	attack_scene.set("player", player)
+	attack_scene.set("enemy", random_enemy)
 	get_tree().root.add_child(attack_scene)
 	queue_free()
