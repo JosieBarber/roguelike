@@ -10,7 +10,7 @@ var temp_deck: Array = []
 
 func _ready():
 	player = get_parent().get_node("Player")
-	player.initialize("Player1", 100)
+	player.initialize("JosiePosie", 50)
 	_create_test_deck()
 	temp_deck = player.player_deck.duplicate()
 	display_deck()
@@ -27,8 +27,9 @@ func draw_hand():
 	for card in selected_cards:
 		player.player_hand.append(card)
 	selected_cards.clear()
-	display_deck()
-	display_selected_queue()
+	# display_deck()
+	display_selected_queue() # This shouldn't be necessary, I'm not sure why it has to be here tbh
+	transition_to_attack_phase()
 
 func select_card(card_index: int):
 	if temp_deck.size() > card_index and selected_cards.size() < 7:
@@ -78,3 +79,9 @@ func _create_draw_button():
 
 func _on_draw_button_pressed():
 	draw_hand()
+
+func transition_to_attack_phase():
+	var attack_scene = preload("res://scenes/Attack_Phase.tscn").instantiate()
+	attack_scene.set("player", player)
+	get_tree().root.add_child(attack_scene)
+	queue_free()

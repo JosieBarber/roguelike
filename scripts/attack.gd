@@ -2,6 +2,9 @@ extends Node2D
 
 class_name Attack
 
+@export var player: Player
+
 func _ready():
-	# Initialize the attack phase when it is added to the scene
-	pass
+	for card in player.player_hand:
+		print("Card in hand: ", card.card_name)
+	print("Player name: ", player.player_name)
