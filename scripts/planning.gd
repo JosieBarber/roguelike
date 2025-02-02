@@ -26,8 +26,8 @@ func draw_hand():
 	for card in selected_cards:
 		player.player_hand.append(card)
 	selected_cards.clear()
-	display_deck()
-	display_selected_queue()
+	#display_deck()
+	display_selected_queue() #this shouldn't be needed but it is (?) 
 	transition_to_attack_phase()
 
 func select_card(card_index: int):
