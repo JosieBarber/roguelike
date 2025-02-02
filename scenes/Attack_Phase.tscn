@@ -1,0 +1,3 @@
+[gd_scene load_steps=1 format=3 uid="uid://attack_phase"]
+
+[node name="Attack_Phase" type="Node2D"]
