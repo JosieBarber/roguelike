@@ -2,7 +2,7 @@
 
 extends Node2D
 
-class_name player
+class_name Player
 
 var player_name: String
 var player_status: String
@@ -11,11 +11,16 @@ var player_hand: Array
 var player_deck: Array
 var player_discard: Array
 
+var selected_card_index: int = -1
+var card_rects: Array = []
 
-func _init(player_name_param: String, health: int):
-    player_name = player_name_param
-    player_health = health
+func initialize(player_name_param: String, health: int):
+	player_name = player_name_param
+	player_health = health
+	player_hand = []
+	player_deck = []
+	player_discard = []
 
 func _ready():
-    # Initialize the player when it is added to the scene
-    pass
+	# Initialize the player when it is added to the scene
+	pass
