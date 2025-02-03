@@ -5,7 +5,12 @@ class_name Attack
 @export var player: Player
 @export var enemy: Enemy
 
+var planning_scene: PackedScene
+
 func _ready():
+	# Preload the planning scene
+	planning_scene = preload("res://scenes/Planning_Phase.tscn")
+	
 	# Print out the player's hand
 	for card in player.player_hand:
 		print("Card in hand: ", card.card_name)

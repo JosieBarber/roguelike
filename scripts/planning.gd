@@ -2,18 +2,44 @@ extends Node2D
 
 class_name Planning
 
-var player: Player
+@export var player: Player
+@export var enemy: Enemy
 var selected_card_index: int = -1
 var card_rects: Array = []
 var selected_cards: Array = []
 
 func _ready():
-	player = get_parent().get_node("Player")
-	player.initialize("JosiePosie", 50)
-	_create_test_deck()
-	player.active_deck = player.player_deck.duplicate()
+	print("Planning phase ready")
+	if not player:
+		player = get_parent().get_node("Player")
+		player.initialize("JosiePosie", 50)
+		_create_test_deck()
+		player.active_deck = player.player_deck.duplicate()
 	display_deck()
 	_create_draw_button()
+
+	# Initialize enemy if not already initialized
+	if not enemy:
+		var enemGen = enemyGeneration.new()
+		var possible_enemies = enemGen.get_possible_enemies("Forest")
+		enemy = possible_enemies[randi() % possible_enemies.size()]
+
+	# Print out the enemy details
+	print("Enemy initialized in planning phase")
+	print("Enemy name: ", enemy.enemy_name)
+	print("Enemy health: ", enemy.enemy_health)
+
+	print("Enemy deck: ")
+	for card in enemy.enemy_deck:
+		print(card.card_name)
+
+	print("Enemy active deck: ")
+	for card in enemy.active_deck:
+		print(card.card_name)
+
+	print("Enemy hand: ")
+	for card in enemy.enemy_hand:
+		print(card.card_name)
 
 func _create_test_deck():
 	#Test function to create a deck of 15 cards
