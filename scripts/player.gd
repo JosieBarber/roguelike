@@ -21,8 +21,16 @@ func initialize(player_name_param: String, health: int):
 	player_hand = []
 	player_deck = []
 	player_discard = []
-	active_deck = player_deck.duplicate()
+	active_deck = []
 
 func _ready():
-	# Initialize the player when it is added to the scene
 	pass
+	
+func copy_deck():
+	active_deck = player_deck.duplicate()
+
+func _create_test_deck():
+	#Test function to create a deck of 15 cards
+	for i in range(15):
+		var new_card = card.new("Card " + str(i + 1), "Effect", "Clause", "Type", "Sprite", i + 1)
+		player_deck.append(new_card)

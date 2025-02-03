@@ -2,20 +2,20 @@ extends Node2D
 
 class_name Planning
 
-@export var player: Player
-@export var enemy: Enemy
+var player: Player
+var enemy: Enemy
 var selected_card_index: int = -1
 var card_rects: Array = []
 var selected_cards: Array = []
 
 func _ready():
-	print("Planning phase ready")
+	player = get_parent().get_node("Player")
+	# print("Planning phase ready")
 	if not player:
-		player = get_parent().get_node("Player")
-		player.initialize("JosiePosie", 50)
-		_create_test_deck()
+		player = get_parent().get_parent().get_node("Player")
+		player._create_test_deck()
 		player.active_deck = player.player_deck.duplicate()
-	display_deck()
+	
 	_create_draw_button()
 
 	# Initialize enemy if not already initialized
@@ -24,28 +24,23 @@ func _ready():
 		var possible_enemies = enemGen.get_possible_enemies("Forest")
 		enemy = possible_enemies[randi() % possible_enemies.size()]
 
-	# Print out the enemy details
-	print("Enemy initialized in planning phase")
-	print("Enemy name: ", enemy.enemy_name)
-	print("Enemy health: ", enemy.enemy_health)
+	# # Print out the enemy details
+	# print("Enemy initialized in planning phase")
+	# print("Enemy name: ", enemy.enemy_name)
+	# print("Enemy health: ", enemy.enemy_health)
 
-	print("Enemy deck: ")
-	for card in enemy.enemy_deck:
-		print(card.card_name)
+	# print("Enemy deck: ")
+	# for card in enemy.enemy_deck:
+	# 	print(card.card_name)
 
-	print("Enemy active deck: ")
-	for card in enemy.active_deck:
-		print(card.card_name)
+	# print("Enemy active deck: ")
+	# for card in enemy.active_deck:
+	# 	print(card.card_name)
 
-	print("Enemy hand: ")
-	for card in enemy.enemy_hand:
-		print(card.card_name)
+	# print("Enemy hand: ")
+	# for card in enemy.enemy_hand:
+	# 	print(card.card_name)
 
-func _create_test_deck():
-	#Test function to create a deck of 15 cards
-	for i in range(15):
-		var new_card = card.new("Card " + str(i + 1), "Effect", "Clause", "Type", "Sprite", i + 1)
-		player.player_deck.append(new_card)
 
 func draw_hand():
 	player.player_hand.clear()
@@ -79,7 +74,7 @@ func display_deck():
 		card_rects.append(Rect2(card_display.position, Vector2(200, 30)))
 
 func display_selected_queue():
-	var selected_queue = get_node("/root/Planning_Phase/SelectedQueue")
+	var selected_queue = get_parent().get_node("SelectedQueue")
 	for child in selected_queue.get_children():
 		child.queue_free()
 	for i in range(selected_cards.size()):
@@ -106,11 +101,11 @@ func _on_draw_button_pressed():
 	draw_hand()
 
 func transition_to_attack_phase():
-	var enemGen = enemyGeneration.new()
-	var possible_enemies = enemGen.get_possible_enemies("Forest")
-	var random_enemy = possible_enemies[randi() % possible_enemies.size()]
-	var attack_scene = preload("res://scenes/Attack_Phase.tscn").instantiate()
-	attack_scene.set("player", player)
-	attack_scene.set("enemy", random_enemy)
-	get_tree().root.add_child(attack_scene)
-	queue_free()
+	# print(get_parent().get_parent().name)
+	var attack_scene = get_parent().get_parent().get_node("Attack_Phase")
+	attack_scene._ready()
+	attack_scene.player = self.player
+	get_parent().get_node("SelectedQueue").visible = false
+	self.visible = false
+	card_rects.clear()
+	attack_scene.visible = true

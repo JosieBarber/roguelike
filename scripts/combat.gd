@@ -13,13 +13,14 @@ func _ready():
 	button.connect("pressed", Callable(self, "_on_start_combat_pressed"))
 
 func _on_start_combat_pressed():
+	$Button.visible = false
 	_initialize_player()
 	_initialize_enemy()
 	transition_to_planning_phase()
 
 func _initialize_player():
-	player = Player.new()
-	player.initialize("JosiePosie", 50)
+	player = get_parent().get_node("Player")
+	print("Player name at combat: ", player.player_name)
 	_create_test_deck(player)
 
 func _initialize_enemy():
@@ -36,8 +37,9 @@ func _create_test_deck(player: Player):
 
 func transition_to_planning_phase():
 	print("Transitioning to planning phase")
-	var planning_scene = preload("res://scenes/Planning_Phase.tscn").instantiate()
+	var planning_scene = get_node("Planning_Phase")
 	planning_scene.set("player", player)
-	planning_scene.set("enemy", enemy)
-	get_tree().root.add_child(planning_scene)
-	queue_free()
+	player.copy_deck()
+	planning_scene.get_node("Planning").display_deck()
+	planning_scene.visible = true
+	# self.self_modulate = Color(1, 1, 1, 0) # Zero opacity
