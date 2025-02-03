@@ -27,10 +27,12 @@ func _ready():
 	pass
 	
 func copy_deck():
+	active_deck.clear()
 	active_deck = player_deck.duplicate()
 
 func _create_test_deck():
 	#Test function to create a deck of 15 cards
+	player_deck.clear()
 	for i in range(15):
-		var new_card = card.new("Card " + str(i + 1), "Effect", "Clause", "Type", "Sprite", i + 1)
+		var new_card = Card.new("Card " + str(i + 1), "Effect", "Clause", "Type", "Sprite", i + 1)
 		player_deck.append(new_card)

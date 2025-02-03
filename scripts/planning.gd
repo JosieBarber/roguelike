@@ -9,13 +9,13 @@ var card_rects: Array = []
 var selected_cards: Array = []
 
 func _ready():
-	player = get_parent().get_node("Player")
+	#player = get_parent().get_parent().get_node("Player")
 	# print("Planning phase ready")
 	if not player:
 		player = get_parent().get_parent().get_node("Player")
-		player._create_test_deck()
+		#player._create_test_deck()
 		player.active_deck = player.player_deck.duplicate()
-	
+	#display_deck()
 	_create_draw_button()
 
 	# Initialize enemy if not already initialized
@@ -61,8 +61,9 @@ func select_card(card_index: int):
 		print("Hand is full")
 	display_deck()
 	display_selected_queue()
-
+	
 func display_deck():
+	print("displaying deck")
 	card_rects.clear()
 	for child in get_children():
 		if child is CardDisplay:
@@ -74,7 +75,7 @@ func display_deck():
 		card_rects.append(Rect2(card_display.position, Vector2(200, 30)))
 
 func display_selected_queue():
-	var selected_queue = get_parent().get_node("SelectedQueue")
+	var selected_queue = get_node("SelectedQueue")
 	for child in selected_queue.get_children():
 		child.queue_free()
 	for i in range(selected_cards.size()):
@@ -102,10 +103,10 @@ func _on_draw_button_pressed():
 
 func transition_to_attack_phase():
 	# print(get_parent().get_parent().name)
-	var attack_scene = get_parent().get_parent().get_node("Attack_Phase")
+	var attack_scene = get_parent().get_node("Attack_Phase")
 	attack_scene._ready()
 	attack_scene.player = self.player
-	get_parent().get_node("SelectedQueue").visible = false
+	get_node("SelectedQueue").visible = false
 	self.visible = false
 	card_rects.clear()
 	attack_scene.visible = true
