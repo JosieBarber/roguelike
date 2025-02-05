@@ -12,13 +12,9 @@ var selected_rects: Array = []
 
 
 func _ready():
-	#player = get_parent().get_parent().get_node("Player")
-	# print("Planning phase ready")
 	if not player:
 		player = get_parent().get_parent().get_node("Player")
-		#player._create_test_deck()
 		player.active_deck = player.player_deck.duplicate()
-	#display_deck()
 	_create_draw_button()
 
 	# Initialize enemy if not already initialized
@@ -27,30 +23,11 @@ func _ready():
 		var possible_enemies = enemGen.get_possible_enemies("Forest")
 		enemy = possible_enemies[randi() % possible_enemies.size()]
 
-	# # Print out the enemy details
-	# print("Enemy initialized in planning phase")
-	# print("Enemy name: ", enemy.enemy_name)
-	# print("Enemy health: ", enemy.enemy_health)
-
-	# print("Enemy deck: ")
-	# for card in enemy.enemy_deck:
-	# 	print(card.card_name)
-
-	# print("Enemy active deck: ")
-	# for card in enemy.active_deck:
-	# 	print(card.card_name)
-
-	# print("Enemy hand: ")
-	# for card in enemy.enemy_hand:
-	# 	print(card.card_name)
-
-
 func draw_hand():
 	player.player_hand.clear()
 	for card in selected_cards:
 		player.player_hand.append(card)
 	selected_cards.clear()
-	#display_deck()
 	display_selected_queue() #this shouldn't be needed but it is (?) 
 	transition_to_attack_phase()
 
@@ -59,7 +36,6 @@ func select_card(card_index: int):
 		var selected_card = player.active_deck[card_index]
 		selected_cards.append(selected_card)
 		player.active_deck.remove_at(card_index)
-		print("Selected card: ", selected_card.card_name)
 	elif selected_cards.size() >= 7:
 		print("Hand is full")
 	display_deck()
@@ -69,12 +45,10 @@ func deselect_card(card_index: int):
 	var deselected_card = selected_cards[card_index]
 	player.active_deck.append(deselected_card)
 	selected_cards.remove_at(card_index)
-	#print("Selected card: ", selected_card.card_name)
 	display_deck()
 	display_selected_queue()
 	
 func display_deck():
-	print("displaying deck")
 	deck_rects.clear()
 	for child in get_children():
 		if child is CardDisplay:
@@ -87,7 +61,6 @@ func display_deck():
 
 func display_selected_queue():
 	var selected_queue = get_node("SelectedQueue")
-	print("seleected queue position", selected_queue.position)
 	selected_rects.clear()
 	for child in selected_queue.get_children():
 		child.queue_free()
@@ -105,13 +78,10 @@ func _input(event):
 		for i in range(deck_rects.size()):
 			if deck_rects[i].has_point(event.position):
 				select_card(i)
-				print("Clicked a card in the Deck")
-
 				break
 		for i in range(selected_rects.size()):
 			if selected_rects[i].has_point(event.position):
 				deselect_card(i)
-				#print("Clicked a Selected Card")
 				break
 
 func _create_draw_button():
