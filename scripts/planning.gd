@@ -126,7 +126,6 @@ func _on_draw_button_pressed():
 	draw_hand()
 
 func transition_to_attack_phase():
-	# print(get_parent().get_parent().name)
 	var attack_scene = get_parent().get_node("Attack_Phase")
 	attack_scene._ready()
 	attack_scene.player = self.player
@@ -134,3 +133,4 @@ func transition_to_attack_phase():
 	self.visible = false
 	deck_rects.clear()
 	attack_scene.visible = true
+	attack_scene.transition_to_attack_phase()
