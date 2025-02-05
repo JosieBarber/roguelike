@@ -6,6 +6,6 @@
 script = ExtResource("2")
 
 [node name="Prepared Hand" type="Node2D" parent="."]
-position = Vector2(935, 0)
+position = Vector2(211.18, 0)
 
 [node name="Active Deck" type="Node2D" parent="."]

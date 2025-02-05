@@ -44,14 +44,15 @@ func deselect_card(card_index: int):
 func display_deck():
 	var active_deck_object = get_node("Active Deck")
 	deck_rects.clear()
-	for child in get_children():
-		if child is CardDisplay:
+	for child in active_deck_object.get_children():
 			child.queue_free()
 	for i in range(player.active_deck.size()):
 		var card_display = CardDisplay.new(player.active_deck[i].card_name, player.active_deck[i].card_damage)
 		card_display.position = Vector2(10, (i * 35) + 20)
-		add_child(card_display)
-		deck_rects.append(Rect2(card_display.position, Vector2(200, 30)))
+		var hitbox_position = Vector2(card_display.position[0] + active_deck_object.position[0], 
+									  card_display.position[1] + active_deck_object.position[1])
+		deck_rects.append(Rect2(hitbox_position, Vector2(200, 30)))
+		active_deck_object.add_child(card_display)
 
 func display_prepared_hand():
 	var prepared_hand_object = get_node("Prepared Hand")
