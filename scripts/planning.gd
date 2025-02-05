@@ -28,7 +28,7 @@ func draw_hand():
 	for card in selected_cards:
 		player.player_hand.append(card)
 	selected_cards.clear()
-	display_selected_queue() #this shouldn't be needed but it is (?) 
+	display_prepared_hand() #this shouldn't be needed but it is (?) 
 	transition_to_attack_phase()
 
 func select_card(card_index: int):
@@ -39,16 +39,17 @@ func select_card(card_index: int):
 	elif selected_cards.size() >= 7:
 		print("Hand is full")
 	display_deck()
-	display_selected_queue()
+	display_prepared_hand()
 
 func deselect_card(card_index: int):
 	var deselected_card = selected_cards[card_index]
 	player.active_deck.append(deselected_card)
 	selected_cards.remove_at(card_index)
 	display_deck()
-	display_selected_queue()
+	display_prepared_hand()
 	
 func display_deck():
+	var active_deck_object = get_node("Active Deck")
 	deck_rects.clear()
 	for child in get_children():
 		if child is CardDisplay:
@@ -59,18 +60,18 @@ func display_deck():
 		add_child(card_display)
 		deck_rects.append(Rect2(card_display.position, Vector2(200, 30)))
 
-func display_selected_queue():
-	var selected_queue = get_node("SelectedQueue")
+func display_prepared_hand():
+	var prepared_hand_object = get_node("Prepared Hand")
 	selected_rects.clear()
-	for child in selected_queue.get_children():
+	for child in prepared_hand_object.get_children():
 		child.queue_free()
 	for i in range(selected_cards.size()):
 		var card_display = CardDisplay.new(selected_cards[i].card_name, selected_cards[i].card_damage)
 		card_display.position = Vector2(10, (i * 35) + 20)
-		var hitbox_position = Vector2(card_display.position[0] + selected_queue.position[0], 
-									  card_display.position[1] + selected_queue.position[1])
+		var hitbox_position = Vector2(card_display.position[0] + prepared_hand_object.position[0], 
+									  card_display.position[1] + prepared_hand_object.position[1])
 		selected_rects.append(Rect2(hitbox_position, Vector2(200, 30)))
-		selected_queue.add_child(card_display)
+		prepared_hand_object.add_child(card_display)
 
 
 func _input(event):
@@ -99,7 +100,7 @@ func transition_to_attack_phase():
 	var attack_scene = get_parent().get_node("Attack_Phase")
 	attack_scene._ready()
 	attack_scene.player = self.player
-	get_node("SelectedQueue").visible = false
+	get_node("Prepared Hand").visible = false
 	self.visible = false
 	deck_rects.clear()
 	attack_scene.visible = true
