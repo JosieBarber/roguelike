@@ -5,8 +5,11 @@ class_name Planning
 var player: Player
 var enemy: Enemy
 var selected_card_index: int = -1
-var card_rects: Array = []
 var selected_cards: Array = []
+
+var deck_rects: Array = []
+var selected_rects: Array = []
+
 
 func _ready():
 	#player = get_parent().get_parent().get_node("Player")
@@ -61,10 +64,18 @@ func select_card(card_index: int):
 		print("Hand is full")
 	display_deck()
 	display_selected_queue()
+
+func deselect_card(card_index: int):
+	var deselected_card = selected_cards[card_index]
+	player.active_deck.append(deselected_card)
+	selected_cards.remove_at(card_index)
+	#print("Selected card: ", selected_card.card_name)
+	display_deck()
+	display_selected_queue()
 	
 func display_deck():
 	print("displaying deck")
-	card_rects.clear()
+	deck_rects.clear()
 	for child in get_children():
 		if child is CardDisplay:
 			child.queue_free()
@@ -72,22 +83,35 @@ func display_deck():
 		var card_display = CardDisplay.new(player.active_deck[i].card_name, player.active_deck[i].card_damage)
 		card_display.position = Vector2(10, (i * 35) + 20)
 		add_child(card_display)
-		card_rects.append(Rect2(card_display.position, Vector2(200, 30)))
+		deck_rects.append(Rect2(card_display.position, Vector2(200, 30)))
 
 func display_selected_queue():
 	var selected_queue = get_node("SelectedQueue")
+	print("seleected queue position", selected_queue.position)
+	selected_rects.clear()
 	for child in selected_queue.get_children():
 		child.queue_free()
 	for i in range(selected_cards.size()):
 		var card_display = CardDisplay.new(selected_cards[i].card_name, selected_cards[i].card_damage)
 		card_display.position = Vector2(10, (i * 35) + 20)
+		var hitbox_position = Vector2(card_display.position[0] + selected_queue.position[0], 
+									  card_display.position[1] + selected_queue.position[1])
+		selected_rects.append(Rect2(hitbox_position, Vector2(200, 30)))
 		selected_queue.add_child(card_display)
+
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		for i in range(card_rects.size()):
-			if card_rects[i].has_point(event.position):
+		for i in range(deck_rects.size()):
+			if deck_rects[i].has_point(event.position):
 				select_card(i)
+				print("Clicked a card in the Deck")
+
+				break
+		for i in range(selected_rects.size()):
+			if selected_rects[i].has_point(event.position):
+				deselect_card(i)
+				#print("Clicked a Selected Card")
 				break
 
 func _create_draw_button():
@@ -108,5 +132,5 @@ func transition_to_attack_phase():
 	attack_scene.player = self.player
 	get_node("SelectedQueue").visible = false
 	self.visible = false
-	card_rects.clear()
+	deck_rects.clear()
 	attack_scene.visible = true
