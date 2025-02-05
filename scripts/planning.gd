@@ -10,16 +10,15 @@ var selected_cards: Array = []
 var deck_rects: Array = []
 var selected_rects: Array = []
 
-
 func _ready():
 	player = get_parent().get_parent().get_node("Player")
 	enemy = get_parent().get_node("Enemy")
 	_create_draw_button()
 
 func draw_hand():
-	player.player_hand.clear()
+	player.hand.clear()
 	for card in selected_cards:
-		player.player_hand.append(card)
+		player.hand.append(card)
 	selected_cards.clear()
 	display_prepared_hand() #this shouldn't be needed but it is (?) 
 	transition_to_attack_phase()
@@ -47,7 +46,7 @@ func display_deck():
 	for child in active_deck_object.get_children():
 			child.queue_free()
 	for i in range(player.active_deck.size()):
-		var card_display = CardDisplay.new(player.active_deck[i].card_name, player.active_deck[i].card_damage)
+		var card_display = CardDisplay.new(player.active_deck[i].card_name, player.active_deck[i].damage)
 		card_display.position = Vector2(10, (i * 35) + 20)
 		var hitbox_position = Vector2(card_display.position[0] + active_deck_object.position[0], 
 									  card_display.position[1] + active_deck_object.position[1])
@@ -60,13 +59,12 @@ func display_prepared_hand():
 	for child in prepared_hand_object.get_children():
 		child.queue_free()
 	for i in range(selected_cards.size()):
-		var card_display = CardDisplay.new(selected_cards[i].card_name, selected_cards[i].card_damage)
+		var card_display = CardDisplay.new(selected_cards[i].card_name, selected_cards[i].damage)
 		card_display.position = Vector2(10, (i * 35) + 20)
 		var hitbox_position = Vector2(card_display.position[0] + prepared_hand_object.position[0], 
 									  card_display.position[1] + prepared_hand_object.position[1])
 		selected_rects.append(Rect2(hitbox_position, Vector2(200, 30)))
 		prepared_hand_object.add_child(card_display)
-
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:

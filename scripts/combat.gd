@@ -2,7 +2,6 @@ extends Control
 
 class_name Combat
 
-
 var player: Player
 var enemy: Enemy
 
@@ -26,7 +25,7 @@ func _initialize_enemy():
 
 func transition_to_planning_phase():
 	print("Player active deck size: ", player.active_deck.size())
-	print("Player full deck size: ", player.player_deck.size())
+	print("Player full deck size: ", player.deck.size())
 
 	print("Transitioning to planning phase")
 	var planning_scene = get_node("Planning_Phase")

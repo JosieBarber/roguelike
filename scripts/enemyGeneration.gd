@@ -4,7 +4,7 @@ class_name enemyGeneration
 
 var areas: Dictionary = {
 	"Forest": [
-		{"name": "Goblin", "health": 50, "deck": [
+		{"name": "Goblin", "health": 5, "deck": [
 			Card.new("Card 1", "Effect", "Clause", "Type", "Sprite", 1),
 			Card.new("Card 2", "Effect", "Clause", "Type", "Sprite", 1),
 			Card.new("Card 3", "Effect", "Clause", "Type", "Sprite", 1),
@@ -14,7 +14,7 @@ var areas: Dictionary = {
 			Card.new("Card 7", "Effect", "Clause", "Type", "Sprite", 1),
 			Card.new("Card 8", "Effect", "Clause", "Type", "Sprite", 1)
 		]},
-		{"name": "Orc", "health": 80, "deck": [
+		{"name": "Orc", "health": 5, "deck": [
 			Card.new("Card 9", "Effect", "Clause", "Type", "Sprite", 1),
 			Card.new("Card 10", "Effect", "Clause", "Type", "Sprite", 1),
 			Card.new("Card 11", "Effect", "Clause", "Type", "Sprite", 1),
