@@ -8,23 +8,28 @@ class_name Attack
 var planning_scene: PackedScene
 
 func _ready():
-	if not player:
-		player = get_parent().get_parent().get_node("Player")
-		player._create_test_deck()
-		player.active_deck = player.player_deck.duplicate()
-	# display_deck()
+	player = get_parent().get_parent().get_node("Player")
+	enemy = get_parent().get_node("Enemy")
+	_create_plan_button()
+	
+	
 
-	# Initialize enemy if not already initialized
-	if not enemy:
-		var enemGen = enemyGeneration.new()
-		var possible_enemies = enemGen.get_possible_enemies("Forest")
-		enemy = possible_enemies[randi() % possible_enemies.size()]
+	#if not player:
+		#player._create_test_deck()
+		#player.active_deck = player.player_deck.duplicate()
+	## display_deck()
+#
+	## Initialize enemy if not already initialized
+	#if not enemy:
+		#var enemGen = enemyGeneration.new()
+		#var possible_enemies = enemGen.get_possible_enemies("Forest")
+		#enemy = possible_enemies[randi() % possible_enemies.size()]
 
 
 
 
 func transition_to_attack_phase():
-	enemy.prepare_hand()
+	print("Enemy at attack phase: ", enemy.enemy_name)
 	
 	 # Print out the enemy details	
 	print("Enemy name: ", enemy.enemy_name)
@@ -42,10 +47,22 @@ func transition_to_attack_phase():
 	for card in enemy.enemy_hand:
 		print(card.card_name)
 	#pass
+	
+func _create_plan_button():
+	var button = Button.new()
+	button.text = "Draw Hand"
+	button.size = Vector2(100, 30)
+	button.position = Vector2(10, get_viewport().size.y - 40)
+	add_child(button)
+	button.connect("pressed", Callable(self, "_on_plan_button_pressed"))
+
+func _on_plan_button_pressed():
+	transition_to_planning_phase()
 
 func transition_to_planning_phase():
-	var planning_scene = get_node("Planning_Phase")
-	planning_scene.set("player", player)
-	planning_scene.set("enemy", enemy)
-	planning_scene.visible = true
 	self.visible = false
+	
+	var planning_scene = get_parent().get_node("Planning_Phase")
+	planning_scene.visible = true
+	planning_scene.display_deck()
+	planning_scene.display_prepared_hand()

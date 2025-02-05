@@ -20,9 +20,8 @@ func _initialize_player():
 	player = get_parent().get_node("Player")
 
 func _initialize_enemy():
-	var enemGen = enemyGeneration.new()
-	var possible_enemies = enemGen.get_possible_enemies("Forest")
-	enemy = possible_enemies[randi() % possible_enemies.size()]
+	enemy = get_node("Enemy")
+	enemy.prepare_enemy()
 	enemy.prepare_deck()
 
 func transition_to_planning_phase():

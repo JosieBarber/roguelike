@@ -12,16 +12,9 @@ var selected_rects: Array = []
 
 
 func _ready():
-	if not player:
-		player = get_parent().get_parent().get_node("Player")
-		player.active_deck = player.player_deck.duplicate()
+	player = get_parent().get_parent().get_node("Player")
+	enemy = get_parent().get_node("Enemy")
 	_create_draw_button()
-
-	# Initialize enemy if not already initialized
-	if not enemy:
-		var enemGen = enemyGeneration.new()
-		var possible_enemies = enemGen.get_possible_enemies("Forest")
-		enemy = possible_enemies[randi() % possible_enemies.size()]
 
 func draw_hand():
 	player.player_hand.clear()
@@ -97,11 +90,10 @@ func _on_draw_button_pressed():
 	draw_hand()
 
 func transition_to_attack_phase():
-	var attack_scene = get_parent().get_node("Attack_Phase")
-	attack_scene._ready()
-	attack_scene.player = self.player
-	get_node("Prepared Hand").visible = false
 	self.visible = false
 	deck_rects.clear()
+	
+	var attack_scene = get_parent().get_node("Attack_Phase")
 	attack_scene.visible = true
+	enemy.prepare_hand()
 	attack_scene.transition_to_attack_phase()
