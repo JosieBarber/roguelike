@@ -2,7 +2,7 @@
 
 extends Node2D
 
-class_name card
+class_name Card
 
 var card_name: String
 var card_effect: String

@@ -2,8 +2,6 @@ extends Control
 
 class_name Combat
 
-# Ensure the Card class is available
-const Card = preload("res://scripts/card.gd")
 
 var player: Player
 var enemy: Enemy
@@ -13,14 +11,13 @@ func _ready():
 	button.connect("pressed", Callable(self, "_on_start_combat_pressed"))
 
 func _on_start_combat_pressed():
+	$Button.visible = false
 	_initialize_player()
 	_initialize_enemy()
 	transition_to_planning_phase()
 
 func _initialize_player():
-	player = Player.new()
-	player.initialize("JosiePosie", 50)
-	_create_test_deck(player)
+	player = get_parent().get_node("Player")
 
 func _initialize_enemy():
 	var enemGen = enemyGeneration.new()
@@ -28,16 +25,14 @@ func _initialize_enemy():
 	enemy = possible_enemies[randi() % possible_enemies.size()]
 	enemy.prepare_deck()
 
-func _create_test_deck(player: Player):
-	# Test function to create a deck of 15 cards
-	for i in range(15):
-		var new_card = Card.new("Card " + str(i + 1), "Effect", "Clause", "Type", "Sprite", i + 1)
-		player.player_deck.append(new_card)
-
 func transition_to_planning_phase():
+	print("Player active deck size: ", player.active_deck.size())
+	print("Player full deck size: ", player.player_deck.size())
+
 	print("Transitioning to planning phase")
-	var planning_scene = preload("res://scenes/Planning_Phase.tscn").instantiate()
+	var planning_scene = get_node("Planning_Phase")
 	planning_scene.set("player", player)
-	planning_scene.set("enemy", enemy)
-	get_tree().root.add_child(planning_scene)
-	queue_free()
+	player.copy_deck()
+	planning_scene.visible = true
+	planning_scene.display_deck()
+	print(player.active_deck.size())

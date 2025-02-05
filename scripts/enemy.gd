@@ -24,9 +24,16 @@ func initialize(player_name_param: String, health: int, deck: Array):
 
 func prepare_deck() -> void:
 	active_deck = enemy_deck.duplicate()
+
+func prepare_hand() -> void:
+	enemy_hand.clear()
 	active_deck.shuffle()
-	enemy_hand = active_deck.slice(0, 7)
-	active_deck = active_deck.slice(7, active_deck.size())
+	if active_deck.size() > 7:
+		enemy_hand = active_deck.slice(0, 7)
+		active_deck = active_deck.slice(7, active_deck.size())
+	elif active_deck.size() <= 7:
+		enemy_hand = active_deck
+		active_deck.clear()
 
 func _ready():
 	pass
