@@ -7,3 +7,10 @@ func _ready():
 	player_instance.initialize("JosiePosie", 10)
 	player_instance._create_test_deck()
 	#player_instance.copy_deck()
+	
+	# Start with the navigation scene
+	var navigation_scene = get_node("Navigation")
+	navigation_scene.visible = true
+	# Hide the combat scene initially
+	var combat_scene = get_node("Combat")
+	combat_scene.visible = false
