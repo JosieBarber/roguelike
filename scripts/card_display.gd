@@ -4,13 +4,16 @@ class_name CardDisplay
 
 var card_name: String
 var card_damage: int
+var rect = ColorRect
 
 func _init(card_name_param: String, card_damage_param: int):
 	card_name = card_name_param
 	card_damage = card_damage_param
+	rect = ColorRect.new()
+
 
 func _ready():
-	var rect = ColorRect.new()
+	
 	rect.color = Color(0.8, 0.8, 0.8)
 	rect.size = Vector2(200, 30)
 	add_child(rect)

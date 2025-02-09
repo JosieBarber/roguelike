@@ -1,23 +1,23 @@
 #Card.gd
 
-extends Node2D
+extends Node
 
-class_name card
+class_name Card
 
 var card_name: String
-var card_effect: String
-var card_clause: String
+var effect: String
+var clause: String
 var card_type: String
-var card_sprite: String
-var card_damage: int
+var sprite: String
+var damage: int
 
-func _init(card_name_param: String, effect: String, clause: String, type: String, sprite: String, damage: int):
+func _init(card_name_param: String, effect_param: String, clause_param: String, card_type_param: String, sprite_param: String, damage_param: int):
 	card_name = card_name_param
-	card_effect = effect
-	card_clause = clause
-	card_type = type
-	card_sprite = sprite
-	card_damage = damage
+	effect = effect_param
+	clause = clause_param
+	card_type = card_type_param
+	sprite = sprite_param
+	damage = damage_param
 
 func _ready():
 	# Initialize the card when it is added to the scene
