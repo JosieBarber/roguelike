@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bl83ryin8usen"]
 
-[ext_resource type="Script" path="res://scripts/CombatScripts/combat.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/combat.gd" id="1"]
 
 [node name="StartCombat" type="Control"]
 layout_mode = 3
