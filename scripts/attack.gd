@@ -4,12 +4,14 @@ class_name Attack
 
 @export var player: Player
 @export var enemy: Enemy
+var combat: Combat
 
 var planning_scene: PackedScene
 
 func _ready():
 	player = get_parent().get_parent().get_node("Player")
 	enemy = get_parent().get_node("Enemy")
+	combat = get_parent()
 	_create_plan_button()
 	
 
@@ -100,13 +102,17 @@ func next_turn():
 	print("Player Health: ", player.health)
 	if player.health <= 0:
 		print(player.player_name, " has been defeated!")
+		combat._on_combat_end()
 		return "end"
 	if enemy.health <= 0:
 		print(enemy.enemy_name, " has been defeated!")
+		combat._on_combat_end()
 		return "end"
 	if player.hand.size() == 0 and enemy.hand.size() == 0:
 		print("Both parties have no cards left in their hand!")
+		#combat._on_combat_end()
 		return "end"
+	
 
 
 
