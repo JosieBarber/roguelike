@@ -13,7 +13,7 @@ func _ready():
 		get_parent().call_deferred("add_child", player)
 		player.initialize("JosiePosie", 10)
 		player._create_test_deck()
-	display_deck()
+	# display_deck()
 
 func display_deck():
 	var deck_object = get_node("Deck")

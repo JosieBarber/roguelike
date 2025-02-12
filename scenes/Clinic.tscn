@@ -6,4 +6,3 @@
 script = ExtResource("1_ll6b3")
 
 [node name="Deck" type="Node2D" parent="."]
-position = Vector2(403, 65)
