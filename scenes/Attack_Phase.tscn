@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bfw14idsdji"]
 
-[ext_resource type="Script" path="res://scripts/attack.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/CombatScripts/attack.gd" id="1"]
 
 [node name="Attack_Phase" type="Node2D"]
 script = ExtResource("1")
