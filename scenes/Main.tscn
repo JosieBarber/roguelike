@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cwemnyae3i5ol"]
+[gd_scene load_steps=9 format=3 uid="uid://cwemnyae3i5ol"]
 
 [ext_resource type="PackedScene" uid="uid://bl83ryin8usen" path="res://scenes/Combat.tscn" id="1"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_gypjv"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bfw14idsdji" path="res://scenes/Attack_Phase.tscn" id="4_sj6l7"]
 [ext_resource type="PackedScene" uid="uid://cgkdb7rsiqdti" path="res://scenes/Navigation.tscn" id="5_navigation"]
 [ext_resource type="Script" path="res://scripts/CombatScripts/enemy.gd" id="6_arl7q"]
+[ext_resource type="PackedScene" uid="uid://nv63hpdw6pqy" path="res://scenes/Clinic.tscn" id="8_pn10u"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_gypjv")
@@ -26,3 +27,5 @@ visible = false
 script = ExtResource("6_arl7q")
 
 [node name="Navigation" parent="." instance=ExtResource("5_navigation")]
+
+[node name="Clinic" parent="." instance=ExtResource("8_pn10u")]
