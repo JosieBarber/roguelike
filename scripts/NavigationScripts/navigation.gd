@@ -75,6 +75,7 @@ func _on_node_selected(node: Node2D):
 func _transition_to_encounter():
 	# Placeholder for transitioning to the next encounter
 	var combat_scene = get_parent().get_node("Combat")
+	player.copy_deck()
 	combat_scene.visible = true
 	self.visible = false
 	combat_scene._on_start_combat_pressed()
