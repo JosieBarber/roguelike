@@ -53,8 +53,11 @@ func transition_to_planning_phase():
 	planning_scene.display_prepared_hand()
 
 func calculate_damage(card, target):
-	var damage = card.damage
 	# This is where we will do funkies with items
+	for item in card.items:
+		if item is MultiplierCardItem:
+			item.modify_damage(card)
+	var damage = card.damage
 	return damage
 
 func apply_damage(damage, target, damage_type):
