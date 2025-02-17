@@ -5,24 +5,24 @@ class_name enemyGeneration
 var areas: Dictionary = {
 	"Forest": [
 		{"name": "Goblin", "health": 5, "deck": [
-			Card.new("Card 1", "Effect", "Clause", "Type", "Sprite", 1, 10),
-			Card.new("Card 2", "Effect", "Clause", "Type", "Sprite", 1, 10),
-			Card.new("Card 3", "Effect", "Clause", "Type", "Sprite", 1, 10),
-			Card.new("Card 4", "Effect", "Clause", "Type", "Sprite", 1, 10),
-			Card.new("Card 5", "Effect", "Clause", "Type", "Sprite", 1, 10),
-			Card.new("Card 6", "Effect", "Clause", "Type", "Sprite", 1, 10),
-			Card.new("Card 7", "Effect", "Clause", "Type", "Sprite", 1, 10),
-			Card.new("Card 8", "Effect", "Clause", "Type", "Sprite", 1, 10)
+			Card.new("Card 1", "Effect", "Clause", "Type", "Sprite", 1, 10, []),
+			Card.new("Card 2", "Effect", "Clause", "Type", "Sprite", 1, 10, []),
+			Card.new("Card 3", "Effect", "Clause", "Type", "Sprite", 1, 10, []),
+			Card.new("Card 4", "Effect", "Clause", "Type", "Sprite", 1, 10, []),
+			Card.new("Card 5", "Effect", "Clause", "Type", "Sprite", 1, 10, []),
+			Card.new("Card 6", "Effect", "Clause", "Type", "Sprite", 1, 10, []),
+			Card.new("Card 7", "Effect", "Clause", "Type", "Sprite", 1, 10, []),
+			Card.new("Card 8", "Effect", "Clause", "Type", "Sprite", 1, 10, [])
 		]},
 		{"name": "Orc", "health": 5, "deck": [
-			Card.new("Card 9", "Effect", "Clause", "Type", "Sprite", 1, 10),
-			Card.new("Card 10", "Effect", "Clause", "Type", "Sprite", 1, 10),
-			Card.new("Card 11", "Effect", "Clause", "Type", "Sprite", 1, 10),
-			Card.new("Card 12", "Effect", "Clause", "Type", "Sprite", 1, 10),
-			Card.new("Card 13", "Effect", "Clause", "Type", "Sprite", 1, 10),
-			Card.new("Card 14", "Effect", "Clause", "Type", "Sprite", 1, 10),
-			Card.new("Card 15", "Effect", "Clause", "Type", "Sprite", 1, 10),
-			Card.new("Card 16", "Effect", "Clause", "Type", "Sprite", 1, 10)
+			Card.new("Card 9", "Effect", "Clause", "Type", "Sprite", 1, 10, []),
+			Card.new("Card 10", "Effect", "Clause", "Type", "Sprite", 1, 10, []),
+			Card.new("Card 11", "Effect", "Clause", "Type", "Sprite", 1, 10, []),
+			Card.new("Card 12", "Effect", "Clause", "Type", "Sprite", 1, 10, []),
+			Card.new("Card 13", "Effect", "Clause", "Type", "Sprite", 1, 10, []),
+			Card.new("Card 14", "Effect", "Clause", "Type", "Sprite", 1, 10, []),
+			Card.new("Card 15", "Effect", "Clause", "Type", "Sprite", 1, 10, []),
+			Card.new("Card 16", "Effect", "Clause", "Type", "Sprite", 1, 10, [])
 		]}
 	],
 }
