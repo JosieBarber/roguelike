@@ -36,5 +36,5 @@ func _create_test_deck():
 	# Test function to create a deck of 15 cards
 	deck.clear()
 	for i in range(15):
-		var new_card = Card.new("Card " + str(i + 1), "Effect", "Clause", "Type", "Sprite", 1, 10)  # Added value parameter
+		var new_card = Card.new("Card " + str(i + 1), "Effect", "Clause", "Type", "Sprite", 1, 10, [FiveMultiplier.new()])  # Added value parameter
 		deck.append(new_card)

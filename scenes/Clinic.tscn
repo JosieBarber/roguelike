@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bjihsflkmfdpc"]
+[gd_scene load_steps=2 format=3 uid="uid://nv63hpdw6pqy"]
 
 [ext_resource type="Script" path="res://scripts/ClinicScripts/clinic.gd" id="1_ll6b3"]
 
@@ -6,4 +6,3 @@
 script = ExtResource("1_ll6b3")
 
 [node name="Deck" type="Node2D" parent="."]
-position = Vector2(403, 65)

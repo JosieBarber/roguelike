@@ -53,8 +53,11 @@ func transition_to_planning_phase():
 	planning_scene.display_prepared_hand()
 
 func calculate_damage(card, target):
+	# This is where we will do funkies with items
+	for item in card.items:
+		if item is MultiplierCardItem:
+			item.modify_damage(card)
 	var damage = card.damage
-	# Add any additional effects or modifiers here
 	return damage
 
 func apply_damage(damage, target, damage_type):
@@ -81,11 +84,13 @@ func calculate_dot(dot_effect, target):
 func next_turn():
 	if player.hand.size() != 0:
 		var player_card = player.hand[0]
+		print(player_card.items[0].item_name)
 		var player_damage = calculate_damage(player_card, enemy)
 		apply_damage(player_damage, enemy, player_card.card_type)
 		player.hand.remove_at(0)
 	if enemy.hand.size() != 0:
 		var enemy_card = enemy.hand[0]
+		#print(enemy_card.items[0].item_name)
 		var enemy_damage = calculate_damage(enemy_card, player)
 		apply_damage(enemy_damage, player, enemy_card.card_type)
 		enemy.hand.remove_at(0)
