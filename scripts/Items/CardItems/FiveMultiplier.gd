@@ -1,4 +1,4 @@
-extends ModifierCardItem
+extends MultiplierCardItem
 
 class_name FiveMultiplier
 
