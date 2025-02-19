@@ -58,12 +58,15 @@ func calculate_damage(card, target):
 		if item is MultiplierCardItem:
 			item.modify_damage(card)
 	var damage = card.damage
+	print(target, damage)
 	return damage
 
 func apply_damage(damage, target, damage_type):
 	if damage_type == "Type":
 		target.health -= damage
 	elif damage_type == "magical":
+		target.health -= damage
+	elif damage_type == "Physical":
 		target.health -= damage
 	# We should do this differently but thats fine
 

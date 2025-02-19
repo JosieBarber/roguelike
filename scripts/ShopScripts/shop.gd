@@ -6,16 +6,16 @@ var test_cards = []
 var displayed_cards = []
 
 func _ready():
-	# self.visible = true
-	
+	if get_parent().get_node("Player"):
+		player = get_parent().get_node("Player")
 	if not player:
 		player = Player.new()
 		get_parent().call_deferred("add_child", player)
 		player.initialize("JosiePosie", 10)
 		player._create_test_deck()
-		
 	load_test_cards()
 	display_random_cards()
+	_create_back_button()
 
 func load_test_cards():
 	var dir = DirAccess.open("res://scripts/Cards/TestCards/")
@@ -82,3 +82,20 @@ func _on_Card_pressed(card_instance, card_display):
 		update_card_display_colors()
 	else:
 		print("Not enough health to buy this card")
+
+func transition_to_shop():
+	self.visible = true
+	update_card_display_colors()
+	
+func _create_back_button():
+	var button = Button.new()
+	button.text = "Back to Navigation"
+	button.size = Vector2(150, 30)
+	button.position = Vector2(10, get_viewport().size.y - 40)
+	add_child(button)
+	button.connect("pressed", Callable(self, "_on_back_button_pressed"))
+
+func _on_back_button_pressed():
+	var navigation_scene = get_parent().get_node("Navigation")
+	navigation_scene.visible = true
+	self.visible = false
