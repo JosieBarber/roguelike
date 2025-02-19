@@ -84,7 +84,6 @@ func calculate_dot(dot_effect, target):
 func next_turn():
 	if player.hand.size() != 0:
 		var player_card = player.hand[0]
-		print(player_card.items[0].item_name)
 		var player_damage = calculate_damage(player_card, enemy)
 		apply_damage(player_damage, enemy, player_card.card_type)
 		player.hand.remove_at(0)
@@ -115,7 +114,6 @@ func next_turn():
 		return "end"
 	if player.hand.size() == 0 and enemy.hand.size() == 0:
 		print("Both parties have no cards left in their hand!")
-		#combat._on_combat_end()
 		return "end"
 	
 

@@ -1,6 +1,6 @@
 extends CardItem
 
-class_name MultiplierCardItem
+class_name TypeChangeCardItem
 
 var new_type: String
 
