@@ -1,12 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://cwemnyae3i5ol"]
+[gd_scene load_steps=7 format=3 uid="uid://cwemnyae3i5ol"]
 
 [ext_resource type="PackedScene" uid="uid://bl83ryin8usen" path="res://scenes/Combat.tscn" id="1"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_gypjv"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="2"]
-[ext_resource type="PackedScene" uid="uid://duk30r0o83e5r" path="res://scenes/Planning_Phase.tscn" id="3_8yjyb"]
-[ext_resource type="PackedScene" uid="uid://bfw14idsdji" path="res://scenes/Attack_Phase.tscn" id="4_sj6l7"]
 [ext_resource type="PackedScene" uid="uid://cgkdb7rsiqdti" path="res://scenes/Navigation.tscn" id="5_navigation"]
-[ext_resource type="Script" path="res://scripts/CombatScripts/enemy.gd" id="6_arl7q"]
 [ext_resource type="PackedScene" uid="uid://nv63hpdw6pqy" path="res://scenes/Clinic.tscn" id="8_pn10u"]
 [ext_resource type="PackedScene" uid="uid://dyabhewi4ymcg" path="res://scenes/Shop.tscn" id="9_shop"]
 
@@ -17,15 +14,6 @@ script = ExtResource("1_gypjv")
 script = ExtResource("2")
 
 [node name="Combat" parent="." instance=ExtResource("1")]
-
-[node name="Planning_Phase" parent="Combat" instance=ExtResource("3_8yjyb")]
-visible = false
-
-[node name="Attack_Phase" parent="Combat" instance=ExtResource("4_sj6l7")]
-visible = false
-
-[node name="Enemy" type="Node2D" parent="Combat"]
-script = ExtResource("6_arl7q")
 
 [node name="Navigation" parent="." instance=ExtResource("5_navigation")]
 
