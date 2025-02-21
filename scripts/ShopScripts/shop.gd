@@ -98,4 +98,4 @@ func _create_back_button():
 func _on_back_button_pressed():
 	var navigation_scene = get_parent().get_node("Navigation")
 	navigation_scene.visible = true
-	self.visible = false
+	queue_free()

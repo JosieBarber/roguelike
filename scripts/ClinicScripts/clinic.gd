@@ -27,7 +27,7 @@ func _on_back_button_pressed():
 	var navigation_scene = get_parent().get_node("Navigation")
 	navigation_scene.visible = true
 	deck_rects.clear()
-	self.visible = false
+	queue_free()
 
 func display_deck():
 	var deck_object = get_node("Deck")

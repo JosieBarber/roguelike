@@ -33,6 +33,7 @@ func _initialize_map():
 	var node1 = _create_navigation_node(Vector2(100, 100), NodeType.COMBAT)
 	var node2 = _create_navigation_node(Vector2(300, 100), NodeType.CLINIC)
 	var node3 = _create_navigation_node(Vector2(500, 100), NodeType.SHOP)
+	var node4 = _create_navigation_node(Vector2(500, 300), NodeType.SHOP)
 
 	current_node = node1
 	$PlayerIcon.position = current_node.position
@@ -94,18 +95,18 @@ func _transition_to_encounter(node: Node2D):
 	match node_type:
 		NodeType.COMBAT:
 			print("Transitioning to combat")
-			var combat_scene = get_parent().get_node("Combat")
+			var combat_scene = load("res://scenes/Combat.tscn").instantiate()
+			get_parent().add_child(combat_scene)
 			player.copy_deck()
-			combat_scene.visible = true
-			self.visible = false
 			combat_scene._on_start_combat_pressed()
 		NodeType.CLINIC:
 			print("Transitioning to clinic")
-			var clinic_scene = get_parent().get_node("Clinic")
+			var clinic_scene = load("res://scenes/Clinic.tscn").instantiate()
+			get_parent().add_child(clinic_scene)
 			clinic_scene.transition_to_clinic()
-			self.visible = false
 		NodeType.SHOP:
 			print("Transitioning to shop")
-			var shop_scene = get_parent().get_node("Shop")
+			var shop_scene = load("res://scenes/Shop.tscn").instantiate()
+			get_parent().add_child(shop_scene)
 			shop_scene.transition_to_shop()
-			self.visible = false
+	self.visible = false

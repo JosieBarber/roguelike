@@ -11,6 +11,3 @@ func _ready():
 	# Start with the navigation scene
 	var navigation_scene = get_node("Navigation")
 	navigation_scene.visible = true
-	# Hide the combat scene initially
-	var combat_scene = get_node("Combat")
-	combat_scene.visible = false
