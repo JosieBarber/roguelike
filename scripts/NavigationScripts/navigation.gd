@@ -82,12 +82,9 @@ func _on_icon_input_event(viewport, event, shape_idx, node):
 
 func _on_node_selected(node: Node2D):
 	current_node = node
-	if node.get_meta("type") == NodeType.COMBAT:
-		nodes[node] = true
+	nodes[node] = true
 	_draw_node_icon(node)  # Update the node icon to visited
-	print(nodes)
 	$PlayerIcon.position = current_node.position
-	# Transition to the next encounter (e.g., combat, clinic, or shop)
 	_transition_to_encounter(node)
 
 func _transition_to_encounter(node: Node2D):
