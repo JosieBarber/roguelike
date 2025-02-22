@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bl83ryin8usen"]
+
+[ext_resource type="Script" path="res://scripts/CombatScripts/combat.gd" id="1_arqx6"]
+[ext_resource type="PackedScene" uid="uid://duk30r0o83e5r" path="res://scenes/Screens/Combat/Planning_Phase.tscn" id="2_mdd02"]
+[ext_resource type="PackedScene" uid="uid://bfw14idsdji" path="res://scenes/Screens/Combat/Attack_Phase.tscn" id="3_k7e02"]
+[ext_resource type="Script" path="res://scripts/CombatScripts/enemy.gd" id="4_d73mv"]
+
+[node name="StartCombat" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_arqx6")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Start Combat"
+
+[node name="Planning_Phase" parent="." instance=ExtResource("2_mdd02")]
+visible = false
+
+[node name="Attack_Phase" parent="." instance=ExtResource("3_k7e02")]
+visible = false
+
+[node name="Enemy" type="Node2D" parent="."]
+script = ExtResource("4_d73mv")
