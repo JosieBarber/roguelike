@@ -2,24 +2,24 @@ extends Node2D
 
 class_name CardDisplay
 
+signal card_clicked(card_name, card_damage, card_items)
+
 var card_name: String
 var card_damage: int
-var rect = ColorRect
+var card_items: Array
 
-func _init(card_name_param: String, card_damage_param: int):
+func _init(card_name_param: String, card_damage_param: int, card_items_param: Array):
 	card_name = card_name_param
 	card_damage = card_damage_param
-	rect = ColorRect.new()
-
+	card_items = card_items_param
 
 func _ready():
-	
-	rect.color = Color(0.8, 0.8, 0.8)
-	rect.size = Vector2(200, 30)
-	add_child(rect)
+	var area = $Area2D
+	print(area)
 
-	var label = Label.new()
-	label.text = card_name + " - Damage: " + str(card_damage)
-	label.uppercase = true
-	label.position = Vector2(10, 5)
-	rect.add_child(label)
+	area.connect("input_event", Callable(self, "_on_area_input_event"))
+
+func _on_area_input_event(_viewport, event, _shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		print("Card clicked")
+		emit_signal("card_clicked", card_name, card_damage, card_items)

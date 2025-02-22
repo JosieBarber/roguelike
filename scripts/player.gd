@@ -35,6 +35,6 @@ func copy_deck():
 func _create_test_deck():
 	# Test function to create a deck of 15 cards
 	deck.clear()
-	for i in range(15):
+	for i in range(8):
 		var new_card = BapCard.new()
 		deck.append(new_card)
