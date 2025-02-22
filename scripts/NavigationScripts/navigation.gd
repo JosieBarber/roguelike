@@ -30,10 +30,10 @@ func _ready():
 
 func _initialize_map():
 	# Create nodes and paths for navigation
-	var node1 = _create_navigation_node(Vector2(100, 100), NodeType.COMBAT)
-	var node2 = _create_navigation_node(Vector2(300, 100), NodeType.CLINIC)
-	var node3 = _create_navigation_node(Vector2(500, 100), NodeType.SHOP)
-	var node4 = _create_navigation_node(Vector2(500, 300), NodeType.SHOP)
+	var node1 = _create_navigation_node(Vector2(20, 20), NodeType.COMBAT)
+	var node2 = _create_navigation_node(Vector2(60, 20), NodeType.CLINIC)
+	var node3 = _create_navigation_node(Vector2(100, 20), NodeType.SHOP)
+	var node4 = _create_navigation_node(Vector2(100, 60), NodeType.SHOP)
 
 	current_node = node1
 	$PlayerIcon.position = current_node.position
@@ -62,12 +62,12 @@ func _draw_node_icon(node: Node2D):
 			NodeType.SHOP:
 				sprite.texture = shop_icon
 	sprite.position = Vector2.ZERO
-	sprite.scale = Vector2(0.1, 0.1)  # Scale down the sprite
+	sprite.scale = Vector2(0.05, 0.05)  # Scale down the sprite
 	area.add_child(sprite)
 
 	var collision_shape = CollisionShape2D.new()
 	collision_shape.shape = CircleShape2D.new()
-	collision_shape.shape.radius = 20  # Adjust to match the scaled sprite size
+	collision_shape.shape.radius = 10
 	area.add_child(collision_shape)
 
 	area.position = Vector2.ZERO
@@ -92,18 +92,18 @@ func _transition_to_encounter(node: Node2D):
 	match node_type:
 		NodeType.COMBAT:
 			print("Transitioning to combat")
-			var combat_scene = load("res://scenes/Combat.tscn").instantiate()
+			var combat_scene = load("res://scenes/Screens/Combat/Combat.tscn").instantiate()
 			get_parent().add_child(combat_scene)
 			player.copy_deck()
 			combat_scene._on_start_combat_pressed()
 		NodeType.CLINIC:
 			print("Transitioning to clinic")
-			var clinic_scene = load("res://scenes/Clinic.tscn").instantiate()
+			var clinic_scene = load("res://scenes/Screens/Clinic.tscn").instantiate()
 			get_parent().add_child(clinic_scene)
 			clinic_scene.transition_to_clinic()
 		NodeType.SHOP:
 			print("Transitioning to shop")
-			var shop_scene = load("res://scenes/Shop.tscn").instantiate()
+			var shop_scene = load("res://scenes/Screens/Shop.tscn").instantiate()
 			get_parent().add_child(shop_scene)
 			shop_scene.transition_to_shop()
 	self.visible = false
