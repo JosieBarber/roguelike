@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://duk30r0o83e5r"]
+[gd_scene load_steps=7 format=3 uid="uid://duk30r0o83e5r"]
 
 [ext_resource type="Script" path="res://scripts/CombatScripts/planning.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://b4cmtmg2q4xp7" path="res://assets/UI/TopCoinHolder.png" id="2_4e8y0"]
+[ext_resource type="Texture2D" uid="uid://rcpbrmtsx6p7" path="res://assets/UI/Player and Enemy UI Placeholders.png" id="3_47smw"]
+[ext_resource type="Texture2D" uid="uid://btapmw18rwyyj" path="res://assets/UI/Settings Tab.png" id="4_qsbun"]
+[ext_resource type="Texture2D" uid="uid://dxgse2x1ehebn" path="res://assets/UI/BagTab.png" id="5_fccvh"]
+[ext_resource type="Texture2D" uid="uid://c6kpuclumlo20" path="res://assets/Combat/CombatCoinIcon.png" id="6_qan5r"]
 
 [node name="Planning_Phase" type="Node2D"]
 script = ExtResource("2")
@@ -9,3 +14,32 @@ script = ExtResource("2")
 position = Vector2(211.18, 0)
 
 [node name="Active Deck" type="Node2D" parent="."]
+position = Vector2(133.5, 85.885)
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="Top Holder" type="Sprite2D" parent="UI"]
+position = Vector2(133.5, 0)
+texture = ExtResource("2_4e8y0")
+centered = false
+offset = Vector2(-25.5, 0)
+
+[node name="Player & Enemy UI" type="Sprite2D" parent="UI"]
+position = Vector2(133, 29)
+texture = ExtResource("3_47smw")
+
+[node name="Sprite2D3" type="Sprite2D" parent="UI"]
+
+[node name="SettingsTab" type="Sprite2D" parent="."]
+position = Vector2(185.5, 0)
+texture = ExtResource("4_qsbun")
+centered = false
+offset = Vector2(-15.5, 0)
+
+[node name="BagTab" type="Sprite2D" parent="."]
+position = Vector2(133.5, -47)
+texture = ExtResource("5_fccvh")
+
+[node name="CombatCoinIcon" type="Sprite2D" parent="."]
+position = Vector2(133.5, 20)
+texture = ExtResource("6_qan5r")
