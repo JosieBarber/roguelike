@@ -8,6 +8,6 @@ func _init() -> void:
 	clause = "Clause"
 	card_type = "Physical"
 	sprite = "Sprite"
-	damage = 1
-	value = 10
+	damage = 3
+	value = 2
 	items = []

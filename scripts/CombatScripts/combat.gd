@@ -17,13 +17,9 @@ func _on_start_combat_pressed():
 func _on_combat_end():
 	# Transition back to the navigation scene
 	var navigation_scene = get_parent().get_node("Navigation")
-	var attack_scene = get_node("Attack_Phase")
-	var planning_scene = get_node("Planning_Phase")
 	navigation_scene.visible = true
 	
-	attack_scene.visible = false
-	planning_scene.visible = false
-	self.visible = false
+	queue_free()
 
 func _initialize_player():
 	player = get_parent().get_node("Player")

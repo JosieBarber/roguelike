@@ -6,14 +6,28 @@ var player: Player
 var deck_rects: Array = []
 
 func _ready():
-	#if get_parent().get_node("Player"):
-		#player = get_parent().get_node("Player")
+	if get_parent().get_node("Player"):
+		player = get_parent().get_node("Player")
 	if not player:
 		player = Player.new()
 		get_parent().call_deferred("add_child", player)
 		player.initialize("JosiePosie", 10)
 		player._create_test_deck()
-	# display_deck()
+	_create_back_button()
+
+func _create_back_button():
+	var button = Button.new()
+	button.text = "Back to Navigation"
+	button.size = Vector2(150, 30)
+	button.position = Vector2(10, get_viewport().size.y - 40)
+	add_child(button)
+	button.connect("pressed", Callable(self, "_on_back_button_pressed"))
+
+func _on_back_button_pressed():
+	var navigation_scene = get_parent().get_node("Navigation")
+	navigation_scene.visible = true
+	deck_rects.clear()
+	queue_free()
 
 func display_deck():
 	var deck_object = get_node("Deck")
@@ -49,7 +63,11 @@ func trade_card_for_health(card_index: int):
 		var card = player.deck[card_index]
 		player.health += card.value
 		player.deck.remove_at(card_index)
-		player.discard.append(card)
+		#player.discard.append(card)
 		print("Traded card for health. New health: ", player.health)
 	else:
 		print("Invalid card index")
+
+func transition_to_clinic():
+	self.visible = true
+	display_deck()
