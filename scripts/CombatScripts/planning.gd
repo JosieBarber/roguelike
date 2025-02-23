@@ -50,7 +50,7 @@ func display_deck():
 		card_display.card_name = player.active_deck[i].card_name
 		card_display.card_damage = player.active_deck[i].damage
 		card_display.card_items = player.active_deck[i].items
-		card_display.position = Vector2((i % 4 - 1.5) * 40, int(i / 4) * 60)
+		card_display.position = Vector2((i % 5 - 2) * 30, int(i / 5) * 42)
 		card_display.connect("card_clicked", Callable(self, "_on_card_clicked"))
 		card_display.add_to_group("CardDisplays")
 		active_deck_object.add_child(card_display)

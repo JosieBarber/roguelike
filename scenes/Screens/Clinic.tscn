@@ -6,3 +6,4 @@
 script = ExtResource("1_bjtxs")
 
 [node name="Deck" type="Node2D" parent="."]
+position = Vector2(130, 67)

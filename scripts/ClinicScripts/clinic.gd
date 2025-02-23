@@ -14,6 +14,7 @@ func _ready():
 		player.initialize("JosiePosie", 10)
 		player._create_test_deck()
 	_create_back_button()
+	display_deck()
 
 func _create_back_button():
 	var button = Button.new()
@@ -35,17 +36,13 @@ func display_deck():
 	for child in deck_object.get_children():
 		child.queue_free()
 	for i in range(player.deck.size()):
-		var card_display = CardDisplay.new(player.deck[i].card_name, player.deck[i].damage)
-		card_display.position = Vector2(10, (i * 35) + 20)
-		var hitbox_position = Vector2(0, 0)
-		var hitbox = Area2D.new()
-		var collision_shape = CollisionShape2D.new()
-		collision_shape.shape = RectangleShape2D.new()
-		collision_shape.shape.extents = Vector2(100, 15)
-		hitbox.position = hitbox_position
-		hitbox.add_child(collision_shape)
-		card_display.add_child(hitbox)
-		deck_rects.append(hitbox)
+		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
+		card_display.card_name = player.deck[i].card_name
+		card_display.card_damage = player.deck[i].damage
+		card_display.card_items = player.deck[i].items
+		card_display.position = Vector2((i % 5 - 2) * 30, int(i / 5) * 42)
+		card_display.connect("card_clicked", Callable(self, "_on_card_clicked"))
+		deck_rects.append(card_display)
 		deck_object.add_child(card_display)
 
 func _input(event):
@@ -71,3 +68,10 @@ func trade_card_for_health(card_index: int):
 func transition_to_clinic():
 	self.visible = true
 	display_deck()
+
+func _on_card_clicked(card_name, card_damage, card_items, parent_node):
+	for i in range(player.deck.size()):
+		if player.deck[i].card_name == card_name and player.deck[i].damage == card_damage and player.deck[i].items == card_items:
+			trade_card_for_health(i)
+			display_deck()
+			break
