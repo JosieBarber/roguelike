@@ -7,90 +7,83 @@ var enemy: Enemy
 var selected_card_index: int = -1
 var selected_cards: Array = []
 
-var deck_rects: Array = []
-var selected_rects: Array = []
-
 func _ready():
+	var ready_button = $ReadyButton
+	ready_button.connect("ready_button_clicked", Callable(self, "_on_ready_button_clicked"))
+	
 	player = get_parent().get_parent().get_node("Player")
 	enemy = get_parent().get_node("Enemy")
-	_create_draw_button()
+	display_deck()
 
 func draw_hand():
 	player.hand.clear()
 	for card in selected_cards:
 		player.hand.append(card)
 	selected_cards.clear()
-	display_prepared_hand() #this shouldn't be needed but it is (?) 
+	display_prepared_hand()
 	transition_to_attack_phase()
 
-func select_card(card_index: int):
-	if player.active_deck.size() > card_index and selected_cards.size() < 7:
-		var selected_card = player.active_deck[card_index]
-		selected_cards.append(selected_card)
-		player.active_deck.remove_at(card_index)
-	elif selected_cards.size() >= 7:
-		print("Hand is full")
+func select_card(card: Card):
+	for i in range(player.active_deck.size()):
+		if player.active_deck[i] == card and selected_cards.size() < 7:
+			selected_cards.append(card)
+			player.active_deck.remove_at(i)
+			break
 	display_deck()
 	display_prepared_hand()
 
-func deselect_card(card_index: int):
-	var deselected_card = selected_cards[card_index]
-	player.active_deck.append(deselected_card)
-	selected_cards.remove_at(card_index)
+func deselect_card(card: Card):
+	for i in range(selected_cards.size()):
+		if selected_cards[i] == card:
+			player.active_deck.append(card)
+			selected_cards.remove_at(i)
+			break
 	display_deck()
 	display_prepared_hand()
-	
+
 func display_deck():
 	var active_deck_object = get_node("Active Deck")
-	deck_rects.clear()
 	for child in active_deck_object.get_children():
-			child.queue_free()
+		child.queue_free()
 	for i in range(player.active_deck.size()):
-		var card_display = CardDisplay.new(player.active_deck[i].card_name, player.active_deck[i].damage)
-		card_display.position = Vector2(10, (i * 35) + 20)
-		var hitbox_position = Vector2(card_display.position[0] + active_deck_object.position[0], 
-									  card_display.position[1] + active_deck_object.position[1])
-		deck_rects.append(Rect2(hitbox_position, Vector2(200, 30)))
+		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
+		card_display.card = player.active_deck[i]
+		card_display.position = Vector2((i % 5 - 2) * 30, int(i / 5) * 42)
+		card_display.connect("card_clicked", Callable(self, "_on_card_clicked"))
+		card_display.add_to_group("CardDisplays")
 		active_deck_object.add_child(card_display)
 
 func display_prepared_hand():
 	var prepared_hand_object = get_node("Prepared Hand")
-	selected_rects.clear()
 	for child in prepared_hand_object.get_children():
 		child.queue_free()
 	for i in range(selected_cards.size()):
-		var card_display = CardDisplay.new(selected_cards[i].card_name, selected_cards[i].damage)
-		card_display.position = Vector2(10, (i * 35) + 20)
-		var hitbox_position = Vector2(card_display.position[0] + prepared_hand_object.position[0], 
-									  card_display.position[1] + prepared_hand_object.position[1])
-		selected_rects.append(Rect2(hitbox_position, Vector2(200, 30)))
+		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
+		card_display.card = selected_cards[i]
+		card_display.position = Vector2(0, i * 10)
+		card_display.connect("card_clicked", Callable(self, "_on_card_clicked"))
+		card_display.add_to_group("CardDisplays")
 		prepared_hand_object.add_child(card_display)
+		adjust_hitbox(card_display, i == selected_cards.size() - 1)
 
-func _input(event):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		for i in range(deck_rects.size()):
-			if deck_rects[i].has_point(event.position):
-				select_card(i)
-				break
-		for i in range(selected_rects.size()):
-			if selected_rects[i].has_point(event.position):
-				deselect_card(i)
-				break
+func adjust_hitbox(card_display, is_topmost):
+	var area = card_display.get_node("Area2D")
+	if is_topmost:
+		area.collision_layer = 1
+	else:
+		area.collision_layer = 0
 
-func _create_draw_button():
-	var button = Button.new()
-	button.text = "Draw Hand"
-	button.size = Vector2(100, 30)
-	button.position = Vector2(10, get_viewport().size.y - 40)
-	add_child(button)
-	button.connect("pressed", Callable(self, "_on_draw_button_pressed"))
-
-func _on_draw_button_pressed():
+func _on_card_clicked(card, parent_node):
+	if parent_node.name == "Active Deck":
+		select_card(card)
+	elif parent_node.name == "Prepared Hand":
+		deselect_card(card)
+		
+func _on_ready_button_clicked():
 	draw_hand()
 
 func transition_to_attack_phase():
 	self.visible = false
-	deck_rects.clear()
 	
 	var attack_scene = get_parent().get_node("Attack_Phase")
 	attack_scene.visible = true

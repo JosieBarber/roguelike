@@ -46,38 +46,41 @@ func display_random_cards():
 	
 	for card_script in random_cards:
 		var card_instance = card_script.new()
-		var card_display = Button.new()
-		card_display.text = card_instance.card_name
-		add_child(card_display)
+		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
+		card_display.card = card_instance
+		card_display.position = Vector2((displayed_cards.size() % 3 - 1) * 30, 0)
+		card_display.connect("card_clicked", Callable(self, "_on_card_clicked"))
+		var item_list = get_node("ItemList")
+		item_list.add_child(card_display)
 		displayed_cards.append(card_display)
 
-		card_display.position = Vector2(150, 100 * displayed_cards.size())
 		var value_label = Label.new()
 		value_label.text = str(card_instance.value)
 		value_label.name = "ValueLabel"
 		card_display.add_child(value_label)
-		value_label.position = Vector2(10, 40)
-
-		card_display.connect("pressed", Callable(self, "_on_Card_pressed").bind(card_instance, card_display))
+		value_label.position = Vector2(10, 30)
 
 	update_card_display_colors()
 
 func update_card_display_colors():
 	for card_display in displayed_cards:
 		var value_label = card_display.get_node("ValueLabel")
-		var card_value = int(value_label.text)
-		if card_value >= player.health:
-			value_label.modulate = Color(0.8, 0, 0)
+		if value_label:
+			var card_value = int(value_label.text)
+			if card_value >= player.health:
+				value_label.modulate = Color(0.8, 0, 0)
+			else:
+				value_label.modulate = Color(1, 1, 1)
 		else:
-			value_label.modulate = Color(1, 1, 1)
+			print("ValueLabel not found in card_display")
 
-func _on_Card_pressed(card_instance, card_display):
-	var card_value = card_instance.value
+func _on_card_clicked(card, parent_node):
+	var card_value = card.value
 	if player.health > card_value:
 		player.health -= card_value
-		player.deck.append(card_instance)
-		displayed_cards.erase(card_display)
-		card_display.queue_free()
+		player.deck.append(card)
+		displayed_cards.erase(parent_node)
+		parent_node.hide()  
 		# Update UI and player health display here
 		update_card_display_colors()
 	else:
@@ -97,5 +100,8 @@ func _create_back_button():
 
 func _on_back_button_pressed():
 	var navigation_scene = get_parent().get_node("Navigation")
+	var npc_ui = navigation_scene.get_parent().get_node("Ui").get_node("EnemyUi")
+	
 	navigation_scene.visible = true
+	npc_ui.visible = false
 	queue_free()

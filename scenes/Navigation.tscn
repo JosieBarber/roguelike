@@ -9,7 +9,9 @@ script = ExtResource("1")
 [node name="Map" type="Node2D" parent="."]
 
 [node name="Nodes" type="Node2D" parent="."]
+position = Vector2(73, 52)
 
 [node name="PlayerIcon" type="Sprite2D" parent="."]
+visible = false
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("2_4225u")

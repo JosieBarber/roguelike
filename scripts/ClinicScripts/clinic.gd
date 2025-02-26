@@ -3,7 +3,6 @@ extends Node2D
 class_name Clinic
 
 var player: Player
-var deck_rects: Array = []
 
 func _ready():
 	if get_parent().get_node("Player"):
@@ -14,6 +13,7 @@ func _ready():
 		player.initialize("JosiePosie", 10)
 		player._create_test_deck()
 	_create_back_button()
+	display_deck()
 
 func _create_back_button():
 	var button = Button.new()
@@ -25,49 +25,43 @@ func _create_back_button():
 
 func _on_back_button_pressed():
 	var navigation_scene = get_parent().get_node("Navigation")
+	var npc_ui = navigation_scene.get_parent().get_node("Ui").get_node("EnemyUi")
+
 	navigation_scene.visible = true
-	deck_rects.clear()
+	npc_ui.visible = false
+	
 	queue_free()
 
 func display_deck():
 	var deck_object = get_node("Deck")
-	deck_rects.clear()
 	for child in deck_object.get_children():
 		child.queue_free()
 	for i in range(player.deck.size()):
-		var card_display = CardDisplay.new(player.deck[i].card_name, player.deck[i].damage)
-		card_display.position = Vector2(10, (i * 35) + 20)
-		var hitbox_position = Vector2(0, 0)
-		var hitbox = Area2D.new()
-		var collision_shape = CollisionShape2D.new()
-		collision_shape.shape = RectangleShape2D.new()
-		collision_shape.shape.extents = Vector2(100, 15)
-		hitbox.position = hitbox_position
-		hitbox.add_child(collision_shape)
-		card_display.add_child(hitbox)
-		deck_rects.append(hitbox)
+		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
+		card_display.card = player.deck[i]
+		card_display.position = Vector2((i % 5 - 2) * 30, int(i / 5) * 42)
+		card_display.connect("card_clicked", Callable(self, "_on_card_clicked"))
 		deck_object.add_child(card_display)
-
-func _input(event):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		for i in range(deck_rects.size()):
-			var global_position = deck_rects[i].get_global_transform_with_canvas().origin
-			var global_rect = Rect2(global_position, Vector2(200, 30))
-			if global_rect.has_point(event.position):
-				trade_card_for_health(i)
-				display_deck()
-				break
 
 func trade_card_for_health(card_index: int):
 	if card_index >= 0 and card_index < player.deck.size():
 		var card = player.deck[card_index]
-		player.health += card.value
-		player.deck.remove_at(card_index)
-		#player.discard.append(card)
-		print("Traded card for health. New health: ", player.health)
+		for i in range(player.deck.size()):
+			if player.deck[i] == card:
+				player.health += card.value
+				player.deck.remove_at(i)
+				print("Traded card for health. New health: ", player.health)
+				break
 	else:
 		print("Invalid card index")
 
 func transition_to_clinic():
 	self.visible = true
 	display_deck()
+
+func _on_card_clicked(card, parent_node):
+	for i in range(player.deck.size()):
+		if player.deck[i] == card:
+			trade_card_for_health(i)
+			display_deck()
+			break

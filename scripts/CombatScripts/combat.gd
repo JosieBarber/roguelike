@@ -17,7 +17,10 @@ func _on_start_combat_pressed():
 func _on_combat_end():
 	# Transition back to the navigation scene
 	var navigation_scene = get_parent().get_node("Navigation")
+	var npc_ui = navigation_scene.get_parent().get_node("Ui").get_node("EnemyUi")
+
 	navigation_scene.visible = true
+	npc_ui.visible = false
 	
 	queue_free()
 
