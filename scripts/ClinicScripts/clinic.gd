@@ -41,9 +41,7 @@ func display_deck():
 		child.queue_free()
 	for i in range(player.deck.size()):
 		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
-		card_display.card_name = player.deck[i].card_name
-		card_display.card_damage = player.deck[i].damage
-		card_display.card_items = player.deck[i].items
+		card_display.card = player.deck[i]
 		card_display.position = Vector2((i % 5 - 2) * 30, int(i / 5) * 42)
 		card_display.connect("card_clicked", Callable(self, "_on_card_clicked"))
 		deck_rects.append(card_display)
@@ -64,7 +62,6 @@ func trade_card_for_health(card_index: int):
 		var card = player.deck[card_index]
 		player.health += card.value
 		player.deck.remove_at(card_index)
-		#player.discard.append(card)
 		print("Traded card for health. New health: ", player.health)
 	else:
 		print("Invalid card index")
@@ -73,9 +70,9 @@ func transition_to_clinic():
 	self.visible = true
 	display_deck()
 
-func _on_card_clicked(card_name, card_damage, card_items, parent_node):
+func _on_card_clicked(card, parent_node):
 	for i in range(player.deck.size()):
-		if player.deck[i].card_name == card_name and player.deck[i].damage == card_damage and player.deck[i].items == card_items:
+		if player.deck[i] == card:
 			trade_card_for_health(i)
 			display_deck()
 			if parent_node.has_signal("card_clicked") and parent_node.is_connected("card_clicked", Callable(self, "_on_card_clicked")):

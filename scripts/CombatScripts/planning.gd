@@ -20,24 +20,22 @@ func draw_hand():
 	for card in selected_cards:
 		player.hand.append(card)
 	selected_cards.clear()
-	display_prepared_hand() #this shouldn't be needed but it is (?) 
+	display_prepared_hand()
 	transition_to_attack_phase()
 
-func select_card(card_name: String, card_damage: int, card_items: Array):
+func select_card(card: Card):
 	for i in range(player.active_deck.size()):
-		if player.active_deck[i].card_name == card_name and player.active_deck[i].damage == card_damage and player.active_deck[i].items == card_items and selected_cards.size() < 7:
-			var selected_card = player.active_deck[i]
-			selected_cards.append(selected_card)
+		if player.active_deck[i] == card and selected_cards.size() < 7:
+			selected_cards.append(card)
 			player.active_deck.remove_at(i)
 			break
 	display_deck()
 	display_prepared_hand()
 
-func deselect_card(card_name: String, card_damage: int, card_items: Array):
+func deselect_card(card: Card):
 	for i in range(selected_cards.size()):
-		if selected_cards[i].card_name == card_name and selected_cards[i].damage == card_damage and selected_cards[i].items == card_items:
-			var deselected_card = selected_cards[i]
-			player.active_deck.append(deselected_card)
+		if selected_cards[i] == card:
+			player.active_deck.append(card)
 			selected_cards.remove_at(i)
 			break
 	display_deck()
@@ -49,9 +47,7 @@ func display_deck():
 		child.queue_free()
 	for i in range(player.active_deck.size()):
 		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
-		card_display.card_name = player.active_deck[i].card_name
-		card_display.card_damage = player.active_deck[i].damage
-		card_display.card_items = player.active_deck[i].items
+		card_display.card = player.active_deck[i]
 		card_display.position = Vector2((i % 5 - 2) * 30, int(i / 5) * 42)
 		card_display.connect("card_clicked", Callable(self, "_on_card_clicked"))
 		card_display.add_to_group("CardDisplays")
@@ -63,9 +59,7 @@ func display_prepared_hand():
 		child.queue_free()
 	for i in range(selected_cards.size()):
 		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
-		card_display.card_name = selected_cards[i].card_name
-		card_display.card_damage = selected_cards[i].damage
-		card_display.card_items = selected_cards[i].items
+		card_display.card = selected_cards[i]
 		card_display.position = Vector2(0, i * 10)
 		card_display.connect("card_clicked", Callable(self, "_on_card_clicked"))
 		card_display.add_to_group("CardDisplays")
@@ -79,11 +73,11 @@ func adjust_hitbox(card_display, is_topmost):
 	else:
 		area.collision_layer = 0
 
-func _on_card_clicked(card_name, card_damage, card_items, parent_node):
+func _on_card_clicked(card, parent_node):
 	if parent_node.name == "Active Deck":
-		select_card(card_name, card_damage, card_items)
+		select_card(card)
 	elif parent_node.name == "Prepared Hand":
-		deselect_card(card_name, card_damage, card_items)
+		deselect_card(card)
 		
 func _on_ready_button_clicked():
 	draw_hand()
