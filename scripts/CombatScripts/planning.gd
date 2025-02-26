@@ -8,9 +8,11 @@ var selected_card_index: int = -1
 var selected_cards: Array = []
 
 func _ready():
+	var ready_button = $ReadyButton
+	ready_button.connect("ready_button_clicked", Callable(self, "_on_ready_button_clicked"))
+	
 	player = get_parent().get_parent().get_node("Player")
 	enemy = get_parent().get_node("Enemy")
-	_create_draw_button()
 	display_deck()
 
 func draw_hand():
@@ -82,16 +84,8 @@ func _on_card_clicked(card_name, card_damage, card_items, parent_node):
 		select_card(card_name, card_damage, card_items)
 	elif parent_node.name == "Prepared Hand":
 		deselect_card(card_name, card_damage, card_items)
-
-func _create_draw_button():
-	var button = Button.new()
-	button.text = "Draw Hand"
-	button.size = Vector2(100, 30)
-	button.position = Vector2(10, get_viewport().size.y - 40)
-	add_child(button)
-	button.connect("pressed", Callable(self, "_on_draw_button_pressed"))
-
-func _on_draw_button_pressed():
+		
+func _on_ready_button_clicked():
 	draw_hand()
 
 func transition_to_attack_phase():

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpidbdanauljv"
-path="res://.godot/imported/Text Turn Button.png-8e7e127e83e0f7fe52d98e12219e0589.ctex"
+uid="uid://dfkvufy21ey6a"
+path="res://.godot/imported/EnemyUI.png-88809e868cd347d52de0352ddd29d657.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Combat/Text Turn Button.png"
-dest_files=["res://.godot/imported/Text Turn Button.png-8e7e127e83e0f7fe52d98e12219e0589.ctex"]
+source_file="res://assets/UI/EnemyUI.png"
+dest_files=["res://.godot/imported/EnemyUI.png-88809e868cd347d52de0352ddd29d657.ctex"]
 
 [params]
 

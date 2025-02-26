@@ -97,5 +97,8 @@ func _create_back_button():
 
 func _on_back_button_pressed():
 	var navigation_scene = get_parent().get_node("Navigation")
+	var npc_ui = navigation_scene.get_parent().get_node("Ui").get_node("EnemyUi")
+	
 	navigation_scene.visible = true
+	npc_ui.visible = false
 	queue_free()

@@ -26,7 +26,11 @@ func _create_back_button():
 
 func _on_back_button_pressed():
 	var navigation_scene = get_parent().get_node("Navigation")
+	var npc_ui = navigation_scene.get_parent().get_node("Ui").get_node("EnemyUi")
+
 	navigation_scene.visible = true
+	npc_ui.visible = false
+	
 	deck_rects.clear()
 	queue_free()
 
@@ -74,4 +78,6 @@ func _on_card_clicked(card_name, card_damage, card_items, parent_node):
 		if player.deck[i].card_name == card_name and player.deck[i].damage == card_damage and player.deck[i].items == card_items:
 			trade_card_for_health(i)
 			display_deck()
+			if parent_node.has_signal("card_clicked") and parent_node.is_connected("card_clicked", Callable(self, "_on_card_clicked")):
+				parent_node.disconnect("card_clicked", Callable(self, "_on_card_clicked"))
 			break
