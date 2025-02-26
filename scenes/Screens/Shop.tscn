@@ -6,3 +6,4 @@
 script = ExtResource("1_1tpkq")
 
 [node name="ItemList" type="Node2D" parent="."]
+position = Vector2(133, 76)
