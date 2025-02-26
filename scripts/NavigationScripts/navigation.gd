@@ -33,17 +33,37 @@ func _ready():
 	_initialize_map()
 
 func _initialize_map():
-	# Create nodes and paths for navigation
-	var node1 = _create_navigation_node(Vector2(20, 20), NodeType.BLANK)
-	var node2 = _create_navigation_node(Vector2(40, 55), NodeType.COMBAT)
-	var node3 = _create_navigation_node(Vector2(60, 10), NodeType.CLINIC)
-	var node4 = _create_navigation_node(Vector2(100, 20), NodeType.SHOP)
-	var node5 = _create_navigation_node(Vector2(100, 60), NodeType.COMBAT)
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
 
-	current_node = node1
+	# Create starting node
+	var start_node = _create_navigation_node(Vector2(20, 20), NodeType.BLANK)
+	current_node = start_node
+	nodes[start_node] = true  # Mark the starting node as visited
+
+	# Create 7 procedural nodes
+	var created_nodes = 0
+	while created_nodes < 7:
+		var x = rng.randf_range(0, 200)
+		var y = rng.randf_range(0, 70)
+		var position = Vector2(x, y)
+		if not _is_overlapping(position):
+			_create_navigation_node(position, NodeType.COMBAT)
+			created_nodes += 1
+
+	# Create ending node
+	var end_node = _create_navigation_node(Vector2(220, 40), NodeType.BLANK)
+
 	$Map/PlayerIcon.position = current_node.position
 	_update_adjacent_nodes()
 	_draw_paths()
+
+func _is_overlapping(position: Vector2) -> bool:
+	for node in nodes.keys():
+		var rng = RandomNumberGenerator.new()
+		if node.position.distance_to(position) < rng.randf_range(30, 60):
+			return true
+	return false
 
 func _create_navigation_node(position: Vector2, node_type: int) -> Node2D:
 	var node = Node2D.new()
