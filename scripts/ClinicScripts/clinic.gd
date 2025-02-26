@@ -3,7 +3,6 @@ extends Node2D
 class_name Clinic
 
 var player: Player
-var deck_rects: Array = []
 
 func _ready():
 	if get_parent().get_node("Player"):
@@ -31,12 +30,10 @@ func _on_back_button_pressed():
 	navigation_scene.visible = true
 	npc_ui.visible = false
 	
-	deck_rects.clear()
 	queue_free()
 
 func display_deck():
 	var deck_object = get_node("Deck")
-	deck_rects.clear()
 	for child in deck_object.get_children():
 		child.queue_free()
 	for i in range(player.deck.size()):
@@ -44,25 +41,17 @@ func display_deck():
 		card_display.card = player.deck[i]
 		card_display.position = Vector2((i % 5 - 2) * 30, int(i / 5) * 42)
 		card_display.connect("card_clicked", Callable(self, "_on_card_clicked"))
-		deck_rects.append(card_display)
 		deck_object.add_child(card_display)
-
-func _input(event):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		for i in range(deck_rects.size()):
-			var global_position = deck_rects[i].get_global_transform_with_canvas().origin
-			var global_rect = Rect2(global_position, Vector2(200, 30))
-			if global_rect.has_point(event.position):
-				trade_card_for_health(i)
-				display_deck()
-				break
 
 func trade_card_for_health(card_index: int):
 	if card_index >= 0 and card_index < player.deck.size():
 		var card = player.deck[card_index]
-		player.health += card.value
-		player.deck.remove_at(card_index)
-		print("Traded card for health. New health: ", player.health)
+		for i in range(player.deck.size()):
+			if player.deck[i] == card:
+				player.health += card.value
+				player.deck.remove_at(i)
+				print("Traded card for health. New health: ", player.health)
+				break
 	else:
 		print("Invalid card index")
 
@@ -75,6 +64,4 @@ func _on_card_clicked(card, parent_node):
 		if player.deck[i] == card:
 			trade_card_for_health(i)
 			display_deck()
-			if parent_node.has_signal("card_clicked") and parent_node.is_connected("card_clicked", Callable(self, "_on_card_clicked")):
-				parent_node.disconnect("card_clicked", Callable(self, "_on_card_clicked"))
 			break
