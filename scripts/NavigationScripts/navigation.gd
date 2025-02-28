@@ -8,6 +8,7 @@ var combat_icon: Texture
 var clinic_icon: Texture
 var shop_icon: Texture
 var visited_icon: Texture
+var blank_icon: Texture  # Add blank icon
 var nodes: Dictionary = {}
 var adjacent_nodes: Array = []
 var nodes_container: Node2D
@@ -27,6 +28,7 @@ func _ready():
 	clinic_icon = load("res://assets/Clinic Icon.png")
 	shop_icon = load("res://assets/Shop Icon.png")
 	visited_icon = load("res://assets/Visited Icon.png")
+	blank_icon = load("res://assets/Empty Icon.png")  # Load the blank icon
 	# Get the Nodes container
 	nodes_container = $Map/Nodes
 	# Initialize the navigation map and player position
@@ -78,7 +80,7 @@ func _draw_node_icon(node: Node2D):
 	var area = Area2D.new()
 	var sprite = Sprite2D.new()
 	var node_type = node.get_meta("type")
-	if nodes[node]:
+	if nodes[node] and node_type != NodeType.BLANK:
 		sprite.texture = visited_icon
 	else:
 		match node_type:
@@ -89,7 +91,7 @@ func _draw_node_icon(node: Node2D):
 			NodeType.SHOP:
 				sprite.texture = shop_icon
 			NodeType.BLANK:
-				return 
+				sprite.texture = blank_icon
 	sprite.position = Vector2.ZERO
 	sprite.scale = Vector2(0.05, 0.05)  # Scale down the sprite
 	area.add_child(sprite)
@@ -113,10 +115,10 @@ func _on_node_selected(node: Node2D):
 	current_node = node
 	$Map/PlayerIcon.position = current_node.position
 	_update_adjacent_nodes()
-	if not nodes[node]:
+	if not nodes[node] and node.get_meta("type") != NodeType.BLANK:
 		_transition_to_encounter(node)
-	nodes[node] = true
-	_draw_node_icon(node)  # Update the node icon to visited
+		nodes[node] = true
+	_draw_node_icon(node)  
 
 func _update_adjacent_nodes():
 	adjacent_nodes.clear()
