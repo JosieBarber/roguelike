@@ -15,6 +15,10 @@ var nodes_container: Node2D
 
 enum NodeType { COMBAT, CLINIC, SHOP, BLANK }
 
+# Configurable values
+var node_distance: float = 35.0  # Minimum distance between nodes
+var combat_proportion: float = 0.8  # Proportion of combat nodes
+
 func _ready():
 	if get_parent().get_node("Player"):
 		player = get_parent().get_node("Player")
@@ -28,7 +32,7 @@ func _ready():
 	clinic_icon = load("res://assets/Clinic Icon.png")
 	shop_icon = load("res://assets/Shop Icon.png")
 	visited_icon = load("res://assets/Visited Icon.png")
-	blank_icon = load("res://assets/Empty Icon.png")  # Load the blank icon
+	blank_icon = load("res://assets/Empty Icon.png")
 	# Get the Nodes container
 	nodes_container = $Map/Nodes
 	# Initialize the navigation map and player position
@@ -43,15 +47,36 @@ func _initialize_map():
 	current_node = start_node
 	nodes[start_node] = true  # Mark the starting node as visited
 
-	# Create 7 procedural nodes
+
 	var created_nodes = 0
-	while created_nodes < 7:
+	var total_nodes = 6
+	var combat_nodes = int(total_nodes * combat_proportion)
+	var blank_nodes = total_nodes - combat_nodes
+
+	var has_clinic = false
+	var has_shop = false
+
+	while created_nodes < total_nodes:
 		var x = rng.randf_range(0, 200)
 		var y = rng.randf_range(0, 70)
 		var position = Vector2(x, y)
 		if not _is_overlapping(position):
-			_create_navigation_node(position, NodeType.COMBAT)
+			var node_type = NodeType.BLANK
+			if combat_nodes > 0:
+				node_type = NodeType.COMBAT
+				combat_nodes -= 1
+			elif blank_nodes > 0 and not _is_adjacent_to_blank(position):
+				node_type = NodeType.BLANK
+				blank_nodes -= 1
+
+			_create_navigation_node(position, node_type)
 			created_nodes += 1
+
+	# Ensure at least one shop and one clinic if not already created
+	if not has_shop:
+		_create_navigation_node(_get_valid_position(rng), NodeType.SHOP)
+	if not has_clinic:
+		_create_navigation_node(_get_valid_position(rng), NodeType.CLINIC)
 
 	# Create ending node
 	var end_node = _create_navigation_node(Vector2(220, 40), NodeType.BLANK)
@@ -60,10 +85,33 @@ func _initialize_map():
 	_update_adjacent_nodes()
 	_draw_paths()
 
+func _get_valid_position(rng: RandomNumberGenerator) -> Vector2:
+	while true:
+		var x = rng.randf_range(0, 200)
+		var y = rng.randf_range(0, 70)
+		var position = Vector2(x, y)
+		if not _is_overlapping(position):
+			return position
+	return Vector2.ZERO  # Fallback return value
+
+func _is_adjacent_to_blank(position: Vector2) -> bool:
+	for node in nodes.keys():
+		if node.position.distance_to(position) < node_distance and node.get_meta("type") == NodeType.BLANK:
+			return true
+	return false
+
+func _get_random_node_type(node_types: Array, probabilities: Array, rng: RandomNumberGenerator) -> int:
+	var random_value = rng.randf()
+	var cumulative_probability = 0.0
+	for i in range(node_types.size()):
+		cumulative_probability += probabilities[i]
+		if random_value < cumulative_probability:
+			return node_types[i]
+	return node_types[0]  # Fallback to the first type
+
 func _is_overlapping(position: Vector2) -> bool:
 	for node in nodes.keys():
-		var rng = RandomNumberGenerator.new()
-		if node.position.distance_to(position) < rng.randf_range(30, 60):
+		if node.position.distance_to(position) < node_distance:
 			return true
 	return false
 
