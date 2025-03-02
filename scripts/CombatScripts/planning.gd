@@ -89,3 +89,9 @@ func transition_to_attack_phase():
 	attack_scene.visible = true
 	enemy.prepare_hand()
 	attack_scene.transition_to_attack_phase()
+
+func refill_active_deck():
+	if player.active_deck.size() == 0:
+		player.active_deck = player.deck.duplicate()
+	if enemy.active_deck.size() == 0:
+		enemy.active_deck = enemy.deck.duplicate()

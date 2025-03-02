@@ -45,10 +45,12 @@ func _on_plan_button_pressed():
 	transition_to_planning_phase()
 
 func transition_to_planning_phase():
+
 	self.visible = false
 	
 	var planning_scene = get_parent().get_node("Planning_Phase")
 	planning_scene.visible = true
+	planning_scene.refill_active_deck()
 	planning_scene.display_deck()
 	planning_scene.display_prepared_hand()
 
@@ -118,8 +120,3 @@ func next_turn():
 	if player.hand.size() == 0 and enemy.hand.size() == 0:
 		print("Both parties have no cards left in their hand!")
 		return "end"
-	
-
-
-
-	#print("Next turn executed.")

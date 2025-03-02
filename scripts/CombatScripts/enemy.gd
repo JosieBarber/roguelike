@@ -45,7 +45,7 @@ func prepare_hand() -> void:
 	elif active_deck.size() <= 7:
 		print("enemy deck is less than 7 long, using rest of deck as hand")
 		hand = active_deck.duplicate()
-		print("enemy hand after taking rest of the deck is", hand.size(), " long.")
+		print("enemy hand after taking rest of the deck is ", hand.size(), " long.")
 		active_deck.clear()
 
 func _ready():
