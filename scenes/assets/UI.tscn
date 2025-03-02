@@ -32,10 +32,10 @@ position = Vector2(133.5, 20)
 texture = ExtResource("5_q714u")
 
 [node name="PlayerUi" type="Sprite2D" parent="."]
-position = Vector2(27.5, 28.5)
+position = Vector2(28, 28.5)
 texture = ExtResource("5_a3xyv")
 
 [node name="EnemyUi" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(238.5, 28.5)
+position = Vector2(238, 28.5)
 texture = ExtResource("6_rrsej")

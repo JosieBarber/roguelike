@@ -21,7 +21,6 @@ window/size/viewport_width=266
 window/size/viewport_height=150
 window/size/initial_screen=5
 window/stretch/mode="viewport"
-window/stretch/aspect="ignore"
 
 [rendering]
 
