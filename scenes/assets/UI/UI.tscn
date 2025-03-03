@@ -35,4 +35,5 @@ texture = ExtResource("4_c32tx")
 position = Vector2(28, 28.5)
 
 [node name="EnemyUi" parent="." instance=ExtResource("6_h1xe4")]
+visible = false
 position = Vector2(238, 28.5)
