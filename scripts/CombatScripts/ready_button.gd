@@ -9,7 +9,6 @@ func _ready():
 	
 func _on_area_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		print("Ready button clicked")
 		emit_signal("ready_button_clicked")
 
 func _input(event):

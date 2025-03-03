@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://duk30r0o83e5r"]
+[gd_scene load_steps=2 format=3 uid="uid://duk30r0o83e5r"]
 
 [ext_resource type="Script" path="res://scripts/CombatScripts/planning.gd" id="2"]
-[ext_resource type="PackedScene" uid="uid://secgp8pnl7r4" path="res://scenes/assets/Combat/ReadyButton.tscn" id="2_mulxo"]
 
 [node name="Planning_Phase" type="Node2D"]
 script = ExtResource("2")
@@ -11,6 +10,3 @@ position = Vector2(26.5, 74.5)
 
 [node name="Active Deck" type="Node2D" parent="."]
 position = Vector2(133.5, 62.5)
-
-[node name="ReadyButton" parent="." instance=ExtResource("2_mulxo")]
-position = Vector2(134, 137)

@@ -5,33 +5,27 @@ class_name Attack
 @export var player: Player
 @export var enemy: Enemy
 var combat: Combat
-
+var ready_button = Node2D
 var planning_scene: PackedScene
 
 func _ready():
+	
+
 	player = get_parent().get_parent().get_node("Player")
 	enemy = get_parent().get_node("Enemy")
 	combat = get_parent()
-	_create_plan_button()
+	#_create_plan_button()
 	
 
 func transition_to_attack_phase():
+	ready_button = get_parent().get_node("ReadyButton")
+	ready_button.connect("ready_button_clicked", Callable(self, "_on_ready_button_clicked"))
+	
+	print("")
+	print("Starting enemy health is: ", enemy.health)
+	print("Starting player health is: ", player.health)
 
-	print("Enemy hand: ")
-	for card in enemy.hand:
-		print(card.card_name)
-		
-	print("Player hand: ")
-	for card in player.hand:
-		print(card.card_name)
-	print("-------------------------------------")
-	print("Enemy Health: ", enemy.health)
-	print("Player Health: ", player.health)
-		
-	for i in range(7):
-		if next_turn() == "end":
-			break
-	#pass
+	pass
 	
 func _create_plan_button():
 	var button = Button.new()
@@ -44,8 +38,12 @@ func _create_plan_button():
 func _on_plan_button_pressed():
 	transition_to_planning_phase()
 
-func transition_to_planning_phase():
+func _on_ready_button_clicked():
+	if self.visible:
+		next_turn()
 
+func transition_to_planning_phase():
+	ready_button.disconnect("ready_button_clicked", Callable(self, "transition_to_planning_phase"))
 	self.visible = false
 	
 	var planning_scene = get_parent().get_node("Planning_Phase")
@@ -60,7 +58,7 @@ func calculate_damage(card, target):
 		if item is MultiplierCardItem:
 			item.modify_damage(card)
 	var damage = card.damage
-	print(target, damage)
+	print(target.name, " was hit with ", card.card_name, ", and took ", damage, " damage.")
 	return damage
 
 func apply_damage(damage, target, damage_type):
@@ -87,6 +85,7 @@ func calculate_dot(dot_effect, target):
 	apply_damage(dot_damage, target, dot_effect.card_type)
 
 func next_turn():
+	print("")
 	if player.hand.size() != 0:
 		var player_card = player.hand[0]
 		var player_damage = calculate_damage(player_card, enemy)
@@ -106,9 +105,8 @@ func next_turn():
 		calculate_dot(dot_effect, player)
 		
 		
-	print("-------------------------------------")
-	print("Enemy Health: ", enemy.health)
-	print("Player Health: ", player.health)
+	print("Enemy Health is now: ", enemy.health)
+	print("Player Health is now: ", player.health)
 	if player.health <= 0:
 		print(player.player_name, " has been defeated!")
 		combat._on_combat_end()
@@ -119,4 +117,6 @@ func next_turn():
 		return "end"
 	if player.hand.size() == 0 and enemy.hand.size() == 0:
 		print("Both parties have no cards left in their hand!")
+		ready_button.disconnect("ready_button_clicked", Callable(self, "_on_ready_button_clicked"))
+		ready_button.connect("ready_button_clicked", Callable(self, "transition_to_planning_phase"))
 		return "end"

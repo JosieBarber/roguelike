@@ -8,7 +8,7 @@ var selected_card_index: int = -1
 var selected_cards: Array = []
 
 func _ready():
-	var ready_button = $ReadyButton
+	var ready_button = get_parent().get_node("ReadyButton")
 	ready_button.connect("ready_button_clicked", Callable(self, "_on_ready_button_clicked"))
 	
 	player = get_parent().get_parent().get_node("Player")
@@ -80,7 +80,8 @@ func _on_card_clicked(card, parent_node):
 		deselect_card(card)
 		
 func _on_ready_button_clicked():
-	draw_hand()
+	if self.visible:
+		draw_hand()
 
 func transition_to_attack_phase():
 	self.visible = false
