@@ -98,7 +98,7 @@ func next_turn():
 		var player_played_node = get_node("PlayerPlayed")
 		var player_card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
 		player_card_display.card = player_card
-		player_card_display.scale = Vector2(1.3, 1.3)
+		player_card_display.scale = Vector2(1.2, 1.2)
 		player_card_display.position = Vector2(randf_range(-5, 5), randf_range(-5, 5))
 		player_card_display.rotation_degrees = randf_range(-10, 10)
 		player_played_node.add_child(player_card_display)
@@ -112,7 +112,7 @@ func next_turn():
 		var enemy_played_node = get_node("EnemyPlayed")
 		var enemy_card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
 		enemy_card_display.card = enemy_card
-		enemy_card_display.scale = Vector2(1.3, 1.3)
+		enemy_card_display.scale = Vector2(1.2, 1.2)
 		enemy_card_display.position = Vector2(randf_range(-5, 5), randf_range(-5, 5))
 		enemy_card_display.rotation_degrees = randf_range(-10, 10)
 		enemy_played_node.add_child(enemy_card_display)
@@ -152,7 +152,7 @@ func display_player_hand():
 	for i in range(player.hand.size()):
 		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
 		card_display.card = player.hand[i]
-		card_display.scale = Vector2(1.3, 1.3)
+		#card_display.scale = Vector2(1.3, 1.3)
 		card_display.position = Vector2(0, int(i * 5))
 		card_display.add_to_group("CardDisplays")
 		player_hand_object.add_child(card_display)
@@ -164,7 +164,7 @@ func display_enemy_hand():
 	for i in range(enemy.hand.size()):
 		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
 		card_display.card = enemy.hand[i]
-		card_display.scale = Vector2(1.3, 1.3)
+		#card_display.scale = Vector2(1.3, 1.3)
 		card_display.position = Vector2(0, int(i * 5))
 		card_display.add_to_group("CardDisplays")
 		enemy_hand_object.add_child(card_display)
