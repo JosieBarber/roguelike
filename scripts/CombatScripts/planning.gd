@@ -95,5 +95,11 @@ func transition_to_attack_phase():
 func refill_active_deck():
 	if player.active_deck.size() == 0:
 		player.active_deck = player.deck.duplicate()
+		var player_played_node = get_parent().get_node("Attack_Phase/PlayerPlayed")
+		for child in player_played_node.get_children():
+			child.queue_free()
 	if enemy.active_deck.size() == 0:
 		enemy.active_deck = enemy.deck.duplicate()
+		var enemy_played_node = get_parent().get_node("Attack_Phase/EnemyPlayed")
+		for child in enemy_played_node.get_children():
+			child.queue_free()

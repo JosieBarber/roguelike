@@ -94,13 +94,29 @@ func next_turn():
 		var player_damage = calculate_damage(player_card, enemy)
 		apply_damage(player_damage, enemy, player_card.card_type)
 		player.hand.remove_at(0)
+
+		var player_played_node = get_node("PlayerPlayed")
+		var player_card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
+		player_card_display.card = player_card
+		player_card_display.scale = Vector2(1.3, 1.3)
+		player_card_display.position = Vector2(randf_range(-5, 5), randf_range(-5, 5))
+		player_card_display.rotation_degrees = randf_range(-10, 10)
+		player_played_node.add_child(player_card_display)
+
 	if enemy.hand.size() != 0:
 		var enemy_card = enemy.hand[0]
-		#print(enemy_card.items[0].item_name)
 		var enemy_damage = calculate_damage(enemy_card, player)
 		apply_damage(enemy_damage, player, enemy_card.card_type)
 		enemy.hand.remove_at(0)
 		
+		var enemy_played_node = get_node("EnemyPlayed")
+		var enemy_card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
+		enemy_card_display.card = enemy_card
+		enemy_card_display.scale = Vector2(1.3, 1.3)
+		enemy_card_display.position = Vector2(randf_range(-5, 5), randf_range(-5, 5))
+		enemy_card_display.rotation_degrees = randf_range(-10, 10)
+		enemy_played_node.add_child(enemy_card_display)
+
 	## Apply any DOT effects
 	for dot_effect in player.active_dot_effects:
 		calculate_dot(dot_effect, enemy)
