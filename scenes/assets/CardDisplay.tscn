@@ -5,10 +5,9 @@
 [ext_resource type="FontFile" uid="uid://sxw0026qgsl6" path="res://assets/fonts/m3x6.ttf" id="3_8adb7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hi83b"]
-size = Vector2(34, 54)
+size = Vector2(25, 39)
 
 [node name="CardDisplay" type="Node2D"]
-scale = Vector2(0.66, 0.66)
 script = ExtResource("1_si5s5")
 metadata/card_name = ""
 metadata/card_damage = 0
@@ -25,6 +24,7 @@ shape = SubResource("RectangleShape2D_hi83b")
 one_way_collision_margin = 0.0
 
 [node name="NameLabel" type="Label" parent="."]
+visible = false
 anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.045
@@ -38,6 +38,7 @@ theme_override_fonts/font = ExtResource("3_8adb7")
 theme_override_font_sizes/font_size = 32
 
 [node name="DamageLabel" type="Label" parent="."]
+visible = false
 offset_left = -15.0
 offset_top = 1.0
 offset_right = 15.0
