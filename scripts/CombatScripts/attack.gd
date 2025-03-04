@@ -15,12 +15,15 @@ func _ready():
 	enemy = get_parent().get_node("Enemy")
 	combat = get_parent()
 	#_create_plan_button()
-	
+
 
 func transition_to_attack_phase():
 	ready_button = get_parent().get_node("ReadyButton")
 	ready_button.connect("ready_button_clicked", Callable(self, "_on_ready_button_clicked"))
 	
+	display_player_hand()
+	display_enemy_hand()
+
 	print("")
 	print("Starting enemy health is: ", enemy.health)
 	print("Starting player health is: ", player.health)
@@ -107,6 +110,10 @@ func next_turn():
 		
 	print("Enemy Health is now: ", enemy.health)
 	print("Player Health is now: ", player.health)
+
+	display_player_hand()
+	display_enemy_hand()
+
 	if player.health <= 0:
 		print(player.player_name, " has been defeated!")
 		combat._on_combat_end()
@@ -120,3 +127,28 @@ func next_turn():
 		ready_button.disconnect("ready_button_clicked", Callable(self, "_on_ready_button_clicked"))
 		ready_button.connect("ready_button_clicked", Callable(self, "transition_to_planning_phase"))
 		return "end"
+
+
+func display_player_hand():
+	var player_hand_object = get_node("PlayerHand")
+	for child in player_hand_object.get_children():
+		child.queue_free()
+	for i in range(player.hand.size()):
+		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
+		card_display.card = player.hand[i]
+		card_display.scale = Vector2(1.3, 1.3)
+		card_display.position = Vector2(0, int(i * 5))
+		card_display.add_to_group("CardDisplays")
+		player_hand_object.add_child(card_display)
+
+func display_enemy_hand():
+	var enemy_hand_object = get_node("EnemyHand")
+	for child in enemy_hand_object.get_children():
+		child.queue_free()
+	for i in range(enemy.hand.size()):
+		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
+		card_display.card = enemy.hand[i]
+		card_display.scale = Vector2(1.3, 1.3)
+		card_display.position = Vector2(0, int(i * 5))
+		card_display.add_to_group("CardDisplays")
+		enemy_hand_object.add_child(card_display)
