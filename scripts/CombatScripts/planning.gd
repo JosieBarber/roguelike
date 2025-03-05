@@ -8,7 +8,7 @@ var selected_card_index: int = -1
 var selected_cards: Array = []
 
 func _ready():
-	var ready_button = $ReadyButton
+	var ready_button = get_parent().get_node("ReadyButton")
 	ready_button.connect("ready_button_clicked", Callable(self, "_on_ready_button_clicked"))
 	
 	player = get_parent().get_parent().get_node("Player")
@@ -48,6 +48,7 @@ func display_deck():
 	for i in range(player.active_deck.size()):
 		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
 		card_display.card = player.active_deck[i]
+		card_display.scale = Vector2(0.8, 0.8)
 		card_display.position = Vector2((i % 5 - 2) * 30, int(i / 5) * 42)
 		card_display.connect("card_clicked", Callable(self, "_on_card_clicked"))
 		card_display.add_to_group("CardDisplays")
@@ -60,7 +61,8 @@ func display_prepared_hand():
 	for i in range(selected_cards.size()):
 		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
 		card_display.card = selected_cards[i]
-		card_display.position = Vector2(0, i * 10)
+		card_display.position = Vector2(0, i * 5)
+		#card_display.scale = Vector2(1.3, 1.3)
 		card_display.connect("card_clicked", Callable(self, "_on_card_clicked"))
 		card_display.add_to_group("CardDisplays")
 		prepared_hand_object.add_child(card_display)
@@ -80,7 +82,8 @@ func _on_card_clicked(card, parent_node):
 		deselect_card(card)
 		
 func _on_ready_button_clicked():
-	draw_hand()
+	if self.visible:
+		draw_hand()
 
 func transition_to_attack_phase():
 	self.visible = false
@@ -93,5 +96,11 @@ func transition_to_attack_phase():
 func refill_active_deck():
 	if player.active_deck.size() == 0:
 		player.active_deck = player.deck.duplicate()
+		var player_played_node = get_parent().get_node("Attack_Phase/PlayerPlayed")
+		for child in player_played_node.get_children():
+			child.queue_free()
 	if enemy.active_deck.size() == 0:
 		enemy.active_deck = enemy.deck.duplicate()
+		var enemy_played_node = get_parent().get_node("Attack_Phase/EnemyPlayed")
+		for child in enemy_played_node.get_children():
+			child.queue_free()
