@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://iqdcyefulerd"]
+
+[ext_resource type="FontFile" uid="uid://sxw0026qgsl6" path="res://assets/fonts/m3x6.ttf" id="1_h38js"]
+
+[node name="DeathScreen" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_right = 266.0
+offset_bottom = 150.0
+theme_override_fonts/font = ExtResource("1_h38js")
+theme_override_font_sizes/font_size = 32
+text = "Lmao you died :3"
+horizontal_alignment = 1
+vertical_alignment = 1

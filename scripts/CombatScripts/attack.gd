@@ -132,11 +132,11 @@ func next_turn():
 
 	if player.health <= 0:
 		print(player.player_name, " has been defeated!")
-		combat._on_combat_end()
+		combat._on_player_defeat()
 		return "end"
 	if enemy.health <= 0:
 		print(enemy.enemy_name, " has been defeated!")
-		combat._on_combat_end()
+		combat._on_enemy_defeat()
 		return "end"
 	if player.hand.size() == 0 and enemy.hand.size() == 0:
 		print("Both parties have no cards left in their hand!")

@@ -14,8 +14,7 @@ func _on_start_combat_pressed():
 	_initialize_enemy()
 	transition_to_planning_phase()
 
-func _on_combat_end():
-	# Transition back to the navigation scene
+func _on_enemy_defeat():
 	var navigation_scene = get_parent().get_node("Navigation")
 	var npc_ui = navigation_scene.get_parent().get_node("Ui").get_node("EnemyUi")
 
@@ -23,6 +22,23 @@ func _on_combat_end():
 	npc_ui.visible = false
 	
 	queue_free()
+	
+func _on_player_defeat():
+	var main_scene = get_parent()
+	
+	# Hide all nodes except Player UI
+	for child in main_scene.get_children():
+		if child.name != "Ui":
+			child.visible = false
+		else:
+			for subchild in child.get_children():
+				if subchild.name != "PlayerUi":
+					subchild.visible = false
+				else:
+					subchild.get_node("Hearts").visible = false
+	var death_scene = preload("res://scenes/Screens/Death_Screen.tscn").instantiate()
+	main_scene.add_child(death_scene)
+
 
 func _initialize_player():
 	player = get_parent().get_node("Player")

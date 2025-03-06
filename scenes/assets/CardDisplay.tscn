@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://cgs88vqvu5f31" path="res://assets/Card/TCOYSCard.png" id="2_si5s5"]
 [ext_resource type="FontFile" uid="uid://sxw0026qgsl6" path="res://assets/fonts/m3x6.ttf" id="3_8adb7"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hi83b"]
-size = Vector2(25, 39)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jrety"]
+size = Vector2(32, 50)
 
 [node name="CardDisplay" type="Node2D"]
 script = ExtResource("1_si5s5")
@@ -20,7 +20,7 @@ texture = ExtResource("2_si5s5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 physics_interpolation_mode = 2
-shape = SubResource("RectangleShape2D_hi83b")
+shape = SubResource("RectangleShape2D_jrety")
 one_way_collision_margin = 0.0
 
 [node name="NameLabel" type="Label" parent="."]
