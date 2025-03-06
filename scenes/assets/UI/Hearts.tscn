@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://bw5xmf8kb7pgs"]
+
+[ext_resource type="Texture2D" uid="uid://m3t5hrvb25ek" path="res://assets/UI/Hearts.png" id="1_dufya"]
+
+[node name="Hearts" type="Node2D"]
+position = Vector2(9, 0)
+
+[node name="Heart1" type="Sprite2D" parent="."]
+position = Vector2(-16, 8)
+texture = ExtResource("1_dufya")
+hframes = 5
+
+[node name="Heart2" type="Sprite2D" parent="."]
+position = Vector2(-8, 2)
+texture = ExtResource("1_dufya")
+hframes = 5
+frame = 1
+
+[node name="Heart3" type="Sprite2D" parent="."]
+texture = ExtResource("1_dufya")
+hframes = 5
+frame = 1
+
+[node name="Heart4" type="Sprite2D" parent="."]
+position = Vector2(8, 2)
+texture = ExtResource("1_dufya")
+hframes = 5
+frame = 1
+
+[node name="Heart5" type="Sprite2D" parent="."]
+position = Vector2(16, 8)
+texture = ExtResource("1_dufya")
+hframes = 5
