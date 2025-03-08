@@ -35,7 +35,7 @@ func _on_player_defeat():
 				if subchild.name != "PlayerUi":
 					subchild.visible = false
 				else:
-					subchild.get_node("Hearts").visible = false
+					subchild.get_node("MetalPanel").get_node("Hearts").visible = false
 	var death_scene = preload("res://scenes/Screens/Death_Screen.tscn").instantiate()
 	main_scene.add_child(death_scene)
 
