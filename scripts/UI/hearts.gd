@@ -14,16 +14,16 @@ func update_hearts():
 		var heart_health = current_health - (i * 4)
 		if i == 0 or i == 4:
 			if heart_health >= 4:
-				heart.frame = 0  # Full heart
+				heart.frame = 0
 			elif heart_health > 0:
-				heart.frame = 4 - heart_health  # Damaged heart
+				heart.frame = 4 - heart_health
 			else:
 				heart.visible = false
-			heart.visible = heart_health > 0  # Ensure heart is visible if it has health
+			heart.visible = heart_health > 0
 		else:
 			if heart_health >= 4:
-				heart.frame = 1  # Full heart
+				heart.frame = 1
 			elif heart_health > 0:
-				heart.frame = 5 - heart_health  # Damaged heart
+				heart.frame = 5 - heart_health
 			else:
 				heart.visible = false
