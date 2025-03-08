@@ -36,10 +36,3 @@ func get_possible_enemies(area_name: String) -> Array:
 			enemy.prepare_deck()
 			possible_enemies.append(enemy)
 	return possible_enemies
-
-# func _create_enemy_deck() -> Array:
-# 	var deck = []
-# 	for i in range(7):
-# 		var new_card = Card.new("Card " + str(i + 1), "Effect", "Clause", "Type", "Sprite", 1)
-# 		deck.append(new_card)
-# 	return deck

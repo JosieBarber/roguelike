@@ -4,8 +4,11 @@ extends Node2D
 
 class_name Player
 
+signal player_health_changed(new_max_health, new_health)
+
 var player_name: String
 var status: String
+var max_health: int
 var health: int
 var hand: Array
 var deck: Array
@@ -18,7 +21,7 @@ var card_rects: Array = []
 
 func initialize(player_name_param: String, health_param: int):
 	player_name = player_name_param
-	health = health_param
+	set_health(health_param, health_param)
 	hand = []
 	deck = []
 	discard = []
@@ -56,3 +59,8 @@ func _create_test_deck():
 		var card_instance = test_cards[random_index].new()
 		deck.append(card_instance)
 		test_cards.remove_at(random_index)
+
+func set_health(new_max_health: int, new_health: int):
+	health = new_health
+	max_health = new_max_health
+	emit_signal("player_health_changed", max_health, health)

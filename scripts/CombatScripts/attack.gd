@@ -66,11 +66,11 @@ func calculate_damage(card, target):
 
 func apply_damage(damage, target, damage_type):
 	if damage_type == "Type":
-		target.health -= damage
+		target.set_health(target.max_health, target.health - damage)
 	elif damage_type == "magical":
-		target.health -= damage
+		target.set_health(target.max_health, target.health - damage)
 	elif damage_type == "Physical":
-		target.health -= damage
+		target.set_health(target.max_health, target.health - damage)
 	# We should do this differently but thats fine
 
 	if target == player:

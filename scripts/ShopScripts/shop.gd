@@ -77,7 +77,7 @@ func update_card_display_colors():
 func _on_card_clicked(card, parent_node):
 	var card_value = card.value
 	if player.health > card_value:
-		player.health -= card_value
+		player.set_health(player.max_health, player.health - card_value)
 		player.deck.append(card)
 		displayed_cards.erase(parent_node)
 		parent_node.hide()  
