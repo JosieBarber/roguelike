@@ -4,6 +4,7 @@ class_name Combat
 
 var player: Player
 var enemy: Enemy
+
 func _ready():
 	var button = $Button
 	button.connect("pressed", Callable(self, "_on_start_combat_pressed"))
@@ -12,6 +13,8 @@ func _on_start_combat_pressed():
 	$Button.visible = false
 	_initialize_player()
 	_initialize_enemy()
+	_connect_enemy_ui()
+	enemy.set_health(enemy.max_health, enemy.max_health)
 	transition_to_planning_phase()
 
 func _on_enemy_defeat():
@@ -39,7 +42,6 @@ func _on_player_defeat():
 	var death_scene = preload("res://scenes/Screens/Death_Screen.tscn").instantiate()
 	main_scene.add_child(death_scene)
 
-
 func _initialize_player():
 	player = get_parent().get_node("Player")
 
@@ -47,6 +49,10 @@ func _initialize_enemy():
 	enemy = get_node("Enemy")
 	enemy.prepare_enemy()
 	enemy.prepare_deck()
+
+func _connect_enemy_ui():
+	var enemy_ui = get_node("EnemyUi")
+	enemy.connect("enemy_health_changed", Callable(enemy_ui, "_on_enemy_health_changed"))
 
 func transition_to_planning_phase():
 	print("Player active deck size: ", player.active_deck.size())
