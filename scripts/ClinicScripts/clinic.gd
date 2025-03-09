@@ -48,7 +48,8 @@ func trade_card_for_health(card_index: int):
 		var card = player.deck[card_index]
 		for i in range(player.deck.size()):
 			if player.deck[i] == card:
-				player.health += card.value
+				var new_health = min(player.health + card.value, player.max_health)
+				player.set_health(player.max_health, new_health)
 				player.deck.remove_at(i)
 				print("Traded card for health. New health: ", player.health)
 				break

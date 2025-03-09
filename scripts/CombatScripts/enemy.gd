@@ -4,9 +4,13 @@ extends Node2D
 
 class_name Enemy
 
+signal enemy_health_changed(new_max_health, new_health)
+
+
 var enemy_name: String
 var status: String
 var health: int
+var max_health: int
 var hand: Array
 var deck: Array
 var discard: Array
@@ -17,7 +21,7 @@ var selected_card_index: int = -1
 
 func initialize(enemy_name_param: String, health_param: int, deck_param: Array):
 	enemy_name = enemy_name_param
-	health = health_param
+	set_health(health_param, health_param)
 	hand = []
 	deck = deck_param
 	discard = []
@@ -48,5 +52,7 @@ func prepare_hand() -> void:
 		print("enemy hand after taking rest of the deck is ", hand.size(), " long.")
 		active_deck.clear()
 
-func _ready():
-	pass
+func set_health(new_max_health: int, new_health: int) -> void:
+	health = new_health
+	max_health = new_max_health
+	emit_signal("enemy_health_changed", max_health, health)

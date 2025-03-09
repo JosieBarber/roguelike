@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7gml4oy6pmch"]
+[gd_scene load_steps=6 format=3 uid="uid://c7gml4oy6pmch"]
 
+[ext_resource type="Script" path="res://scripts/UI/npc_ui.gd" id="1_7oxr2"]
 [ext_resource type="Texture2D" uid="uid://bfwxylyxvi1wf" path="res://assets/UI/Metal panel.png" id="1_ywtdw"]
 [ext_resource type="Texture2D" uid="uid://btit65jxe25r2" path="res://assets/UI/PlayerUIUpdate.png" id="2_jko18"]
 [ext_resource type="Texture2D" uid="uid://c72wfh34786jd" path="res://assets/UI/Coin rough.png" id="3_ycdke"]
-[ext_resource type="Texture2D" uid="uid://m3t5hrvb25ek" path="res://assets/UI/Hearts.png" id="4_8amwi"]
+[ext_resource type="PackedScene" uid="uid://bw5xmf8kb7pgs" path="res://scenes/assets/UI/Hearts.tscn" id="4_bokfx"]
 
 [node name="EnemyUi" type="Node2D"]
+script = ExtResource("1_7oxr2")
 
 [node name="MetalPanel" type="Sprite2D" parent="."]
 texture = ExtResource("1_ywtdw")
@@ -20,6 +22,5 @@ flip_h = true
 position = Vector2(-4.5, -1)
 texture = ExtResource("3_ycdke")
 
-[node name="Hearts" type="Sprite2D" parent="MetalPanel"]
-position = Vector2(-4.5, -16)
-texture = ExtResource("4_8amwi")
+[node name="Hearts" parent="MetalPanel" instance=ExtResource("4_bokfx")]
+position = Vector2(-4.5, -20.5)

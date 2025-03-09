@@ -66,11 +66,11 @@ func calculate_damage(card, target):
 
 func apply_damage(damage, target, damage_type):
 	if damage_type == "Type":
-		target.health -= damage
+		target.set_health(target.max_health, target.health - damage)
 	elif damage_type == "magical":
-		target.health -= damage
+		target.set_health(target.max_health, target.health - damage)
 	elif damage_type == "Physical":
-		target.health -= damage
+		target.set_health(target.max_health, target.health - damage)
 	# We should do this differently but thats fine
 
 	if target == player:
@@ -132,11 +132,11 @@ func next_turn():
 
 	if player.health <= 0:
 		print(player.player_name, " has been defeated!")
-		combat._on_combat_end()
+		combat._on_player_defeat()
 		return "end"
 	if enemy.health <= 0:
 		print(enemy.enemy_name, " has been defeated!")
-		combat._on_combat_end()
+		combat._on_enemy_defeat()
 		return "end"
 	if player.hand.size() == 0 and enemy.hand.size() == 0:
 		print("Both parties have no cards left in their hand!")

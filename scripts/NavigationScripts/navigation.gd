@@ -190,9 +190,7 @@ func _draw_line_between_nodes(node1: Node2D, node2: Node2D):
 
 func _transition_to_encounter(node: Node2D):
 	var node_type = node.get_meta("type")
-	var enemy_ui = get_parent().get_node("Ui").get_node("EnemyUi")
 	
-	enemy_ui.visible = true
 	match node_type:
 		NodeType.COMBAT:
 			print("Transitioning to combat")
@@ -213,5 +211,5 @@ func _transition_to_encounter(node: Node2D):
 	self.visible = false
 	
 func _transition_to_navigation():
-	var enemy_ui = get_parent().get_node("Ui").get_node("EnemyUi")
-	enemy_ui.visible = false
+	pass
+	# No need to hide EnemyUi here as it is now part of the combat scene
