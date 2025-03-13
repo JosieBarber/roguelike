@@ -51,9 +51,11 @@ func transition_to_planning_phase():
 	
 	var planning_scene = get_parent().get_node("Planning_Phase")
 	planning_scene.visible = true
+	planning_scene.location_panel.visible = false
 	planning_scene.refill_active_deck()
 	planning_scene.display_deck()
 	planning_scene.display_prepared_hand()
+	
 
 func calculate_damage(card, target):
 	# This is where we will do funkies with items
