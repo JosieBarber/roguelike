@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckl3ocaltnpgq"]
+
+[ext_resource type="FontFile" uid="uid://sxw0026qgsl6" path="res://assets/fonts/m3x6.ttf" id="1_n7c4v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fmwi6"]
+size = Vector2(64.5, 110)
+
+[node name="CardTooltip" type="Node2D"]
+visible = false
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Node2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Area2D"]
+shape = SubResource("RectangleShape2D_fmwi6")
+debug_color = Color(0.961606, 0, 0.509387, 0.42)
+
+[node name="Label" type="Label" parent="Node2D/Area2D/CollisionShape2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -54.0
+offset_right = 32.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_n7c4v")
+theme_override_font_sizes/font_size = 47
+text = "lmao"
+horizontal_alignment = 1
+vertical_alignment = 1
