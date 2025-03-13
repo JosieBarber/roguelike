@@ -60,6 +60,9 @@ func _create_test_deck():
 		deck.append(card_instance)
 		test_cards.remove_at(random_index)
 
+func prepare_deck() -> void:
+	active_deck = deck.duplicate()
+
 func set_health(new_max_health: int, new_health: int):
 	health = new_health
 	max_health = new_max_health

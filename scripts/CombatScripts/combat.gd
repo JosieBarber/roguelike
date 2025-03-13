@@ -2,23 +2,20 @@ extends Control
 
 class_name Combat
 
-@onready var player: Player = get_parent().get_node("Player")
-
-var enemy: Enemy
+@onready var player: Player = get_tree().get_first_node_in_group("player")
+@onready var enemy: Enemy = get_node("Enemy")
 
 @onready var ui_scene = get_parent().get_node('Ui')
 @onready var location_panel = ui_scene.get_node('location_panel')
+@onready var enemy_ui = get_tree().get_first_node_in_group("Ui").get_node("EnemyUi")
+@onready var planning_scene = get_node("Planning_Phase")
 
-func _ready():
-	var button = $Button
-	button.connect("pressed", Callable(self, "_on_start_combat_pressed"))
 
-func _on_start_combat_pressed():
-	$Button.visible = false
+
+func _ready() -> void:
+	enemy.connect("enemy_health_changed", Callable(enemy_ui, "_on_enemy_health_changed"))
 	_initialize_player()
 	_initialize_enemy()
-	_connect_enemy_ui()
-	enemy.set_health(enemy.max_health, enemy.max_health)
 	transition_to_planning_phase()
 
 func _on_enemy_defeat():
@@ -47,26 +44,21 @@ func _on_player_defeat():
 	main_scene.add_child(death_scene)
 
 func _initialize_player():
-	player = get_parent().get_node("Player")
+	player.prepare_deck()
 
 func _initialize_enemy():
-	enemy = get_node("Enemy")
 	enemy.prepare_enemy()
 	enemy.prepare_deck()
-
-func _connect_enemy_ui():
-	var enemy_ui = get_node("EnemyUi")
-	enemy.connect("enemy_health_changed", Callable(enemy_ui, "_on_enemy_health_changed"))
 
 func transition_to_planning_phase():
 	print("Player active deck size: ", player.active_deck.size())
 	print("Player full deck size: ", player.deck.size())
 
 	print("Transitioning to planning phase")
-	var planning_scene = get_node("Planning_Phase")
 	planning_scene.set("player", player)
 	player.copy_deck()
 	planning_scene.visible = true
 	location_panel.visible = false
+	enemy_ui.visible = true
 	planning_scene.display_deck()
 	print(player.active_deck.size())

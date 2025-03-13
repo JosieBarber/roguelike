@@ -19,8 +19,6 @@ offset = Vector2(-25.5, 0)
 position = Vector2(0, 25.5)
 texture = ExtResource("4_c32tx")
 
-[node name="Sprite2D3" type="Sprite2D" parent="."]
-
 [node name="SettingsTab" type="Sprite2D" parent="."]
 position = Vector2(184.5, 0)
 texture = ExtResource("2_85i51")

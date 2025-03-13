@@ -22,6 +22,15 @@ window/size/viewport_height=150
 window/size/initial_screen=5
 window/stretch/mode="viewport"
 
+[global_group]
+
+player="This is the group made for the player"
+navigation="the navigation scene"
+Ui="The user interface"
+npc="This is applied to any non player character"
+planning="Planning phase of combat"
+attack="attack phase of combat"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

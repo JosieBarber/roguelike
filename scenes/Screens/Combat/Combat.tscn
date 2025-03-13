@@ -1,35 +1,24 @@
-[gd_scene load_steps=7 format=3 uid="uid://bl83ryin8usen"]
+[gd_scene load_steps=6 format=3 uid="uid://bl83ryin8usen"]
 
 [ext_resource type="Script" path="res://scripts/CombatScripts/combat.gd" id="1_arqx6"]
 [ext_resource type="PackedScene" uid="uid://duk30r0o83e5r" path="res://scenes/Screens/Combat/Planning_Phase.tscn" id="2_mdd02"]
 [ext_resource type="PackedScene" uid="uid://bfw14idsdji" path="res://scenes/Screens/Combat/Attack_Phase.tscn" id="3_k7e02"]
 [ext_resource type="Script" path="res://scripts/CombatScripts/enemy.gd" id="4_d73mv"]
 [ext_resource type="PackedScene" uid="uid://secgp8pnl7r4" path="res://scenes/assets/Combat/ReadyButton.tscn" id="5_0hpti"]
-[ext_resource type="PackedScene" uid="uid://c7gml4oy6pmch" path="res://scenes/assets/UI/EnemyUI.tscn" id="6_enemy_ui"]
 
 [node name="StartCombat" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_arqx6")
 
-[node name="Button" type="Button" parent="."]
-visible = false
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "Start Combat"
-
-[node name="Planning_Phase" parent="." instance=ExtResource("2_mdd02")]
+[node name="Planning_Phase" parent="." groups=["planning"] instance=ExtResource("2_mdd02")]
 visible = false
 
-[node name="Attack_Phase" parent="." instance=ExtResource("3_k7e02")]
+[node name="Attack_Phase" parent="." groups=["attack"] instance=ExtResource("3_k7e02")]
 visible = false
 
-[node name="Enemy" type="Node2D" parent="."]
+[node name="Enemy" type="Node2D" parent="." groups=["npc"]]
 script = ExtResource("4_d73mv")
 
 [node name="ReadyButton" parent="." instance=ExtResource("5_0hpti")]
 position = Vector2(134, 138)
-
-[node name="EnemyUi" parent="." instance=ExtResource("6_enemy_ui")]
-position = Vector2(238, 28.5)

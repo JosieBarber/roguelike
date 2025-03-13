@@ -2,16 +2,18 @@ extends Node2D
 
 class_name Navigation
 
-var player: Player
+@onready var player: Player = get_tree().get_first_node_in_group("player")
+
+@onready var combat_icon: Texture = load("res://assets/Combat Icon.png")
+@onready var clinic_icon: Texture = load("res://assets/Clinic Icon.png")
+@onready var shop_icon: Texture = load("res://assets/Shop Icon.png")
+@onready var visited_icon: Texture = load("res://assets/Visited Icon.png")
+@onready var blank_icon: Texture = load("res://assets/Empty Icon.png")
+@onready var nodes_container: Node2D = $Map/Nodes
+
 var current_node: Node2D
-var combat_icon: Texture
-var clinic_icon: Texture
-var shop_icon: Texture
-var visited_icon: Texture
-var blank_icon: Texture  # Add blank icon
 var nodes: Dictionary = {}
 var adjacent_nodes: Array = []
-var nodes_container: Node2D
 
 enum NodeType { COMBAT, CLINIC, SHOP, BLANK }
 
@@ -20,21 +22,6 @@ var node_distance: float = 35.0  # Minimum distance between nodes
 var combat_proportion: float = 0.8  # Proportion of combat nodes
 
 func _ready():
-	if get_parent().get_node("Player"):
-		player = get_parent().get_node("Player")
-	if not player:
-		player = Player.new()
-		get_parent().call_deferred("add_child", player)
-		player.initialize("JosiePosie", 10)
-		player._create_test_deck()
-	# Load the icons
-	combat_icon = load("res://assets/Combat Icon.png")
-	clinic_icon = load("res://assets/Clinic Icon.png")
-	shop_icon = load("res://assets/Shop Icon.png")
-	visited_icon = load("res://assets/Visited Icon.png")
-	blank_icon = load("res://assets/Empty Icon.png")
-	# Get the Nodes container
-	nodes_container = $Map/Nodes
 	# Initialize the navigation map and player position
 	_initialize_map()
 
@@ -46,7 +33,6 @@ func _initialize_map():
 	var start_node = _create_navigation_node(Vector2(20, 20), NodeType.BLANK)
 	current_node = start_node
 	nodes[start_node] = true  # Mark the starting node as visited
-
 
 	var created_nodes = 0
 	var total_nodes = 6
@@ -197,7 +183,7 @@ func _transition_to_encounter(node: Node2D):
 			var combat_scene = load("res://scenes/Screens/Combat/Combat.tscn").instantiate()
 			get_parent().add_child(combat_scene)
 			player.copy_deck()
-			combat_scene._on_start_combat_pressed()
+			#combat_scene._on_start_combat_pressed()
 		NodeType.CLINIC:
 			print("Transitioning to clinic")
 			var clinic_scene = load("res://scenes/Screens/Clinic.tscn").instantiate()
@@ -209,7 +195,3 @@ func _transition_to_encounter(node: Node2D):
 			get_parent().add_child(shop_scene)
 			shop_scene.transition_to_shop()
 	self.visible = false
-	
-func _transition_to_navigation():
-	pass
-	# No need to hide EnemyUi here as it is now part of the combat scene

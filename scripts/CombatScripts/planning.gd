@@ -9,11 +9,14 @@ class_name Planning
 @onready var ui_scene = get_parent().get_parent().get_node('Ui')
 @onready var location_panel = ui_scene.get_node('location_panel')
 
+@onready var active_deck_object: Node2D = get_node("Active Deck")
+@onready var prepared_hand_object: Node2D = get_node("Prepared Hand")
+
+
 var selected_card_index: int = -1
 var selected_cards: Array = []
 
 func _ready():
-	#var ready_button = get_parent().get_node("ReadyButton")
 	ready_button.connect("ready_button_clicked", Callable(self, "_on_ready_button_clicked"))
 	location_panel.visible = false
 	display_deck()
@@ -45,7 +48,6 @@ func deselect_card(card: Card):
 	display_prepared_hand()
 
 func display_deck():
-	var active_deck_object = get_node("Active Deck")
 	for child in active_deck_object.get_children():
 		child.queue_free()
 	for i in range(player.active_deck.size()):
@@ -58,7 +60,6 @@ func display_deck():
 		active_deck_object.add_child(card_display)
 
 func display_prepared_hand():
-	var prepared_hand_object = get_node("Prepared Hand")
 	for child in prepared_hand_object.get_children():
 		child.queue_free()
 	for i in range(selected_cards.size()):

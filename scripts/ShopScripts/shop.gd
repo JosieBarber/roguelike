@@ -1,18 +1,11 @@
 extends Node2D
 
-#TEST REFERENCE
-var player: Player
+
+@onready var player: Player = get_tree().get_first_node_in_group("player")
 var test_cards = []
 var displayed_cards = []
 
 func _ready():
-	if get_parent().get_node("Player"):
-		player = get_parent().get_node("Player")
-	if not player:
-		player = Player.new()
-		get_parent().call_deferred("add_child", player)
-		player.initialize("JosiePosie", 10)
-		player._create_test_deck()
 	load_test_cards()
 	display_random_cards()
 	_create_back_button()
