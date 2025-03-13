@@ -2,8 +2,12 @@ extends Control
 
 class_name Combat
 
-var player: Player
+@onready var player: Player = get_parent().get_node("Player")
+
 var enemy: Enemy
+
+@onready var ui_scene = get_parent().get_node('Ui')
+@onready var location_panel = ui_scene.get_node('location_panel')
 
 func _ready():
 	var button = $Button
@@ -63,5 +67,6 @@ func transition_to_planning_phase():
 	planning_scene.set("player", player)
 	player.copy_deck()
 	planning_scene.visible = true
+	location_panel.visible = false
 	planning_scene.display_deck()
 	print(player.active_deck.size())
