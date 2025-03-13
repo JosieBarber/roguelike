@@ -6,7 +6,6 @@ func _ready():
 	var area = $Area2D
 	area.connect("input_event", Callable(self, "_on_area_input_event"))
 
-	
 func _on_area_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		emit_signal("ready_button_clicked")

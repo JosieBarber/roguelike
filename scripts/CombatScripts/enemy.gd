@@ -6,7 +6,6 @@ class_name Enemy
 
 signal enemy_health_changed(new_max_health, new_health)
 
-
 var enemy_name: String
 var status: String
 var health: int

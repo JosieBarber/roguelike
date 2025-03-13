@@ -2,16 +2,13 @@ extends Node2D
 
 class_name Clinic
 
-var player: Player
+@onready var player: Player = get_tree().get_first_node_in_group("player")
+@onready var navigation_scene = get_parent().get_node("Navigation")
+@onready var npc_ui = navigation_scene.get_parent().get_node("Ui").get_node("EnemyUi")
+
 
 func _ready():
-	if get_parent().get_node("Player"):
-		player = get_parent().get_node("Player")
-	if not player:
-		player = Player.new()
-		get_parent().call_deferred("add_child", player)
-		player.initialize("JosiePosie", 10)
-		player._create_test_deck()
+	npc_ui.visible = true
 	_create_back_button()
 	display_deck()
 
@@ -24,9 +21,6 @@ func _create_back_button():
 	button.connect("pressed", Callable(self, "_on_back_button_pressed"))
 
 func _on_back_button_pressed():
-	var navigation_scene = get_parent().get_node("Navigation")
-	var npc_ui = navigation_scene.get_parent().get_node("Ui").get_node("EnemyUi")
-
 	navigation_scene.visible = true
 	npc_ui.visible = false
 	

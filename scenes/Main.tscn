@@ -8,9 +8,9 @@
 [node name="Main" type="Node2D"]
 script = ExtResource("1_gypjv")
 
-[node name="Player" type="Node2D" parent="."]
+[node name="Player" type="Node2D" parent="." groups=["player"]]
 script = ExtResource("2")
 
-[node name="Navigation" parent="." instance=ExtResource("5_navigation")]
+[node name="Navigation" parent="." groups=["navigation"] instance=ExtResource("5_navigation")]
 
-[node name="Ui" parent="." instance=ExtResource("4_jj0lx")]
+[node name="Ui" parent="." groups=["Ui"] instance=ExtResource("4_jj0lx")]

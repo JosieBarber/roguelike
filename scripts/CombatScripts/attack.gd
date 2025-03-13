@@ -2,41 +2,19 @@ extends Node2D
 
 class_name Attack
 
-@export var player: Player
-@export var enemy: Enemy
-var combat: Combat
-var ready_button = Node2D
-var planning_scene: PackedScene
+@onready var player: Player = get_tree().get_first_node_in_group("player")
+@onready var enemy: Enemy = get_tree().get_first_node_in_group("npc")
+@onready var combat: Combat = get_parent()
 
-func _ready():
-	
-
-	player = get_parent().get_parent().get_node("Player")
-	enemy = get_parent().get_node("Enemy")
-	combat = get_parent()
-	#_create_plan_button()
-
+@onready var ready_button: Node2D = get_parent().get_node("ReadyButton")
+@onready var planning_scene: Node2D = get_parent().get_node("Planning_Phase")
+ 
 
 func transition_to_attack_phase():
-	ready_button = get_parent().get_node("ReadyButton")
 	ready_button.connect("ready_button_clicked", Callable(self, "_on_ready_button_clicked"))
 	
 	display_player_hand()
 	display_enemy_hand()
-
-	print("")
-	print("Starting enemy health is: ", enemy.health)
-	print("Starting player health is: ", player.health)
-
-	pass
-	
-func _create_plan_button():
-	var button = Button.new()
-	button.text = "Draw Hand"
-	button.size = Vector2(100, 30)
-	button.position = Vector2(10, get_viewport().size.y - 40)
-	add_child(button)
-	button.connect("pressed", Callable(self, "_on_plan_button_pressed"))
 
 func _on_plan_button_pressed():
 	transition_to_planning_phase()
