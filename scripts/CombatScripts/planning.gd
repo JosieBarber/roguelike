@@ -55,6 +55,7 @@ func display_deck():
 		card_display.card = player.active_deck[i]
 		card_display.scale = Vector2(0.66, 0.66)
 		card_display.position = Vector2((i % 5 - 2) * 25, int(i / 5) * 35)
+		card_display.hoverable = true
 		card_display.connect("card_clicked", Callable(self, "_on_card_clicked"))
 		card_display.add_to_group("CardDisplays")
 		active_deck_object.add_child(card_display)
@@ -67,10 +68,10 @@ func display_prepared_hand():
 		card_display.card = selected_cards[i]
 		card_display.position = Vector2((i - (selected_cards.size() - 1) / 2.0) * 30, 0)
 		card_display.scale = Vector2(0.78, 0.78)
+		card_display.hoverable = true
 		card_display.connect("card_clicked", Callable(self, "_on_card_clicked"))
 		card_display.add_to_group("CardDisplays")
 		prepared_hand_object.add_child(card_display)
-		#adjust_hitbox(card_display, i == selected_cards.size() - 1)
 
 func _on_card_clicked(card, parent_node):
 	if parent_node.name == "Active Deck":
