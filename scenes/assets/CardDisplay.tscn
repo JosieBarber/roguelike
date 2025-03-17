@@ -48,4 +48,5 @@ theme_override_fonts/font = ExtResource("3_8adb7")
 theme_override_font_sizes/font_size = 28
 
 [node name="CardTooltip" parent="." instance=ExtResource("4_xqi2g")]
+visible = false
 position = Vector2(36, -38)

@@ -9,6 +9,8 @@ var hoverable: bool
 static var current_hovered_card: CardDisplay = null
 var is_mouse_pressed: bool = false
 
+@onready var card_tooltip = $CardTooltip
+
 func _ready():
 	var area = $Area2D
 	if area == null:
@@ -23,6 +25,8 @@ func _ready():
 	
 	var damage_label = $DamageLabel
 	damage_label.text = str(card.damage)
+
+	#_reset_hover_state()
 
 func _process(delta):
 	if current_hovered_card != null and not current_hovered_card.hoverable:
@@ -42,6 +46,7 @@ func _on_mouse_entered():
 		if current_hovered_card != null and current_hovered_card != self:
 			current_hovered_card._reset_hover_state()
 		current_hovered_card = self
+		card_tooltip.show_tooltip()
 		scale = Vector2(scale[0] * 1.2, scale[1] * 1.2)
 		z_index = 100
 
@@ -51,5 +56,6 @@ func _on_mouse_exited():
 
 func _reset_hover_state():
 	current_hovered_card = null
+	card_tooltip.hide_tooltip()
 	scale = Vector2(scale[0] * (1/1.2), scale[1] * (1/1.2))
 	z_index = 0
