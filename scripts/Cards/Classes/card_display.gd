@@ -46,7 +46,7 @@ func _on_mouse_entered():
 		if current_hovered_card != null and current_hovered_card != self:
 			current_hovered_card._reset_hover_state()
 		current_hovered_card = self
-		card_tooltip.show_tooltip()
+		card_tooltip.show_tooltip()  # Ensure tooltip is shown
 		scale = Vector2(scale[0] * 1.2, scale[1] * 1.2)
 		z_index = 100
 
@@ -55,7 +55,8 @@ func _on_mouse_exited():
 		_reset_hover_state()
 
 func _reset_hover_state():
+	if current_hovered_card == self:
+		card_tooltip.hide_tooltip()  # Ensure tooltip is hidden
 	current_hovered_card = null
-	card_tooltip.hide_tooltip()
 	scale = Vector2(scale[0] * (1/1.2), scale[1] * (1/1.2))
 	z_index = 0
