@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://decgll2ts6lvo"]
+[gd_scene load_steps=6 format=3 uid="uid://decgll2ts6lvo"]
 
 [ext_resource type="Script" path="res://scripts/Cards/Classes/card_display.gd" id="1_si5s5"]
 [ext_resource type="Texture2D" uid="uid://cgs88vqvu5f31" path="res://assets/Card/TCOYSCard.png" id="2_si5s5"]
 [ext_resource type="FontFile" uid="uid://sxw0026qgsl6" path="res://assets/fonts/m3x6.ttf" id="3_8adb7"]
+[ext_resource type="PackedScene" uid="uid://b3exk7ojml64y" path="res://scenes/assets/CardTooltip.tscn" id="4_xqi2g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jrety"]
 size = Vector2(32, 50)
@@ -45,3 +46,7 @@ offset_right = 15.0
 offset_bottom = 24.0
 theme_override_fonts/font = ExtResource("3_8adb7")
 theme_override_font_sizes/font_size = 28
+
+[node name="CardTooltip" parent="." instance=ExtResource("4_xqi2g")]
+visible = false
+position = Vector2(36, -38)
