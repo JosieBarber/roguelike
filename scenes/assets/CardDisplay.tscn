@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/Cards/Classes/card_display.gd" id="1_si5s5"]
 [ext_resource type="Texture2D" uid="uid://cgs88vqvu5f31" path="res://assets/Card/TCOYSCard.png" id="2_si5s5"]
 [ext_resource type="FontFile" uid="uid://sxw0026qgsl6" path="res://assets/fonts/m3x6.ttf" id="3_8adb7"]
-[ext_resource type="PackedScene" uid="uid://ckl3ocaltnpgq" path="res://scenes/assets/CardTooltip.tscn" id="4_xqi2g"]
+[ext_resource type="PackedScene" uid="uid://b3exk7ojml64y" path="res://scenes/assets/CardTooltip.tscn" id="4_xqi2g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jrety"]
 size = Vector2(32, 50)
