@@ -13,4 +13,4 @@ script = ExtResource("2")
 
 [node name="Navigation" parent="." groups=["navigation"] instance=ExtResource("5_navigation")]
 
-[node name="Ui" parent="." groups=["Ui"] instance=ExtResource("4_jj0lx")]
+[node name="Ui" parent="." instance=ExtResource("4_jj0lx")]

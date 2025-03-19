@@ -29,6 +29,7 @@ func initialize(player_name_param: String, health_param: int):
 	active_dot_effects = []
 
 func _ready():
+	max_health = 10
 	pass
 	
 func copy_deck():

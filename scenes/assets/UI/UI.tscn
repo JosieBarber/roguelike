@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://baqtpucolw0dc" path="res://scenes/assets/UI/PlayerUI.tscn" id="6_8up8j"]
 [ext_resource type="PackedScene" uid="uid://c7gml4oy6pmch" path="res://scenes/assets/UI/EnemyUI.tscn" id="6_h1xe4"]
 
-[node name="Ui" type="Node2D"]
+[node name="Ui" type="Node2D" groups=["Ui"]]
 
 [node name="location_panel" type="Sprite2D" parent="."]
 position = Vector2(133.5, 0)
