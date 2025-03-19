@@ -4,12 +4,11 @@ extends Node2D
 @onready var mask_hitbox = $PlayerInventory/Area2D/MaskHitbox
 @onready var card_pool_mask = $CardPool/Mask
 @onready var card_pool_hitbox = $CardPool/Area2D/MaskHitbox
-@onready var shopping_cart_object = $ShoppingCart
+@onready var shopping_cart_object = $CardPool/ShoppingCart
 @onready var ready_button = $ReadyButton
 
 @onready var player = get_tree().get_first_node_in_group("player")
-@onready var ui = get_tree().get_first_node_in_group("Ui")
-@onready var player_ui = ui.get_node("PlayerUi")
+@onready var clinic = get_parent()
 
 
 var player_deck: Array = []
@@ -20,24 +19,13 @@ var card_pool_scroll_offset: float = 0.0
 var shopping_cart: Array = []
 
 func _ready() -> void:
-	# DELETE THIS --------------------------
-	player.initialize("TestName", 20)
-	player._create_test_deck()
-	# --------------------------------------
-
 	load_test_cards()
-	_create_fake_deck()
 	_display_player_deck()
-	# _create_fake_card_pool()
 	_display_card_pool()
 	ready_button.connect("ready_button_clicked", Callable(self, "_buy_shopping_cart_items"))
-
-func _create_fake_deck():
-	player_deck.clear()
-	for i in range(11):  # Create 11 Bap cards
-		player_deck.append(BapCard.new())
-
+	
 func _display_player_deck():
+	player_deck = player.deck
 	for child in player_inventory_mask.get_children():
 		child.queue_free()
 	for i in range(player_deck.size()):
@@ -61,52 +49,56 @@ func _display_card_pool():
 		card_pool_mask.add_child(card_display)
 
 func _process(delta: float) -> void:
-	for card_display in player_inventory_mask.get_children():
-		if card_display is Node2D and card_display.has_node("Area2D/CollisionShape2D"):
-			var collision_shape = card_display.get_node("Area2D/CollisionShape2D") as CollisionShape2D
-			if collision_shape and collision_shape.shape is RectangleShape2D:
-				var rect_size = (collision_shape.shape as RectangleShape2D).size
-				var card_global_rect = Rect2(
-					card_display.global_position - rect_size / 2,
-					rect_size
-				)
-				var mask_rect_size = (mask_hitbox.shape as RectangleShape2D).size
-				var mask_global_rect = Rect2(
-					mask_hitbox.global_position - mask_rect_size / 2,
-					mask_rect_size
-				)
-				card_display.hoverable = card_global_rect.intersects(mask_global_rect)
+	if self.visible:
+		if Input.is_action_just_pressed("dev_back"):
+			clinic._transition_from_card_shop()
+		
+		for card_display in player_inventory_mask.get_children():
+			if card_display is Node2D and card_display.has_node("Area2D/CollisionShape2D"):
+				var collision_shape = card_display.get_node("Area2D/CollisionShape2D") as CollisionShape2D
+				if collision_shape and collision_shape.shape is RectangleShape2D:
+					var rect_size = (collision_shape.shape as RectangleShape2D).size
+					var card_global_rect = Rect2(
+						card_display.global_position - rect_size / 2,
+						rect_size
+					)
+					var mask_rect_size = (mask_hitbox.shape as RectangleShape2D).size
+					var mask_global_rect = Rect2(
+						mask_hitbox.global_position - mask_rect_size / 2,
+						mask_rect_size
+					)
+					card_display.hoverable = card_global_rect.intersects(mask_global_rect)
 
-	# Calculate the global rectangle of PlayerInventory
-	var inventory_global_rect = Rect2(
-		player_inventory_mask.global_position - player_inventory_mask.texture.get_size() / 2,
-		player_inventory_mask.texture.get_size()
-	)
+		# Calculate the global rectangle of PlayerInventory
+		var inventory_global_rect = Rect2(
+			player_inventory_mask.global_position - player_inventory_mask.texture.get_size() / 2,
+			player_inventory_mask.texture.get_size()
+		)
 
-	# Check if the cursor is within the PlayerInventory
-	if inventory_global_rect.has_point(get_global_mouse_position()):
-		if Input.is_action_just_pressed("scroll_up"):
-			scroll_offset = max(scroll_offset - scroll_speed, 0)
-		elif Input.is_action_just_pressed("scroll_down"):
-			var max_scroll = max(0, (int((player_deck.size() - 1) / 4) * 35 + 35) - player_inventory_mask.texture.get_size().y)
-			scroll_offset = min(scroll_offset + scroll_speed, max_scroll)
+		# Check if the cursor is within the PlayerInventory
+		if inventory_global_rect.has_point(get_global_mouse_position()):
+			if Input.is_action_just_pressed("scroll_up"):
+				scroll_offset = max(scroll_offset - scroll_speed, 0)
+			elif Input.is_action_just_pressed("scroll_down"):
+				var max_scroll = max(0, (int((player_deck.size() - 1) / 4) * 35 + 35) - player_inventory_mask.texture.get_size().y)
+				scroll_offset = min(scroll_offset + scroll_speed, max_scroll)
 
-		_update_player_card_positions()
+			_update_player_card_positions()
 
-	# Handle scrolling for CardPool
-	var card_pool_global_rect = Rect2(
-		card_pool_mask.global_position - card_pool_mask.texture.get_size() / 2,
-		card_pool_mask.texture.get_size()
-	)
+		# Handle scrolling for CardPool
+		var card_pool_global_rect = Rect2(
+			card_pool_mask.global_position - card_pool_mask.texture.get_size() / 2,
+			card_pool_mask.texture.get_size()
+		)
 
-	if card_pool_global_rect.has_point(get_global_mouse_position()):
-		if Input.is_action_just_pressed("scroll_up"):
-			card_pool_scroll_offset = max(card_pool_scroll_offset - scroll_speed, 0)
-		elif Input.is_action_just_pressed("scroll_down"):
-			var max_scroll = max(0, (int((card_pool.size() - 1) / 3) * 35 + 35) - card_pool_mask.texture.get_size().y)
-			card_pool_scroll_offset = min(card_pool_scroll_offset + scroll_speed, max_scroll)
+		if card_pool_global_rect.has_point(get_global_mouse_position()):
+			if Input.is_action_just_pressed("scroll_up"):
+				card_pool_scroll_offset = max(card_pool_scroll_offset - scroll_speed, 0)
+			elif Input.is_action_just_pressed("scroll_down"):
+				var max_scroll = max(0, (int((card_pool.size() - 1) / 3) * 35 + 35) - card_pool_mask.texture.get_size().y)
+				card_pool_scroll_offset = min(card_pool_scroll_offset + scroll_speed, max_scroll)
 
-		_update_card_pool_positions()
+			_update_card_pool_positions()
 
 func _update_player_card_positions() -> void:
 	for i in range(player_deck.size()):
@@ -151,9 +143,8 @@ func _buy_shopping_cart_items():
 		if player.health > card_value:
 			# Deduct the card's value from the player's health
 			player.set_health(player.max_health, player.health - card_value)
-			
-			# Add the card to the player's deck
 			player.deck.append(card)
+			print(player.deck.size())
 		else:
 			print("Not enough health to buy card: ", card.card_name)
 

@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dlt4jm5yoy0ae"]
+
+[ext_resource type="PackedScene" uid="uid://b4yapeggeiust" path="res://scenes/screens/Clinic/ClinicMenu.tscn" id="1_7d36g"]
+[ext_resource type="Script" path="res://scripts/ClinicScripts/clinic.gd" id="1_31gqd"]
+[ext_resource type="PackedScene" uid="uid://carkogouewn2v" path="res://scenes/screens/Clinic/CardShop.tscn" id="3_30g0q"]
+
+[node name="Clinic" type="Node2D"]
+script = ExtResource("1_31gqd")
+
+[node name="ClinicMenu" parent="." instance=ExtResource("1_7d36g")]
+
+[node name="CardShop" parent="." instance=ExtResource("3_30g0q")]
+visible = false

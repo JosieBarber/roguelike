@@ -15,7 +15,7 @@ var current_node: Node2D
 var nodes: Dictionary = {}
 var adjacent_nodes: Array = []
 
-enum NodeType { COMBAT, CLINIC, SHOP, BLANK }
+enum NodeType { COMBAT, CLINIC, BLANK }
 
 # Configurable values
 var node_distance: float = 35.0  # Minimum distance between nodes
@@ -40,7 +40,6 @@ func _initialize_map():
 	var blank_nodes = total_nodes - combat_nodes
 
 	var has_clinic = false
-	var has_shop = false
 
 	while created_nodes < total_nodes:
 		var x = rng.randf_range(0, 200)
@@ -58,9 +57,6 @@ func _initialize_map():
 			_create_navigation_node(position, node_type)
 			created_nodes += 1
 
-	# Ensure at least one shop and one clinic if not already created
-	if not has_shop:
-		_create_navigation_node(_get_valid_position(rng), NodeType.SHOP)
 	if not has_clinic:
 		_create_navigation_node(_get_valid_position(rng), NodeType.CLINIC)
 
@@ -122,8 +118,6 @@ func _draw_node_icon(node: Node2D):
 				sprite.texture = combat_icon
 			NodeType.CLINIC:
 				sprite.texture = clinic_icon
-			NodeType.SHOP:
-				sprite.texture = shop_icon
 			NodeType.BLANK:
 				sprite.texture = blank_icon
 	sprite.position = Vector2.ZERO
@@ -183,15 +177,9 @@ func _transition_to_encounter(node: Node2D):
 			var combat_scene = load("res://scenes/Screens/Combat/Combat.tscn").instantiate()
 			get_parent().add_child(combat_scene)
 			player.copy_deck()
-			#combat_scene._on_start_combat_pressed()
 		NodeType.CLINIC:
 			print("Transitioning to clinic")
-			var clinic_scene = load("res://scenes/Screens/Clinic.tscn").instantiate()
+			var clinic_scene = load("res://scenes/Screens/Clinic/Clinic.tscn").instantiate()
 			get_parent().add_child(clinic_scene)
-			clinic_scene.transition_to_clinic()
-		NodeType.SHOP:
-			print("Transitioning to shop")
-			var shop_scene = load("res://scenes/Screens/Shop.tscn").instantiate()
-			get_parent().add_child(shop_scene)
-			shop_scene.transition_to_shop()
+			clinic_scene._transition_to_clinic()
 	self.visible = false

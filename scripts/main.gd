@@ -4,6 +4,6 @@ extends Node2D
 @onready var navigation_scene = get_node("Navigation")
 
 func _ready():
-	player_instance.initialize("JosiePosie", 20)
+	player_instance.initialize("JosiePosie", 100)
 	player_instance._create_test_deck()
 	navigation_scene.visible = true

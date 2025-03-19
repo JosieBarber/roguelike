@@ -12,6 +12,7 @@ func _on_area_input_event(_viewport, event, _shape_idx):
 
 func _input(event):
 	if event is InputEventKey and event.pressed and event.keycode == KEY_SPACE:
-		emit_signal("ready_button_clicked")
+		if self.visible:
+			emit_signal("ready_button_clicked")
 
 	
