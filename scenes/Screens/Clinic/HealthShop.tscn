@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://d8sc2u25pkh8"]
+
+[ext_resource type="Script" path="res://scripts/ClinicScripts/health_shop.gd" id="1_lw8ad"]
+[ext_resource type="Texture2D" uid="uid://dj2ftc44jdv77" path="res://assets/Clinic/player_inventory.png" id="2_e8bay"]
+[ext_resource type="Texture2D" uid="uid://b0nwrng84fuwb" path="res://assets/Clinic/player_inventory_mask.png" id="3_bekk8"]
+[ext_resource type="PackedScene" uid="uid://secgp8pnl7r4" path="res://scenes/assets/Combat/ReadyButton.tscn" id="4_2dqn4"]
+[ext_resource type="Texture2D" uid="uid://bablshm1oxivl" path="res://assets/Clinic/heart_purchase.png" id="5_erxq5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0r88q"]
+size = Vector2(106, 49)
+
+[node name="HealthShop" type="Node2D"]
+script = ExtResource("1_lw8ad")
+
+[node name="PlayerInventory" type="Sprite2D" parent="."]
+position = Vector2(67, 89.5)
+texture = ExtResource("2_e8bay")
+
+[node name="Mask" type="Sprite2D" parent="PlayerInventory"]
+clip_children = 2
+texture = ExtResource("3_bekk8")
+
+[node name="Area2D" type="Area2D" parent="PlayerInventory"]
+
+[node name="MaskHitbox" type="CollisionShape2D" parent="PlayerInventory/Area2D"]
+shape = SubResource("RectangleShape2D_0r88q")
+
+[node name="ReadyButton" parent="." instance=ExtResource("4_2dqn4")]
+position = Vector2(134, 138)
+
+[node name="ClinicHeart" type="Sprite2D" parent="."]
+position = Vector2(199.5, 89.5)
+texture = ExtResource("5_erxq5")
+
+[node name="ShoppingCart" type="Node2D" parent="ClinicHeart"]
+position = Vector2(-40.5, 0)

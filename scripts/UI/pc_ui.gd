@@ -6,7 +6,7 @@ var max_health: int
 var health: int
 
 func _ready():
-	player = get_parent().get_parent().get_node("Player")
+	player = get_tree().get_first_node_in_group("player")
 	max_health = player.max_health
 	health = player.health
 	player.connect("player_health_changed", Callable(self, "_on_player_health_changed"))

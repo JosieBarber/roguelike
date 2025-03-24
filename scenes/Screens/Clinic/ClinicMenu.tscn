@@ -1,0 +1,100 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4yapeggeiust"]
+
+[ext_resource type="Script" path="res://scripts/ClinicScripts/clinic_menu.gd" id="1_qahtn"]
+[ext_resource type="Theme" uid="uid://c6mqy5npqrkqv" path="res://assets/fonts/Basic Font Theme.tres" id="2_nur30"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w0x8m"]
+size = Vector2(32.75, 8)
+
+[node name="ClinicMenu" type="Node2D"]
+script = ExtResource("1_qahtn")
+
+[node name="Buttons" type="Node2D" parent="."]
+
+[node name="HealthShop" type="Node2D" parent="Buttons"]
+position = Vector2(77, 65.5)
+
+[node name="Label" type="Label" parent="Buttons/HealthShop"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme = ExtResource("2_nur30")
+text = "- Health "
+vertical_alignment = 1
+justification_flags = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Area2D" type="Area2D" parent="Buttons/HealthShop/Label"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buttons/HealthShop/Label/Area2D"]
+position = Vector2(16.625, 13)
+shape = SubResource("RectangleShape2D_w0x8m")
+
+[node name="CardShop" type="Node2D" parent="Buttons"]
+position = Vector2(77, 75.5)
+
+[node name="Label" type="Label" parent="Buttons/CardShop"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme = ExtResource("2_nur30")
+text = "- Cards"
+vertical_alignment = 1
+justification_flags = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Area2D" type="Area2D" parent="Buttons/CardShop/Label"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buttons/CardShop/Label/Area2D"]
+position = Vector2(16.625, 13)
+shape = SubResource("RectangleShape2D_w0x8m")
+
+[node name="Exit" type="Node2D" parent="Buttons"]
+position = Vector2(77, 85.5)
+
+[node name="Label" type="Label" parent="Buttons/Exit"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme = ExtResource("2_nur30")
+text = "- Exit
+"
+vertical_alignment = 1
+justification_flags = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Area2D" type="Area2D" parent="Buttons/Exit/Label"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buttons/Exit/Label/Area2D"]
+position = Vector2(16.625, 13)
+shape = SubResource("RectangleShape2D_w0x8m")
