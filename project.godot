@@ -20,7 +20,7 @@ config/icon="res://icon.svg"
 window/size/viewport_width=266
 window/size/viewport_height=150
 window/size/initial_screen=5
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
 
 [global_group]
 
@@ -30,6 +30,7 @@ Ui="The user interface"
 npc="This is applied to any non player character"
 planning="Planning phase of combat"
 attack="attack phase of combat"
+PP="Pixel Perfect"
 
 [gui]
 

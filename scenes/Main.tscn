@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://cwemnyae3i5ol"]
+[gd_scene load_steps=7 format=3 uid="uid://cwemnyae3i5ol"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_gypjv"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://dvkbmcm0s52rc" path="res://scenes/assets/UI/UI.tscn" id="4_jj0lx"]
+[ext_resource type="Script" path="res://scripts/Camera/pixel_perfect_ui.gd" id="5_2c473"]
 [ext_resource type="PackedScene" uid="uid://cgkdb7rsiqdti" path="res://scenes/Navigation.tscn" id="5_navigation"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cvl10"]
+viewport_path = NodePath("PixelPerfectUILayer/SubViewport")
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_gypjv")
@@ -14,3 +18,18 @@ script = ExtResource("2")
 [node name="Navigation" parent="." instance=ExtResource("5_navigation")]
 
 [node name="Ui" parent="." instance=ExtResource("4_jj0lx")]
+
+[node name="PixelPerfectUILayer" type="CanvasLayer" parent="."]
+script = ExtResource("5_2c473")
+
+[node name="SubViewport" type="SubViewport" parent="PixelPerfectUILayer"]
+transparent_bg = true
+size = Vector2i(266, 150)
+
+[node name="ViewportTexture" type="TextureRect" parent="PixelPerfectUILayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_cvl10")

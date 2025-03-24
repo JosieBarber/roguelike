@@ -7,7 +7,7 @@ class_name Planning
 @onready var ready_button = get_parent().get_node("ReadyButton")
 
 @onready var ui_scene = get_parent().get_parent().get_node('Ui')
-@onready var location_panel = ui_scene.get_node('location_panel')
+@onready var location_panel = ui_scene.location_panel
 
 @onready var active_deck_object: Node2D = get_node("Active Deck")
 @onready var prepared_hand_object: Node2D = get_node("Prepared Hand")
