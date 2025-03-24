@@ -52,7 +52,12 @@ func _process(delta: float) -> void:
 	if self.visible:
 		if Input.is_action_just_pressed("dev_back"):
 			clinic._transition_from_card_shop()
-		
+
+		var inventory_global_rect = Rect2(
+			player_inventory_mask.global_position - player_inventory_mask.texture.get_size() / 2,
+			player_inventory_mask.texture.get_size()
+		)
+
 		for card_display in player_inventory_mask.get_children():
 			if card_display is Node2D and card_display.has_node("Area2D/CollisionShape2D"):
 				var collision_shape = card_display.get_node("Area2D/CollisionShape2D") as CollisionShape2D
@@ -62,18 +67,7 @@ func _process(delta: float) -> void:
 						card_display.global_position - rect_size / 2,
 						rect_size
 					)
-					var mask_rect_size = (mask_hitbox.shape as RectangleShape2D).size
-					var mask_global_rect = Rect2(
-						mask_hitbox.global_position - mask_rect_size / 2,
-						mask_rect_size
-					)
-					card_display.hoverable = card_global_rect.intersects(mask_global_rect)
-
-		# Calculate the global rectangle of PlayerInventory
-		var inventory_global_rect = Rect2(
-			player_inventory_mask.global_position - player_inventory_mask.texture.get_size() / 2,
-			player_inventory_mask.texture.get_size()
-		)
+					card_display.hoverable = card_global_rect.intersects(inventory_global_rect)
 
 		# Check if the cursor is within the PlayerInventory
 		if inventory_global_rect.has_point(get_global_mouse_position()):
@@ -82,14 +76,27 @@ func _process(delta: float) -> void:
 			elif Input.is_action_just_pressed("scroll_down"):
 				var max_scroll = max(0, (int((player_deck.size() - 1) / 4) * 35 + 35) - player_inventory_mask.texture.get_size().y)
 				scroll_offset = min(scroll_offset + scroll_speed, max_scroll)
-
 			_update_player_card_positions()
+#
+		#for card_display in player_inventory_mask.get_children():
+			#card_display.hoverable = inventory_global_rect.has_point(get_global_mouse_position())
 
 		# Handle scrolling for CardPool
 		var card_pool_global_rect = Rect2(
 			card_pool_mask.global_position - card_pool_mask.texture.get_size() / 2,
 			card_pool_mask.texture.get_size()
 		)
+		
+		for card_display in card_pool_mask.get_children():
+			if card_display is Node2D and card_display.has_node("Area2D/CollisionShape2D"):
+				var collision_shape = card_display.get_node("Area2D/CollisionShape2D") as CollisionShape2D
+				if collision_shape and collision_shape.shape is RectangleShape2D:
+					var rect_size = (collision_shape.shape as RectangleShape2D).size
+					var card_global_rect = Rect2(
+						card_display.global_position - rect_size / 2,
+						rect_size
+					)
+					card_display.hoverable = card_global_rect.intersects(card_pool_global_rect)
 
 		if card_pool_global_rect.has_point(get_global_mouse_position()):
 			if Input.is_action_just_pressed("scroll_up"):
@@ -147,6 +154,7 @@ func _buy_shopping_cart_items():
 			print(player.deck.size())
 		else:
 			print("Not enough health to buy card: ", card.card_name)
+	_display_player_deck()
 
 	# Clear the shopping cart
 	shopping_cart.clear()

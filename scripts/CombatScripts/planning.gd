@@ -53,7 +53,7 @@ func display_deck():
 	for i in range(player.active_deck.size()):
 		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
 		card_display.card = player.active_deck[i]
-		card_display.scale = Vector2(0.66, 0.66)
+		card_display.scale = Vector2(0.60, 0.60)
 		card_display.position = Vector2((i % 5 - 2) * 25, int(i / 5) * 35)
 		card_display.hoverable = true
 		card_display.connect("card_clicked", Callable(self, "_on_card_clicked"))
@@ -67,7 +67,7 @@ func display_prepared_hand():
 		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
 		card_display.card = selected_cards[i]
 		card_display.position = Vector2((i - (selected_cards.size() - 1) / 2.0) * 30, 0)
-		card_display.scale = Vector2(0.78, 0.78)
+		card_display.scale = Vector2(0.70, 0.70)
 		card_display.hoverable = true
 		card_display.connect("card_clicked", Callable(self, "_on_card_clicked"))
 		card_display.add_to_group("CardDisplays")
