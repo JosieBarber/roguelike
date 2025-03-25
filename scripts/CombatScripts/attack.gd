@@ -124,7 +124,6 @@ func display_player_hand():
 	for i in range(player.hand.size()):
 		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
 		card_display.card = player.hand[i]
-		#card_display.scale = Vector2(1.3, 1.3)
 		card_display.position = Vector2(0, int(i * 5))
 		card_display.add_to_group("CardDisplays")
 		player_hand_object.add_child(card_display)
@@ -136,8 +135,6 @@ func display_enemy_hand():
 	for i in range(enemy.hand.size()):
 		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
 		card_display.card = enemy.hand[i]
-		card_display.card_sprite.texture = load(enemy.hand[i].sprite)
-		#card_display.scale = Vector2(1.3, 1.3)
 		card_display.position = Vector2(0, int(i * 5))
 		card_display.add_to_group("CardDisplays")
 		enemy_hand_object.add_child(card_display)

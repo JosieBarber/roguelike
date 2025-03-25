@@ -55,11 +55,13 @@ func _create_test_deck():
 	else:
 		print("Failed to open directory: res://scripts/Cards/TestCards/")
 	
-	while deck.size() < 10 and test_cards.size() > 0:
+	while deck.size() < 8 and test_cards.size() > 0:
 		var random_index = randi() % test_cards.size()
 		var card_instance = test_cards[random_index].new()
 		deck.append(card_instance)
 		test_cards.remove_at(random_index)
+	deck.append(BlowThisJointCard.new())
+	deck.append(HeartAttackCard.new())
 
 func prepare_deck() -> void:
 	active_deck = deck.duplicate()

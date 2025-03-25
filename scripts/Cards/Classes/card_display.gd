@@ -13,6 +13,10 @@ var is_mouse_pressed: bool = false
 @onready var area = $Area2D
 @onready var card_sprite = $Sprite2D
 
+func initialize(card: Card, hoverable: bool = true):
+	self.card = card
+	self.hoverable = hoverable
+	card_sprite.texture = load(card.sprite)
 
 func _ready():
 	card_sprite.texture = load(card.sprite)
@@ -23,9 +27,8 @@ func _ready():
 		area.connect("mouse_exited", Callable(self, "_on_mouse_exited"))
 		area.connect("input_event", Callable(self, "_on_area_input_event"))
 
-func _process(delta):
+func _process(_delta):
 	if current_hovered_card != null and not current_hovered_card.hoverable:
-		# Reset hover state if the current hovered card is no longer hoverable
 		current_hovered_card._reset_hover_state()
 
 func _on_area_input_event(viewport, event, shape_idx):
