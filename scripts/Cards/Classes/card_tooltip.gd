@@ -8,9 +8,13 @@ var scale_speed = 20.0
 @onready var damage_label = $Card/Damage
 @onready var name_label = $Card/Name
 
+@onready var card_sprite = $Card
+
 
 func _ready() -> void:
 	self.scale = Vector2(0, 0)  # Start hidden
+	
+	card_sprite.texture = load(cardDisplay.card.sprite)
 	name_label.text = str(cardDisplay.card.card_name)
 	damage_label.text = str(cardDisplay.card.damage, " dmg")
 	adjust_position()
