@@ -150,7 +150,8 @@ func _find_closest_node_to(target_node: Node2D) -> Node2D:
 func _sever_random_connections(percentage: float, end_node: Node2D):
 	var all_connections = []
 	for node in graph.keys():
-		for connected_node in graph[node]:
+		var connections = graph.get(node, [])  # Use `get` to safely access dictionary values
+		for connected_node in connections:
 			if [connected_node, node] not in all_connections:  # Avoid duplicate pairs
 				all_connections.append([node, connected_node])
 
@@ -255,7 +256,7 @@ func _draw_node_icon(node: Node2D):
 	var area = Area2D.new()
 	var sprite = Sprite2D.new()
 	var node_type = node.get_meta("type")
-	if node == current_node or (node in graph and graph[node].size() > 0):
+	if node_type != NodeType.BLANK and (node in graph and graph[node].size() > 0):
 		sprite.texture = visited_icon
 	else:
 		match node_type:
@@ -289,17 +290,23 @@ func _on_node_selected(node: Node2D):
 	current_node = node
 	$Map/PlayerIcon.position = current_node.position
 	_update_adjacent_nodes()
-	if not nodes[node] and node.get_meta("type") != NodeType.BLANK:
-		_transition_to_encounter(node)
-		nodes[node] = true
-	_draw_node_icon(node)  
+	if not nodes.get(node, false):  # Use `get` to safely access dictionary values
+		var node_type = node.get_meta("type")
+		match node_type:
+			NodeType.COMBAT, NodeType.CLINIC, NodeType.BOSS:
+				_transition_to_encounter(node)
+				nodes[node] = true  # Mark as visited only for non-blank nodes
+			NodeType.BLANK:
+				nodes[node] = false 
+				pass
+	_draw_node_icon(node)
 
 func _update_adjacent_nodes():
-	adjacent_nodes = graph.get(current_node, [])
+	adjacent_nodes = graph.get(current_node, [])  # Use `get` to safely access dictionary values
 
 func _draw_paths():
 	for node in graph.keys():
-		var connections = graph[node]
+		var connections = graph.get(node, [])  # Use `get` to safely access dictionary values
 		for connected_node in connections:
 			_draw_line_between_nodes(node, connected_node)
 
