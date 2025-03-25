@@ -10,23 +10,18 @@ static var current_hovered_card: CardDisplay = null
 var is_mouse_pressed: bool = false
 
 @onready var card_tooltip = $CardTooltip
+@onready var area = $Area2D
+@onready var card_sprite = $Sprite2D
+
 
 func _ready():
-	var area = $Area2D
+	card_sprite.texture = load(card.sprite)
 	if area == null:
 		pass
 	else:
 		area.connect("mouse_entered", Callable(self, "_on_mouse_entered"))
 		area.connect("mouse_exited", Callable(self, "_on_mouse_exited"))
 		area.connect("input_event", Callable(self, "_on_area_input_event"))
-	
-	var name_label = $NameLabel
-	name_label.text = card.card_name
-	
-	var damage_label = $DamageLabel
-	damage_label.text = str(card.damage)
-
-	#_reset_hover_state()
 
 func _process(delta):
 	if current_hovered_card != null and not current_hovered_card.hoverable:

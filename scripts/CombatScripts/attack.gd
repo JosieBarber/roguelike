@@ -36,13 +36,8 @@ func transition_to_planning_phase():
 	
 
 func calculate_damage(card, target):
-	# This is where we will do funkies with items
-	for item in card.items:
-		if item is MultiplierCardItem:
-			item.modify_damage(card)
-	var damage = card.damage
-	print(target.name, " was hit with ", card.card_name, ", and took ", damage, " damage.")
-	return damage
+	# Deprecated: Use card's apply_effect method instead
+	pass
 
 func apply_damage(damage, target, damage_type):
 	if damage_type == "Type":
@@ -71,8 +66,7 @@ func next_turn():
 	print("")
 	if player.hand.size() != 0:
 		var player_card = player.hand[0]
-		var player_damage = calculate_damage(player_card, enemy)
-		apply_damage(player_damage, enemy, player_card.card_type)
+		player_card.apply_effect(enemy, player)
 		player.hand.remove_at(0)
 
 		var player_played_node = get_node("PlayerPlayed")
@@ -85,8 +79,7 @@ func next_turn():
 
 	if enemy.hand.size() != 0:
 		var enemy_card = enemy.hand[0]
-		var enemy_damage = calculate_damage(enemy_card, player)
-		apply_damage(enemy_damage, player, enemy_card.card_type)
+		enemy_card.apply_effect(player, enemy)
 		enemy.hand.remove_at(0)
 		
 		var enemy_played_node = get_node("EnemyPlayed")
@@ -102,7 +95,6 @@ func next_turn():
 		calculate_dot(dot_effect, enemy)
 	for dot_effect in enemy.active_dot_effects:
 		calculate_dot(dot_effect, player)
-		
 		
 	print("Enemy Health is now: ", enemy.health)
 	print("Player Health is now: ", player.health)
@@ -144,6 +136,7 @@ func display_enemy_hand():
 	for i in range(enemy.hand.size()):
 		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
 		card_display.card = enemy.hand[i]
+		card_display.card_sprite.texture = load(enemy.hand[i].sprite)
 		#card_display.scale = Vector2(1.3, 1.3)
 		card_display.position = Vector2(0, int(i * 5))
 		card_display.add_to_group("CardDisplays")

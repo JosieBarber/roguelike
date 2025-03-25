@@ -7,7 +7,7 @@ func _init() -> void:
 	effect = "Deals damage"
 	clause = "None"
 	card_type = "Magic"
-	sprite = "acid_splash_sprite"
+	sprite = "res://assets/Card/TCOYSCard.png"
 	damage = 3
 	value = 45
 	items = []
