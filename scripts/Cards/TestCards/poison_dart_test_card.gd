@@ -7,7 +7,7 @@ func _init() -> void:
 	effect = "Effect"
 	clause = "Clause"
 	card_type = "Physical"
-	sprite = "Sprite"
+	sprite = "res://assets/Card/TCOYSCard.png"
 	damage = 1
 	value = 4
 	items = []
