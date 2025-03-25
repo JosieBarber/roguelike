@@ -9,8 +9,11 @@ viewport_path = NodePath("Node3D/SubViewport")
 [node name="NavigationTesting" type="Node3D"]
 
 [node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.955, 0)
 
 [node name="SubViewport" type="SubViewport" parent="Node3D"]
+canvas_item_default_texture_filter = 0
+size = Vector2i(1217, 512)
 
 [node name="Sprite2D" type="Sprite2D" parent="Node3D/SubViewport"]
 visible = false
@@ -19,9 +22,10 @@ scale = Vector2(4, 4)
 texture = ExtResource("2_f3h6u")
 
 [node name="Navigation" parent="Node3D/SubViewport" instance=ExtResource("2_crddh")]
+position = Vector2(0, 90.2)
 
 [node name="Sprite3D" type="Sprite3D" parent="Node3D"]
 texture = SubResource("ViewportTexture_8n6pg")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.838671, -0.544639, 0, 0.544639, 0.838671, -0.52, 0.295, 3.015)
+transform = Transform3D(0.854277, 0.435956, -0.283113, -0.519817, 0.716458, -0.465273, -2.22888e-08, 0.544639, 0.838671, -3.861, 0.584, 2.627)
