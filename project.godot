@@ -30,6 +30,7 @@ Ui="The user interface"
 npc="This is applied to any non player character"
 planning="Planning phase of combat"
 attack="attack phase of combat"
+PP="Pixel Perfect"
 
 [gui]
 
