@@ -28,4 +28,4 @@ position = Vector2(0, 90.2)
 texture = SubResource("ViewportTexture_8n6pg")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.854277, 0.435956, -0.283113, -0.519817, 0.716458, -0.465273, -2.22888e-08, 0.544639, 0.838671, -3.861, 0.584, 2.627)
+transform = Transform3D(0.854277, 0.435956, -0.283113, -0.519817, 0.716458, -0.465273, -2.22888e-08, 0.544639, 0.838671, -4.771, 0.584, 2.627)

@@ -23,7 +23,7 @@ var node_distance: float = 45.0  # Minimum distance between nodes
 var combat_proportion: float = 0.7  # Proportion of combat nodes
 
 func _ready():
-	_initialize_graph(20, 1, 2)  # Example: 20 intermediate nodes, 1 boss, 2 clinics
+	_initialize_graph(20, 1, 3)  # Example: 20 intermediate nodes, 1 boss, 2 clinics
 
 func _initialize_graph(intermediate_nodes: int, boss_count: int, clinic_count: int):
 	var rng = RandomNumberGenerator.new()
@@ -34,7 +34,7 @@ func _initialize_graph(intermediate_nodes: int, boss_count: int, clinic_count: i
 	var area_height = 90  # Fixed vertical space
 
 	# Create starting node
-	var start_node = _create_navigation_node(Vector2(20, area_height / 2), NodeType.BLANK)
+	var start_node = _create_navigation_node(Vector2(0, area_height / 2), NodeType.BLANK)
 	current_node = start_node
 	graph[start_node] = []  # Initialize graph with the starting node
 
@@ -71,17 +71,29 @@ func _initialize_graph(intermediate_nodes: int, boss_count: int, clinic_count: i
 		graph[new_node] = []
 		intermediate_nodes_list.append(new_node)
 
-	# Generate clinic nodes
+	# Generate clinic nodes evenly spaced and ensure they are at least 2 nodes apart
 	var graph_nodes = graph.keys()
 	var clinic_spacing = graph_nodes.size() / (clinic_count + 1)
+	var selected_clinic_nodes = []
+
 	for i in range(clinic_count):
 		var target_index = int((i + 1) * clinic_spacing)
 		if target_index >= graph_nodes.size():
 			target_index = graph_nodes.size() - 1
+
 		var target_node = graph_nodes[target_index]
-		if target_node.get_meta("type") == NodeType.BLANK:  # Only convert blank nodes to clinics
+
+		# Ensure the selected node is at least 2 nodes apart from other clinics
+		var is_valid = true
+		for clinic_node in selected_clinic_nodes:
+			if target_node.position.distance_to(clinic_node.position) < node_distance * 2:
+				is_valid = false
+				break
+
+		if is_valid:
 			target_node.set_meta("type", NodeType.CLINIC)
 			_draw_node_icon(target_node)
+			selected_clinic_nodes.append(target_node)
 
 	# Ensure a guaranteed path from start to end
 	_ensure_complete_path(start_node, end_node)
@@ -98,6 +110,17 @@ func _initialize_graph(intermediate_nodes: int, boss_count: int, clinic_count: i
 
 	# Ensure regular bosses must be navigated through
 	_ensure_boss_navigation(start_node, end_node)
+
+	# Ensure no nodes are only connected to the end node
+	for node in graph.keys():
+		if graph[node].size() == 1 and graph[node][0] == end_node:
+			var closest_node = _find_closest_node_to(node)
+			if closest_node:
+				graph[node].append(closest_node)
+				graph[closest_node].append(node)
+
+	# Ensure disconnected groups are connected to the main structure
+	_connect_disconnected_groups()
 
 	$Map/PlayerIcon.position = current_node.position
 	_update_adjacent_nodes()
@@ -179,13 +202,20 @@ func _sever_random_connections(percentage: float, end_node: Node2D):
 		all_connections.erase(connection)
 
 func _ensure_complete_path(start_node: Node2D, end_node: Node2D):
-	while not _has_path_to_end(start_node, end_node):
+	var attempts = 0
+	while not _has_path_to_end(start_node, end_node) and attempts < 100:  # Limit iterations
 		var closest_pair = _find_closest_unconnected_nodes()
 		if closest_pair:
 			var node_a = closest_pair[0]
 			var node_b = closest_pair[1]
 			graph[node_a].append(node_b)
 			graph[node_b].append(node_a)
+		else:
+			print("No unconnected nodes found to ensure a complete path")
+			break
+		attempts += 1
+	if attempts >= 100:
+		print("Failed to ensure a complete path after 100 attempts")
 
 func _has_path_to_end(start_node: Node2D, end_node: Node2D) -> bool:
 	var visited = []
@@ -218,12 +248,15 @@ func _find_closest_unconnected_nodes() -> Array:
 	return closest_pair
 
 func _get_valid_position(rng: RandomNumberGenerator, area_width: float, area_height: float) -> Vector2:
-	while true:
+	var attempts = 0
+	while attempts < 100:  # Limit the number of attempts to prevent infinite loops
 		var x = rng.randf_range(0, area_width)
 		var y = rng.randf_range(0, area_height)
 		var position = Vector2(x, y)
 		if not _is_overlapping(position):
 			return position
+		attempts += 1
+	print("Failed to find a valid position after 100 attempts")
 	return Vector2.ZERO  # Fallback return value
 
 func _is_overlapping(position: Vector2) -> bool:
@@ -334,3 +367,37 @@ func _transition_to_encounter(node: Node2D):
 			print("Transitioning to boss")
 			# Add boss-specific logic here
 	self.visible = false
+
+func _connect_disconnected_groups():
+	var visited = []
+	var to_visit = [current_node]
+
+	# Perform a breadth-first search to find all connected nodes
+	while to_visit.size() > 0:
+		var current = to_visit.pop_front()
+		if current not in visited:
+			visited.append(current)
+			to_visit += graph.get(current, [])
+
+	# Find nodes not in the main connected group
+	var disconnected_nodes = []
+	for node in graph.keys():
+		if node not in visited:
+			disconnected_nodes.append(node)
+
+	for node in disconnected_nodes:
+		var closest_node = null
+		var min_distance = INF
+
+		# Look for the closest node further to the left
+		for connected_node in visited:
+			if connected_node.position.x < node.position.x:
+				var distance = node.position.distance_to(connected_node.position)
+				if distance < min_distance:
+					min_distance = distance
+					closest_node = connected_node
+
+		# Connect the node to the closest valid node
+		if closest_node:
+			graph[node].append(closest_node)
+			graph[closest_node].append(node)
