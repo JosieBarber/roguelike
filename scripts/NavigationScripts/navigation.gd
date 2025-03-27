@@ -22,8 +22,11 @@ enum NodeType { COMBAT, CLINIC, BLANK, BOSS }
 var node_distance: float = 45.0  # Minimum distance between nodes
 var combat_proportion: float = 0.7  # Proportion of combat nodes
 
+var offshoot_toggle: bool = true  # Tracks whether the next offshoot is on the top or bottom
+
 func _ready():
 	_initialize_graph(20, 1, 3)  # Example: 20 intermediate nodes, 1 boss, 2 clinics
+	Events.connect("_navigation_node_selected", Callable(self, "_on_node_selected"))
 
 func _initialize_graph(intermediate_nodes: int, boss_count: int, clinic_count: int):
 	var rng = RandomNumberGenerator.new()
@@ -57,7 +60,8 @@ func _initialize_graph(intermediate_nodes: int, boss_count: int, clinic_count: i
 	var blank_nodes = intermediate_nodes - combat_nodes
 	var intermediate_nodes_list = []
 
-	while graph.size() < intermediate_nodes + boss_count + clinic_count + 2:  # +2 for start and end nodes
+	# Ensure the total number of nodes matches the expected count (22 in this case)
+	while graph.size() < intermediate_nodes + 2:  # +2 for start and end nodes
 		var position = _get_valid_position(rng, area_width, area_height)
 		var node_type = NodeType.BLANK
 		if combat_nodes > 0:
@@ -91,8 +95,8 @@ func _initialize_graph(intermediate_nodes: int, boss_count: int, clinic_count: i
 				break
 
 		if is_valid:
-			target_node.set_meta("type", NodeType.CLINIC)
-			_draw_node_icon(target_node)
+			target_node.node_type = NodeType.CLINIC
+			target_node._update_visual()
 			selected_clinic_nodes.append(target_node)
 
 	# Ensure a guaranteed path from start to end
@@ -128,15 +132,15 @@ func _initialize_graph(intermediate_nodes: int, boss_count: int, clinic_count: i
 
 func _convert_lonely_combat_nodes_to_bosses():
 	for node in graph.keys():
-		if node.get_meta("type") == NodeType.COMBAT and graph[node].size() == 1:
+		if node.node_type == NodeType.COMBAT and graph[node].size() == 1:
 			print("Converting lonely combat node to boss")
-			node.set_meta("type", NodeType.BOSS)
+			node.node_type = NodeType.BOSS  # Directly update the node_type property
 			nodes[node] = false  # Ensure the node is not marked as visited
-			_draw_node_icon(node)
+			node._update_visual()  # Update visuals after changing the type
 
 func _ensure_boss_navigation(start_node: Node2D, end_node: Node2D):
 	for boss_node in graph.keys():
-		if boss_node.get_meta("type") == NodeType.BOSS and boss_node != start_node and boss_node != end_node:
+		if boss_node.node_type == NodeType.BOSS and boss_node != start_node and boss_node != end_node:
 			if not _is_boss_on_path(start_node, end_node, boss_node):
 				# Force a connection to ensure the boss is on the path
 				var closest_node = _find_closest_node_to(boss_node)
@@ -256,8 +260,12 @@ func _get_valid_position(rng: RandomNumberGenerator, area_width: float, area_hei
 		if not _is_overlapping(position):
 			return position
 		attempts += 1
-	print("Failed to find a valid position after 100 attempts")
-	return Vector2.ZERO  # Fallback return value
+
+	# If no valid position is found, create a one-off branch further out vertically
+	var fallback_x = rng.randf_range(current_node.position.x, area_width)
+	var fallback_y = area_height + 30 if offshoot_toggle else -30  # Alternate top and bottom
+	offshoot_toggle = not offshoot_toggle  # Toggle for the next offshoot
+	return Vector2(fallback_x, fallback_y)
 
 func _is_overlapping(position: Vector2) -> bool:
 	for node in graph.keys():
@@ -278,61 +286,28 @@ func _connect_to_existing_nodes(new_node: Node2D, rng: RandomNumberGenerator):
 			graph[node].append(new_node)
 
 func _create_navigation_node(position: Vector2, node_type: int) -> Node2D:
-	var node = Node2D.new()
-	node.position = position
-	node.set_meta("type", node_type)
-	nodes_container.add_child(node)
-	_draw_node_icon(node)
-	return node
+	var node_display = preload("res://scenes/assets/NodeDisplay.tscn").instantiate()
+	node_display.position = position
+	node_display.node_type = node_type  # Directly set the node_type property
+	nodes_container.add_child(node_display)
+	node_display._update_visual()  # Ensure the node is drawn with the correct visuals
+	return node_display
 
-func _draw_node_icon(node: Node2D):
-	var area = Area2D.new()
-	var sprite = Sprite2D.new()
-	var node_type = node.get_meta("type")
-	if node_type != NodeType.BLANK and (node in graph and graph[node].size() > 0):
-		sprite.texture = visited_icon
-	else:
-		match node_type:
-			NodeType.COMBAT:
-				sprite.texture = combat_icon
-			NodeType.CLINIC:
-				sprite.texture = clinic_icon
-			NodeType.BLANK:
-				sprite.texture = blank_icon
-			NodeType.BOSS:
-				sprite.texture = shop_icon  # Placeholder for boss icon
-	sprite.position = Vector2.ZERO
-	sprite.scale = Vector2(0.05, 0.05)  # Scale down the sprite
-	area.add_child(sprite)
-
-	var collision_shape = CollisionShape2D.new()
-	collision_shape.shape = CircleShape2D.new()
-	collision_shape.shape.radius = 10
-	area.add_child(collision_shape)
-
-	area.position = Vector2.ZERO
-	area.connect("input_event", Callable(self, "_on_icon_input_event").bind(node))
-	node.add_child(area)
-
-func _on_icon_input_event(viewport, event, shape_idx, node):
-	if event is InputEventMouseButton and event.pressed:
-		if node in adjacent_nodes:
-			_on_node_selected(node)
-
-func _on_node_selected(node: Node2D):
-	current_node = node
-	$Map/PlayerIcon.position = current_node.position
-	_update_adjacent_nodes()
-	if not nodes.get(node, false):  # Use `get` to safely access dictionary values
-		var node_type = node.get_meta("type")
-		match node_type:
-			NodeType.COMBAT, NodeType.CLINIC, NodeType.BOSS:
-				_transition_to_encounter(node)
-				nodes[node] = true  # Mark as visited only for non-blank nodes
-			NodeType.BLANK:
-				nodes[node] = false 
-				pass
-	_draw_node_icon(node)
+func _on_node_selected(node_display: Node2D):
+	if node_display in adjacent_nodes:
+		current_node = node_display
+		$Map/PlayerIcon.position = current_node.position
+		_update_adjacent_nodes()
+		if not nodes.get(node_display, false):  # Use `get` to safely access dictionary values
+			var node_type = node_display.node_type  # Directly access the node_type property
+			match node_type:
+				NodeType.COMBAT, NodeType.CLINIC, NodeType.BOSS:
+					_transition_to_encounter(node_display)
+					nodes[node_display] = true  # Mark as visited only for non-blank nodes
+				NodeType.BLANK:
+					nodes[node_display] = false
+			node_display.mark_as_visited()
+			node_display._update_visual()  # Ensure the node's visuals are updated
 
 func _update_adjacent_nodes():
 	adjacent_nodes = graph.get(current_node, [])  # Use `get` to safely access dictionary values
@@ -352,7 +327,7 @@ func _draw_line_between_nodes(node1: Node2D, node2: Node2D):
 	nodes_container.add_child(line)
 
 func _transition_to_encounter(node: Node2D):
-	var node_type = node.get_meta("type")
+	var node_type = node.node_type
 	match node_type:
 		NodeType.COMBAT:
 			print("Transitioning to combat")
@@ -397,7 +372,14 @@ func _connect_disconnected_groups():
 					min_distance = distance
 					closest_node = connected_node
 
-		# Connect the node to the closest valid node
+		# Connect the node to the closest valid node or create a one-off branch
 		if closest_node:
 			graph[node].append(closest_node)
 			graph[closest_node].append(node)
+		else:
+			# Create a one-off branch by connecting to a random visited node
+			var rng = RandomNumberGenerator.new()
+			rng.randomize()
+			var branch_node = visited[rng.randi_range(0, visited.size() - 1)]
+			graph[node].append(branch_node)
+			graph[branch_node].append(node)
