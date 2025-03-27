@@ -250,7 +250,7 @@ func _find_closest_unconnected_nodes() -> Array:
 func _get_valid_position(rng: RandomNumberGenerator, area_width: float, area_height: float) -> Vector2:
 	var attempts = 0
 	while attempts < 100:  # Limit the number of attempts to prevent infinite loops
-		var x = rng.randf_range(0, area_width)
+		var x = rng.randf_range(current_node.position.x, area_width)  # Ensure x >= starting node's x
 		var y = rng.randf_range(0, area_height)
 		var position = Vector2(x, y)
 		if not _is_overlapping(position):
