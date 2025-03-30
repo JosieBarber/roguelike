@@ -14,12 +14,12 @@ size = Vector3(12.17, 5.12, 0.001)
 script = ExtResource("1_0omk4")
 
 [node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.955, 0)
 
 [node name="RayCast3D" type="RayCast3D" parent="Node3D"]
 collide_with_areas = true
 
 [node name="SubViewport" type="SubViewport" parent="Node3D"]
-transparent_bg = true
 canvas_item_default_texture_filter = 0
 size = Vector2i(1217, 512)
 
@@ -44,4 +44,4 @@ texture = SubResource("ViewportTexture_8n6pg")
 shape = SubResource("BoxShape3D_6m7xy")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.854277, 0.435956, -0.283113, -0.519817, 0.716458, -0.465273, -2.22888e-08, 0.544639, 0.838671, -4.771, -0.416, 1.88797)
+transform = Transform3D(0.854277, 0.435956, -0.283113, -0.519817, 0.716458, -0.465273, -2.22888e-08, 0.544639, 0.838671, -4.771, 0.584, 2.627)
