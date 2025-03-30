@@ -383,3 +383,18 @@ func _connect_disconnected_groups():
 			var branch_node = visited[rng.randi_range(0, visited.size() - 1)]
 			graph[node].append(branch_node)
 			graph[branch_node].append(node)
+
+func get_node_at_screen_position(screen_position: Vector2) -> Node2D:
+	# Iterate through all nodes in the nodes_container to find one at the given position
+	for node in nodes_container.get_children():
+		if node is Node2D and node.has_node("CollisionShape2D"):
+			var collision_shape = node.get_node("CollisionShape2D") as CollisionShape2D
+			if collision_shape and collision_shape.shape:
+				var shape = collision_shape.shape
+				var transform = collision_shape.get_global_transform()
+				if shape is CircleShape2D:
+					var center = transform.origin
+					var radius = shape.radius
+					if center.distance_to(screen_position) <= radius:
+						return node
+	return null
