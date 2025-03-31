@@ -387,14 +387,23 @@ func _connect_disconnected_groups():
 func get_node_at_screen_position(screen_position: Vector2) -> Node2D:
 	# Iterate through all nodes in the nodes_container to find one at the given position
 	for node in nodes_container.get_children():
-		if node is Node2D and node.has_node("CollisionShape2D"):
-			var collision_shape = node.get_node("CollisionShape2D") as CollisionShape2D
+		
+		
+		if node is Node2D and node.has_node("Area2D") and node.get_node("Area2D").has_node("CollisionShape2D"):
+			#print(node.name)
+			#print("Nodes in container")
+			print(node.position)
+			var collision_shape = node.get_node("Area2D").get_node("CollisionShape2D") as CollisionShape2D
 			if collision_shape and collision_shape.shape:
 				var shape = collision_shape.shape
 				var transform = collision_shape.get_global_transform()
 				if shape is CircleShape2D:
+					#print("node has shape of circle")
 					var center = transform.origin
 					var radius = shape.radius
+					#print(center.distance_to(screen_position))
+					#print(screen_position)
 					if center.distance_to(screen_position) <= radius:
 						return node
+	print("No Node Found")
 	return null
