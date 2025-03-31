@@ -5,9 +5,10 @@ class_name Combat
 @onready var player: Player = get_tree().get_first_node_in_group("player")
 @onready var enemy: Enemy = get_node("Enemy")
 
-@onready var ui_scene = get_parent().get_node('Ui')
-@onready var location_panel = ui_scene.get_node('location_panel')
-@onready var enemy_ui = get_tree().get_first_node_in_group("Ui").get_node("EnemyUi")
+@onready var ui_scene = get_tree().get_first_node_in_group("Ui")
+@onready var location_panel = ui_scene.location_panel
+@onready var enemy_ui = ui_scene.npc_panel
+@onready var navigation_scene = get_tree().get_first_node_in_group("navigation")
 @onready var planning_scene = get_node("Planning_Phase")
 
 
@@ -19,11 +20,10 @@ func _ready() -> void:
 	transition_to_planning_phase()
 
 func _on_enemy_defeat():
-	var navigation_scene = get_parent().get_node("Navigation")
-	var npc_ui = navigation_scene.get_parent().get_node("Ui").get_node("EnemyUi")
+	#var navigation_scene = get_parent().get_node("Navigation")
 
 	navigation_scene.visible = true
-	npc_ui.visible = false
+	enemy_ui.visible = false
 	
 	queue_free()
 	
@@ -40,7 +40,7 @@ func _on_player_defeat():
 					subchild.visible = false
 				else:
 					subchild.get_node("MetalPanel").get_node("Hearts").visible = false
-	var death_scene = preload("res://scenes/Screens/Death_Screen.tscn").instantiate()
+	var death_scene = preload("res://scenes/screens/Death_Screen.tscn").instantiate()
 	main_scene.add_child(death_scene)
 
 func _initialize_player():

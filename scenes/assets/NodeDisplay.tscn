@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtqvhxgrmka7x"]
+
+[ext_resource type="Script" path="res://scenes/assets/node_display.gd" id="1_bvoj0"]
+[ext_resource type="Texture2D" uid="uid://vig81h4gukr7" path="res://assets/Combat Icon.png" id="2_m3hpk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6qidc"]
+radius = 13.0
+
+[node name="NodeDisplay" type="Node2D"]
+script = ExtResource("1_bvoj0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_m3hpk")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_6qidc")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
