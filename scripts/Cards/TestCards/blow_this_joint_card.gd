@@ -1,4 +1,5 @@
 extends Card
+
 class_name BlowThisJointCard
 
 func _init() -> void:

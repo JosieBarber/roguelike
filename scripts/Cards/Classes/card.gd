@@ -15,7 +15,8 @@ var temporary_effects: Array
 
 var effect_methods: Array
 
-@onready var dot_manager = get_tree().get_first_node_in_group("dot_manager")
+@onready var dot_manager = get_tree().get_root().get_node("Path/To/DamageOverTimeManager")
+
 
 func apply_effect(target, source) -> void:
 
@@ -25,7 +26,7 @@ func apply_effect(target, source) -> void:
 
 	
 func calculate_damage(target, source, damage: int, items: Array) -> int:
-	print("Damage before modification: ", damage)
+	# print("Damage before modification: ", damage)
 	var adjusted_damage = damage
 	
 	# Apply temporary effects
@@ -48,5 +49,6 @@ func calculate_damage(target, source, damage: int, items: Array) -> int:
 		if affliction.has_method("_modify_incoming_damage"):
 			affliction._modify_outgoing_damage(adjusted_damage)
 	
-	print("Damage after modifications: ", adjusted_damage)
-	return adjusted_damage
+	# print("Damage after modifications: ", adjusted_damage)
+	temporary_effects.clear()
+	return max(adjusted_damage, 0)

@@ -14,5 +14,4 @@ func _init() -> void:
 
 
 func apply_effect(target, source) -> void:
-	DOT.add_effect(target, 5, 2, 1) # 5 damage, 2 turns, 1 turn interval
-	print(card_name, " applied a damage-over-time effect to ", target.name, " for 2 turns, dealing 5 damage per turn.")
+	DOT.add_effect(target, 5, 2, 1)
