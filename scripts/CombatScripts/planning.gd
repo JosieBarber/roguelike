@@ -52,6 +52,7 @@ func display_deck():
 		child.queue_free()
 	for i in range(player.active_deck.size()):
 		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
+		print(player.active_deck[i])
 		card_display.card = player.active_deck[i]
 		card_display.scale = Vector2(0.60, 0.60)
 		card_display.position = Vector2((i % 5 - 2) * 25, int(i / 5) * 35)

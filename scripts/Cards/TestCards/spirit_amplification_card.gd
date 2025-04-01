@@ -13,7 +13,14 @@ func _init() -> void:
 	items = []
 	
 func apply_effect(target, source) -> void:
-	var adjusted_damage = calculate_damage(target, source, target.hand.size(),items)
+	var adjusted_damage = calculate_damage(target, source, damage, items)
 	target.set_health(target.max_health, target.health - adjusted_damage)
-	source.hand[1].damage += adjusted_damage
-	print(source.hand[1].card_name, " has been amplified to do ", source.hand[1].damage, " damage.")
+	
+	# Add a temporary effect to amplify damage
+	var temp_effect = {
+		"_modify_damage": func(damage: int) -> void:
+			damage += adjusted_damage
+	}
+	source.hand[1].temporary_effects.append(temp_effect)
+	
+	print(source.hand[1].card_name, " has been amplified to do ", calculate_damage(target, source, source.hand[1].damage, source.hand[1].items), " damage.")
