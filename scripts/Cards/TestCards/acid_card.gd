@@ -14,6 +14,5 @@ func _init() -> void:
 
 
 func apply_effect(target, source) -> void:
-	#target.set_health(target.max_health, target.health - damage)
-	print(target.name, " was hit with ", card_name, ", and took ", damage, " damage.")
-	target.active_dot_effects.append({"damage": 5, "duration": 2, "card_type": "acid"})
+	DOT.add_effect(target, 5, 2, 1) # 5 damage, 2 turns, 1 turn interval
+	print(card_name, " applied a damage-over-time effect to ", target.name, " for 2 turns, dealing 5 damage per turn.")

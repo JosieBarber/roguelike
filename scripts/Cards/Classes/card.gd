@@ -15,6 +15,8 @@ var temporary_effects: Array
 
 var effect_methods: Array
 
+@onready var dot_manager = get_tree().get_first_node_in_group("dot_manager")
+
 func apply_effect(target, source) -> void:
 
 	var adjusted_damage = calculate_damage(target, source, damage, items)

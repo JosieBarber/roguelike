@@ -64,6 +64,7 @@ func calculate_dot(dot_effect, target):
 
 func next_turn():
 	print("")
+	DOT.advance_turn()
 	if player.hand.size() != 0:
 		var player_card = player.hand[0]
 		player_card.apply_effect(enemy, player)

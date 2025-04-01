@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Events="*res://scripts/events.gd"
+DOT="*res://scripts/CombatScripts/damage_over_time_manager.gd"
 
 [display]
 
@@ -35,6 +36,7 @@ npc="This is applied to any non player character"
 planning="Planning phase of combat"
 attack="attack phase of combat"
 PP="Pixel Perfect"
+dot_manager=""
 
 [gui]
 

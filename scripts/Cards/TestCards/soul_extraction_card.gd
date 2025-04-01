@@ -3,11 +3,11 @@ extends Card
 class_name SoulExtraction
 
 func _init() -> void:
-	card_name = "Acid"
+	card_name = "Soul Extraction"
 	effect = "Steals a card from opponents deck until used"
 	clause = "None"
 	card_type = "Type"
-	sprite = "res://assets/Card/AcidCard.png"
+	sprite = "res://assets/Card/SoulExtractionCard.png"
 	damage = 0
 	value = 10
 	items = []
