@@ -24,3 +24,4 @@ texture = ExtResource("3_ycdke")
 
 [node name="Hearts" parent="MetalPanel" instance=ExtResource("4_bokfx")]
 position = Vector2(-4.5, -20.5)
+scale = Vector2(-1, 1)

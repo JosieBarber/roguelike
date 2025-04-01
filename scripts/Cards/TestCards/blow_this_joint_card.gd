@@ -17,4 +17,5 @@ func apply_effect(target, source) -> void:
 	target.active_deck.append(target.hand[card_index])
 	target.hand.remove_at(card_index)
 	
-	target.set_health(target.max_health, target.health - target.hand.size())
+	var adjusted_damage = calculate_damage(target, source, target.hand.size(),items)
+	target.set_health(target.max_health, target.health - adjusted_damage)

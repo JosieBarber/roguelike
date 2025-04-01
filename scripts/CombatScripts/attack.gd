@@ -95,9 +95,6 @@ func next_turn():
 		calculate_dot(dot_effect, enemy)
 	for dot_effect in enemy.active_dot_effects:
 		calculate_dot(dot_effect, player)
-		
-	print("Enemy Health is now: ", enemy.health)
-	print("Player Health is now: ", player.health)
 
 	display_player_hand()
 	display_enemy_hand()

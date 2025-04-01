@@ -16,6 +16,8 @@ var discard: Array
 var active_deck: Array
 var active_dot_effects: Array
 
+var afflictions: Array
+
 var selected_card_index: int = -1
 var card_rects: Array = []
 
@@ -27,6 +29,7 @@ func initialize(player_name_param: String, health_param: int):
 	discard = []
 	active_deck = []
 	active_dot_effects = []
+	afflictions = []
 
 func _ready():
 	max_health = 10
@@ -55,13 +58,13 @@ func _create_test_deck():
 	else:
 		print("Failed to open directory: res://scripts/Cards/TestCards/")
 	
-	while deck.size() < 8 and test_cards.size() > 0:
+	while deck.size() < 10 and test_cards.size() > 0:
 		var random_index = randi() % test_cards.size()
 		var card_instance = test_cards[random_index].new()
 		deck.append(card_instance)
 		test_cards.remove_at(random_index)
-	deck.append(BlowThisJointCard.new())
-	deck.append(HeartAttackCard.new())
+	#deck.append(BlowThisJointCard.new())
+	#deck.append(HeartAttackCard.new())
 
 func prepare_deck() -> void:
 	active_deck = deck.duplicate()
@@ -70,3 +73,4 @@ func set_health(new_max_health: int, new_health: int):
 	health = new_health
 	max_health = new_max_health
 	emit_signal("player_health_changed", max_health, health)
+	print(player_name, " health is now ", health)

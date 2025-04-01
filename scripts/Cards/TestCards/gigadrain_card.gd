@@ -13,5 +13,6 @@ func _init() -> void:
 	items = []
 	
 func apply_effect(target, source):
-	target.set_health(target.max_health, target.health - damage)
-	source.set_healt(source.max_health, source.health + damage)
+	var adjusted_damage = calculate_damage(target, source, target.hand.size(),items)
+	target.set_health(target.max_health, target.health - adjusted_damage)
+	source.set_health(source.max_health, source.health + adjusted_damage)
