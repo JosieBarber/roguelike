@@ -15,10 +15,12 @@ var deck: Array
 var discard: Array
 var active_deck: Array
 var active_dot_effects: Array
+var temporary_effects: Array
 
 var afflictions: Array
 
 var selected_card_index: int = -1
+var cards_played_count: int = 0
 
 func initialize(enemy_name_param: String, health_param: int, deck_param: Array):
 	enemy_name = enemy_name_param

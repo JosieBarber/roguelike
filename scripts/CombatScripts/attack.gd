@@ -68,6 +68,7 @@ func next_turn():
 	if player.hand.size() != 0:
 		var player_card = player.hand[0]
 		player_card.apply_effect(enemy, player)
+		player.cards_played_count += 1  # Increment player's cards played count
 		player.hand.remove_at(0)
 
 		var player_played_node = get_node("PlayerPlayed")
@@ -81,6 +82,7 @@ func next_turn():
 	if enemy.hand.size() != 0:
 		var enemy_card = enemy.hand[0]
 		enemy_card.apply_effect(player, enemy)
+		enemy.cards_played_count += 1  # Increment enemy's cards played count
 		enemy.hand.remove_at(0)
 		
 		var enemy_played_node = get_node("EnemyPlayed")

@@ -19,12 +19,13 @@ var effect_methods: Array
 
 
 func apply_effect(target, source) -> void:
-
 	var adjusted_damage = calculate_damage(target, source, damage, items)
 	target.set_health(target.max_health, target.health - adjusted_damage)
 	print(target.name, " was hit with ", card_name, ", and took ", adjusted_damage, " damage.")
 
-	
+func apply_temporary_effect(effect: Dictionary) -> void:
+	temporary_effects.append(effect)
+
 func calculate_damage(target, source, damage: int, items: Array) -> int:
 	# print("Damage before modification: ", damage)
 	var adjusted_damage = damage
@@ -38,17 +39,29 @@ func calculate_damage(target, source, damage: int, items: Array) -> int:
 	for item in items:
 		if item.has_method("_modify_damage"):
 			item._modify_damage(adjusted_damage)
-	
+
 	# Apply source affliction modifications
 	for affliction in source.afflictions:
 		if affliction.has_method("_modify_outgoing_damage"):
 			affliction._modify_outgoing_damage(adjusted_damage)
-	
+
 	# Apply target affliction modifications
 	for affliction in target.afflictions:
 		if affliction.has_method("_modify_incoming_damage"):
 			affliction._modify_outgoing_damage(adjusted_damage)
-	
+
+	# Apply source temporary effects
+	for effect in source.temporary_effects:
+		if effect.has("remaining_instances") and effect["remaining_instances"] > 0:
+			if effect.has("damage_bonus"):
+				adjusted_damage += effect["damage_bonus"]
+				effect["remaining_instances"] -= 1
+
+	# Remove expired effects
+	source.temporary_effects = source.temporary_effects.filter(
+		func(e): return e.has("remaining_instances") and e["remaining_instances"] > 0
+	)
+
 	# print("Damage after modifications: ", adjusted_damage)
 	temporary_effects.clear()
 	return max(adjusted_damage, 0)

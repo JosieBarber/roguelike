@@ -15,11 +15,13 @@ var deck: Array
 var discard: Array
 var active_deck: Array
 var active_dot_effects: Array
+var temporary_effects: Array
 
 var afflictions: Array
 
 var selected_card_index: int = -1
 var card_rects: Array = []
+var cards_played_count: int = 0
 
 func initialize(player_name_param: String, health_param: int):
 	player_name = player_name_param
@@ -30,6 +32,7 @@ func initialize(player_name_param: String, health_param: int):
 	active_deck = []
 	active_dot_effects = []
 	afflictions = []
+	temporary_effects = []
 
 func _ready():
 	max_health = 10

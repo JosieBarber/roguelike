@@ -15,4 +15,4 @@ func _init() -> void:
 
 func apply_effect(target, source) -> void:
 	print(target.name, " was hit with ", card_name, ", and took ", damage, " damage.")
-	target.active_dot_effects.append({"damage": 3, "duration": 5, "card_type": "acid"})
+	target.active_dot_effects.append({"damage": 3, "duration": 5, "card_type": "poison"})

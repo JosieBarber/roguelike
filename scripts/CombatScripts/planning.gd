@@ -90,6 +90,10 @@ func transition_to_attack_phase():
 	location_panel.visible = true
 	var attack_scene = get_parent().get_node("Attack_Phase")
 	attack_scene.visible = true
+
+	player.cards_played_count = 0
+	enemy.cards_played_count = 0
+
 	enemy.prepare_hand()
 	attack_scene.transition_to_attack_phase()
 

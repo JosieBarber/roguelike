@@ -4,7 +4,7 @@ class_name enemyGeneration
 
 var areas: Dictionary = {
 	"Forest": [
-		{"name": "Goblin", "health": 50, "deck": [
+		{"name": "Goblin", "health": 25, "deck": [
 			BapCard.new(),
 			BlankCard.new("Card 2", "Effect", "Clause", "Type", "res://assets/Card/TCOYSCard.png", 4, 10, []),
 			BlankCard.new("Card 3", "Effect", "Clause", "Type", "res://assets/Card/TCOYSCard.png", 1, 10, []),
@@ -14,7 +14,7 @@ var areas: Dictionary = {
 			BlankCard.new("Card 7", "Effect", "Clause", "Type", "res://assets/Card/TCOYSCard.png", 1, 10, []),
 			BlankCard.new("Card 8", "Effect", "Clause", "Type", "res://assets/Card/TCOYSCard.png", 1, 10, [])
 		]},
-		{"name": "Orc", "health": 50, "deck": [
+		{"name": "Orc", "health": 25, "deck": [
 			BlankCard.new("Card 9", "Effect", "Clause", "Type", "res://assets/Card/TCOYSCard.png", 1, 10, []),
 			BlankCard.new("Card 10", "Effect", "Clause", "Type", "res://assets/Card/TCOYSCard.png", 2, 10, []),
 			BlankCard.new("Card 11", "Effect", "Clause", "Type", "res://assets/Card/TCOYSCard.png", 1, 10, []),
