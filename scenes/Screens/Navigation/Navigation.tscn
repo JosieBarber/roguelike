@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://b8m460nct2cep"]
 
-[ext_resource type="Script" path="res://scenes/NavigationTesting.gd" id="1_0omk4"]
+[ext_resource type="Script" path="res://scenes/screens/Navigation/NavigationTesting.gd" id="1_0omk4"]
 [ext_resource type="PackedScene" uid="uid://cgkdb7rsiqdti" path="res://scenes/screens/Navigation/NavigationMap.tscn" id="2_crddh"]
 [ext_resource type="Texture2D" uid="uid://c6kpuclumlo20" path="res://assets/Combat/CombatCoinIcon.png" id="2_f3h6u"]
 

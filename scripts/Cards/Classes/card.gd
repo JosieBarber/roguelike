@@ -56,6 +56,9 @@ func calculate_damage(target, source, damage: int, items: Array) -> int:
 			if effect.has("damage_bonus"):
 				adjusted_damage += effect["damage_bonus"]
 				effect["remaining_instances"] -= 1
+			if effect.has("_modify_effect"):
+				effect["remaining_instances"] -= 1
+				effect["_modify_effect"].call(self, target, source)
 
 	# Remove expired effects
 	source.temporary_effects = source.temporary_effects.filter(
