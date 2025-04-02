@@ -14,4 +14,4 @@ func _init() -> void:
 
 
 func apply_effect(target, source) -> void:
-	DOT.add_effect(target, 2, 7, 1)
+	DOT.add_damage_effect(target, 2, 7, 1)

@@ -60,3 +60,7 @@ func set_health(new_max_health: int, new_health: int) -> void:
 	max_health = new_max_health
 	emit_signal("enemy_health_changed", max_health, health)
 	print(enemy_name, " health is now ", health)
+
+func apply_temporary_effect(effect):
+	temporary_effects.append(effect)
+	DOT.active_effects.append(effect)

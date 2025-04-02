@@ -62,8 +62,22 @@ func calculate_damage(target, source, damage: int, items: Array) -> int:
 		func(e): return e.has("remaining_instances") and e["remaining_instances"] > 0
 	)
 	
-	if target.hand[0].has_method("_apply_block"):
-		adjusted_damage = target.hand[0]._apply_block(target, source, adjusted_damage, items)
+	# Apply target temporary effects
+	for effect in target.temporary_effects:
+		if effect.has("remaining_instances") and effect["remaining_instances"] > 0:
+			if effect.has("damage_prevention") and effect["damage_prevention"]:
+				effect["remaining_instances"] -= 1
+				print(target.name, " prevented damage. Remaining instances: ", effect["remaining_instances"])
+				return 0  # Damage is fully prevented
+				
+	# Remove expired effects
+	target.temporary_effects = target.temporary_effects.filter(
+		func(e): return e.has("remaining_instances") and e["remaining_instances"] > 0
+	)
+	
+	if target.hand.size() >= 1:
+		if target.hand[0].has_method("_apply_block"):
+			adjusted_damage = target.hand[0]._apply_block(target, source, adjusted_damage, items)
 
 	# print("Damage after modifications: ", adjusted_damage)
 	temporary_effects.clear()

@@ -26,7 +26,8 @@ func _on_ready_button_clicked():
 func transition_to_planning_phase():
 	ready_button.disconnect("ready_button_clicked", Callable(self, "transition_to_planning_phase"))
 	self.visible = false
-	
+	DOT.end_round() #remove dot efects that end at the end of the round
+
 	var planning_scene = get_parent().get_node("Planning_Phase")
 	planning_scene.visible = true
 	planning_scene.location_panel.visible = false
