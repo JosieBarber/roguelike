@@ -15,8 +15,12 @@ var deck: Array
 var discard: Array
 var active_deck: Array
 var active_dot_effects: Array
+var temporary_effects: Array
+
+var afflictions: Array
 
 var selected_card_index: int = -1
+var cards_played_count: int = 0
 
 func initialize(enemy_name_param: String, health_param: int, deck_param: Array):
 	enemy_name = enemy_name_param
@@ -55,3 +59,8 @@ func set_health(new_max_health: int, new_health: int) -> void:
 	health = new_health
 	max_health = new_max_health
 	emit_signal("enemy_health_changed", max_health, health)
+	print(enemy_name, " health is now ", health)
+
+func apply_temporary_effect(effect):
+	temporary_effects.append(effect)
+	DOT.active_effects.append(effect)

@@ -52,6 +52,7 @@ func display_deck():
 		child.queue_free()
 	for i in range(player.active_deck.size()):
 		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
+		print(player.active_deck[i])
 		card_display.card = player.active_deck[i]
 		card_display.scale = Vector2(0.60, 0.60)
 		card_display.position = Vector2((i % 5 - 2) * 25, int(i / 5) * 35)
@@ -89,6 +90,10 @@ func transition_to_attack_phase():
 	location_panel.visible = true
 	var attack_scene = get_parent().get_node("Attack_Phase")
 	attack_scene.visible = true
+
+	player.cards_played_count = 0
+	enemy.cards_played_count = 0
+
 	enemy.prepare_hand()
 	attack_scene.transition_to_attack_phase()
 
