@@ -14,8 +14,9 @@ func _init() -> void:
 	
 func apply_effect(target, source) -> void:
 	var temp_effect = {
-		"_modify_damage": func(damage: int) -> void:
+		"_modify_damage": func(damage: int) -> int:
 			damage += 5
+			return damage
 	}
 	source.hand[1].temporary_effects.append(temp_effect)
 	for i in range(1,3):

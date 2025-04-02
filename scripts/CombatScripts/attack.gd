@@ -65,11 +65,14 @@ func calculate_dot(dot_effect, target):
 func next_turn():
 	print("")
 	DOT.advance_turn()
+	
+	var player_card = null
+	var enemy_card = null
+	
 	if player.hand.size() != 0:
-		var player_card = player.hand[0]
+		player_card = player.hand[0]
 		player_card.apply_effect(enemy, player)
 		player.cards_played_count += 1  # Increment player's cards played count
-		player.hand.remove_at(0)
 
 		var player_played_node = get_node("PlayerPlayed")
 		var player_card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
@@ -80,11 +83,10 @@ func next_turn():
 		player_played_node.add_child(player_card_display)
 
 	if enemy.hand.size() != 0:
-		var enemy_card = enemy.hand[0]
+		enemy_card = enemy.hand[0]
 		enemy_card.apply_effect(player, enemy)
 		enemy.cards_played_count += 1  # Increment enemy's cards played count
-		enemy.hand.remove_at(0)
-		
+
 		var enemy_played_node = get_node("EnemyPlayed")
 		var enemy_card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
 		enemy_card_display.card = enemy_card
@@ -98,6 +100,12 @@ func next_turn():
 		calculate_dot(dot_effect, enemy)
 	for dot_effect in enemy.active_dot_effects:
 		calculate_dot(dot_effect, player)
+
+	# Remove cards from hands after all calculations
+	if player_card != null:
+		player.hand.remove_at(0)
+	if enemy_card != null:
+		enemy.hand.remove_at(0)
 
 	display_player_hand()
 	display_enemy_hand()
