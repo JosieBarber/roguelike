@@ -6,4 +6,4 @@ extends Node2D
 func _ready():
 	player_instance.initialize("JosiePosie", 20)
 	player_instance._create_test_deck()
-	navigation_scene.visible = true
+	Events._navigation_focus.emit(true, true)

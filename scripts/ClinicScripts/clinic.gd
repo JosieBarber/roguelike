@@ -15,8 +15,10 @@ class_name Clinic
 
 func _ready():
 	player.prepare_deck()
+	_transition_to_clinic()
 
 func _transition_to_clinic():
+	Events._navigation_focus.emit(false, false)
 	navigation.visible = false
 	self.visible = true
 
@@ -43,6 +45,7 @@ func _transition_from_card_shop():
 	
 func _transition_to_navigation():
 	navigation.visible = true
+	Events._navigation_focus.emit(true, true)
 	self.queue_free()
 	
 	

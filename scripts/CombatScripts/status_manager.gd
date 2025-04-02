@@ -1,7 +1,5 @@
 extends Node
 
-class_name DamageOverTimeManager
-
 var active_effects: Array = []
 
 func add_damage_effect(target, damage: int, duration: int, interval: int, source = null) -> void:

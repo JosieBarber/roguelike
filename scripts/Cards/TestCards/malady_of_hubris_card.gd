@@ -3,7 +3,7 @@ extends Card
 class_name MaladyOfHubris
 
 func _init() -> void:
-	card_name = "Icky Poison"
+	card_name = "Malady of Hubris"
 	effect = ""
 	clause = "None"
 	card_type = "Type"
