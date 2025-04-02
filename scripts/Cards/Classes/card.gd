@@ -15,7 +15,7 @@ var temporary_effects: Array
 
 var effect_methods: Array
 
-@onready var dot_manager = get_tree().get_root().get_node("Path/To/DamageOverTimeManager")
+#@onready var dot_manager = get_tree().get_root().get_node("Path/To/DamageOverTimeManager")
 
 
 func apply_effect(target, source) -> void:

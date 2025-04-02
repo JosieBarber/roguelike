@@ -2,7 +2,7 @@ extends Node2D
 
 class_name Planning
 
-@onready var player: Player = get_parent().get_parent().get_node("Player")
+@onready var player: Player = get_tree().get_first_node_in_group("player")
 @onready var enemy: Enemy = get_parent().get_node("Enemy")
 @onready var ready_button = get_parent().get_node("ReadyButton")
 

@@ -14,6 +14,7 @@ class_name Combat
 
 
 func _ready() -> void:
+	Events._navigation_focus.emit(false, true)
 	enemy.connect("enemy_health_changed", Callable(enemy_ui, "_on_enemy_health_changed"))
 	_initialize_player()
 	_initialize_enemy()
@@ -22,9 +23,9 @@ func _ready() -> void:
 func _on_enemy_defeat():
 	#var navigation_scene = get_parent().get_node("Navigation")
 
-	navigation_scene.visible = true
+	Events._navigation_focus.emit(true, true)
 	enemy_ui.visible = false
-	
+	DOT.clear_active_effects()
 	queue_free()
 	
 func _on_player_defeat():
@@ -51,6 +52,7 @@ func _initialize_enemy():
 	enemy.prepare_deck()
 
 func transition_to_planning_phase():
+	Events._navigation_focus.emit(false, true)
 	print("Player active deck size: ", player.active_deck.size())
 	print("Player full deck size: ", player.deck.size())
 
@@ -58,7 +60,7 @@ func transition_to_planning_phase():
 	planning_scene.set("player", player)
 	player.copy_deck()
 	planning_scene.visible = true
-	location_panel.visible = false
+	location_panel.visible = false  # Ensure location panel is hidden
 	enemy_ui.visible = true
 	planning_scene.display_deck()
 	print(player.active_deck.size())

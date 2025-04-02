@@ -1,7 +1,5 @@
 extends Node
 
-class_name DamageOverTimeManager
-
 var active_effects: Array = []
 
 func add_damage_effect(target, damage: int, duration: int, interval: int, source = null) -> void:
@@ -18,7 +16,6 @@ func add_damage_effect(target, damage: int, duration: int, interval: int, source
 
 func add_effect(effect):
 	active_effects.append(effect)
-
 
 func advance_turn() -> void:
 	for effect in active_effects:
@@ -79,3 +76,6 @@ func apply_damage(target, damage: int, source = null) -> void:
 	
 	target.set_health(target.max_health, target.health - adjusted_damage)
 	print(target.name, " took ", adjusted_damage, " damage from a damage-over-time effect.")
+	
+func clear_active_effects():
+	active_effects.clear()

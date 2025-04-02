@@ -332,16 +332,17 @@ func _transition_to_encounter(node: Node2D):
 		NodeType.COMBAT:
 			print("Transitioning to combat")
 			var combat_scene = load("res://scenes/screens/Combat/Combat.tscn").instantiate()
-			get_parent().add_child(combat_scene)
+			get_tree().root.get_node("Main").add_child(combat_scene)  # Add to "Main" under root
 			player.copy_deck()
 		NodeType.CLINIC:
 			print("Transitioning to clinic")
 			var clinic_scene = load("res://scenes/screens/Clinic/Clinic.tscn").instantiate()
-			get_parent().add_child(clinic_scene)
+			get_tree().root.get_node("Main").add_child(clinic_scene)  # Add to "Main" under root
+			#self.visible = false
 		NodeType.BOSS:
 			print("Transitioning to boss")
 			# Add boss-specific logic here
-	self.visible = false
+	
 
 func _connect_disconnected_groups():
 	var visited = []
