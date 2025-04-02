@@ -17,5 +17,5 @@ func apply_effect(target, source) -> void:
 		"damage_bonus": 2,
 		"remaining_instances": 6
 	}
-	source.temporary_effects.append(venom_effect)
+	source.apply_temporary_effect(venom_effect)
 	print(card_name, " applied a temporary effect to ", source.name, ": next 6 instances of damage are increased by 2.")

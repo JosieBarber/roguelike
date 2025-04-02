@@ -69,6 +69,9 @@ func calculate_damage(target, source, damage: int, items: Array) -> int:
 				effect["remaining_instances"] -= 1
 				print(target.name, " prevented damage. Remaining instances: ", effect["remaining_instances"])
 				return 0  # Damage is fully prevented
+			if effect.has("backswing") and effect["backswing"]:
+				effect["remaining_instances"] -= 1
+				effect["backswing"].call(adjusted_damage)
 				
 	# Remove expired effects
 	target.temporary_effects = target.temporary_effects.filter(
