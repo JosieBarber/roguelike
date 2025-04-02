@@ -25,7 +25,7 @@ func _on_enemy_defeat():
 
 	Events._navigation_focus.emit(true, true)
 	enemy_ui.visible = false
-	
+	DOT.clear_active_effects()
 	queue_free()
 	
 func _on_player_defeat():
