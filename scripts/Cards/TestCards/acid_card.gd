@@ -13,5 +13,5 @@ func _init() -> void:
 	items = []
 
 
-func apply_effect(target, source) -> void:
+func apply_effect(target, _source) -> void:
 	DOT.add_damage_effect(target, 5, 2, 1)

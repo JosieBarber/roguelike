@@ -16,4 +16,4 @@ func apply_effect(target, source):
 	var missing_health = source.max_health - source.health
 	var damage_to_deal = int(missing_health / 4) * 2
 	var adjusted_damage = calculate_damage(target, source, damage_to_deal, items)
-	target.set_health(target.max_health, target.health - damage_to_deal)
+	target.set_health(target.max_health, target.health - adjusted_damage)

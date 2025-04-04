@@ -14,8 +14,8 @@ func _init() -> void:
 
 func apply_effect(target, source) -> void:
 	var double_effect = {
-		"_modify_effect": func(card: Card, target, source) -> void:
-			if source.health == source.max_health():
+		"_modify_effect": func(card: Card, _target, _source) -> void:
+			if source.health == source.max_health:
 				card.apply_effect(target, source),
 		"remaining_instances": 1
 	}

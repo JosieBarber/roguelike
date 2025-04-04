@@ -23,7 +23,7 @@ func _transition_to_clinic():
 	self.visible = true
 
 func _transition_to_health_shop():
-	health_shop_scene = preload("res://scenes/screens/Clinic/HealthShop.tscn")
+	health_shop_scene = preload("res://scenes/Screens/Clinic/HealthShop.tscn")
 	clinic_menu.visible = false
 	player.prepare_deck()
 	health_shop_instance = health_shop_scene.instantiate()

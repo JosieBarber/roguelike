@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5k6xbbabk7uo"]
+
+[ext_resource type="PackedScene" uid="uid://5wcoieqvdwqm" path="res://scenes/Navigation.tscn" id="2_crddh"]
+[ext_resource type="Texture2D" uid="uid://c6kpuclumlo20" path="res://assets/Combat/CombatCoinIcon.png" id="2_f3h6u"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_8n6pg"]
+viewport_path = NodePath("Node3D/SubViewport")
+
+[node name="NavigationTesting" type="Node3D"]
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="SubViewport" type="SubViewport" parent="Node3D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node3D/SubViewport"]
+visible = false
+position = Vector2(133, 75)
+scale = Vector2(4, 4)
+texture = ExtResource("2_f3h6u")
+
+[node name="Navigation" parent="Node3D/SubViewport" instance=ExtResource("2_crddh")]
+
+[node name="Sprite3D" type="Sprite3D" parent="Node3D"]
+texture = SubResource("ViewportTexture_8n6pg")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.838671, -0.544639, 0, 0.544639, 0.838671, -0.52, 0.295, 3.015)

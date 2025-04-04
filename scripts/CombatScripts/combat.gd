@@ -41,7 +41,7 @@ func _on_player_defeat():
 					subchild.visible = false
 				else:
 					subchild.get_node("MetalPanel").get_node("Hearts").visible = false
-	var death_scene = preload("res://scenes/screens/Death_Screen.tscn").instantiate()
+	var death_scene = preload("res://scenes/Screens/Death_Screen.tscn").instantiate()
 	main_scene.add_child(death_scene)
 
 func _initialize_player():

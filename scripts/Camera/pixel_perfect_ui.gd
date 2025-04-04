@@ -12,8 +12,3 @@ func _ready() -> void:
 			thing.call_deferred("reparent", sub_viewport, true)
 		else:
 			print("Skipping:", thing.name)  # Debug statement
-
-	# Ensure SubViewport has a size
-
-func _process(delta: float) -> void:
-	pass

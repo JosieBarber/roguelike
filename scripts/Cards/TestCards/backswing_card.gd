@@ -14,9 +14,9 @@ func _init() -> void:
 
 func apply_effect(target, source) -> void:
 	var backswing_effect = {
-		"backswing": func(damage: int) -> int:
-			target.set_health(target.max_health, target.health - damage)
-			return damage,
+		"backswing": func(modified_damage: int) -> int:
+			target.set_health(target.max_health, target.health - modified_damage)
+			return modified_damage,
 		"source": source,
 		"target": target,
 		"remaining_instances": 1

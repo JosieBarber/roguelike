@@ -12,7 +12,7 @@ func _init() -> void:
 	value = 10
 	items = []
 
-func apply_effect(target, source) -> void:
+func apply_effect(_target, source) -> void:
 	var venom_effect = {
 		"damage_bonus": 2,
 		"remaining_instances": 6

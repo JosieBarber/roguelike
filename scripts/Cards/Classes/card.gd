@@ -23,20 +23,20 @@ func apply_effect(target, source) -> void:
 	target.set_health(target.max_health, target.health - adjusted_damage)
 	print(target.name, " was hit with ", card_name, ", and took ", adjusted_damage, " damage.")
 
-func apply_temporary_effect(effect: Dictionary) -> void:
-	temporary_effects.append(effect)
+func apply_temporary_effect(temp_effect: Dictionary) -> void:
+	temporary_effects.append(temp_effect)
 
-func calculate_damage(target, source, damage: int, items: Array) -> int:
+func calculate_damage(target, source, card_damage: int, card_items: Array) -> int:
 	# print("Damage before modification: ", damage)
-	var adjusted_damage = damage
+	var adjusted_damage = card_damage
 	
 	# Apply temporary effects
-	for effect in temporary_effects:
-		if "_modify_damage" in effect:
-			adjusted_damage = effect["_modify_damage"].call(adjusted_damage)
+	for temporary_effect in temporary_effects:
+		if "_modify_damage" in temporary_effect:
+			adjusted_damage = temporary_effect["_modify_damage"].call(adjusted_damage)
 	
 	# Apply item-based modifications
-	for item in items:
+	for item in card_items:
 		if item.has_method("_modify_damage"):
 			adjusted_damage = item._modify_damage(adjusted_damage)
 
@@ -51,14 +51,14 @@ func calculate_damage(target, source, damage: int, items: Array) -> int:
 			adjusted_damage = affliction._modify_incoming_damage(adjusted_damage)
 
 	# Apply source temporary effects
-	for effect in source.temporary_effects:
-		if effect.has("remaining_instances") and effect["remaining_instances"] > 0:
-			if effect.has("damage_bonus"):
-				adjusted_damage += effect["damage_bonus"]
-				effect["remaining_instances"] -= 1
-			if effect.has("_modify_effect"):
-				effect["remaining_instances"] -= 1
-				effect["_modify_effect"].call(self, target, source)
+	for temporary_effect in source.temporary_effects:
+		if temporary_effect.has("remaining_instances") and temporary_effect["remaining_instances"] > 0:
+			if temporary_effect.has("damage_bonus"):
+				adjusted_damage += temporary_effect["damage_bonus"]
+				temporary_effect["remaining_instances"] -= 1
+			if temporary_effect.has("_modify_effect"):
+				temporary_effect["remaining_instances"] -= 1
+				temporary_effect["_modify_effect"].call(self, target, source)
 
 	# Remove expired effects
 	source.temporary_effects = source.temporary_effects.filter(
@@ -66,15 +66,15 @@ func calculate_damage(target, source, damage: int, items: Array) -> int:
 	)
 	
 	# Apply target temporary effects
-	for effect in target.temporary_effects:
-		if effect.has("remaining_instances") and effect["remaining_instances"] > 0:
-			if effect.has("damage_prevention") and effect["damage_prevention"]:
-				effect["remaining_instances"] -= 1
-				print(target.name, " prevented damage. Remaining instances: ", effect["remaining_instances"])
+	for temporary_effect in target.temporary_effects:
+		if temporary_effect.has("remaining_instances") and temporary_effect["remaining_instances"] > 0:
+			if temporary_effect.has("damage_prevention") and temporary_effect["damage_prevention"]:
+				temporary_effect["remaining_instances"] -= 1
+				print(target.name, " prevented damage. Remaining instances: ", temporary_effect["remaining_instances"])
 				return 0  # Damage is fully prevented
-			if effect.has("backswing") and effect["backswing"]:
-				effect["remaining_instances"] -= 1
-				effect["backswing"].call(adjusted_damage)
+			if temporary_effect.has("backswing") and temporary_effect["backswing"]:
+				temporary_effect["remaining_instances"] -= 1
+				temporary_effect["backswing"].call(adjusted_damage)
 				
 	# Remove expired effects
 	target.temporary_effects = target.temporary_effects.filter(
