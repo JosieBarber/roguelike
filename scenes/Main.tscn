@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_gypjv"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="2"]
-[ext_resource type="PackedScene" uid="uid://b8m460nct2cep" path="res://scenes/screens/Navigation/Navigation.tscn" id="3_8ouya"]
+[ext_resource type="PackedScene" uid="uid://b8m460nct2cep" path="res://scenes/Screens/Navigation/Navigation.tscn" id="3_8ouya"]
 [ext_resource type="PackedScene" uid="uid://dvkbmcm0s52rc" path="res://scenes/assets/UI/UI.tscn" id="4_jj0lx"]
 [ext_resource type="Script" path="res://scripts/Camera/pixel_perfect_ui.gd" id="5_2c473"]
 
