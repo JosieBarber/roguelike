@@ -10,6 +10,7 @@ class_name Combat
 @onready var enemy_ui = ui_scene.npc_panel
 @onready var navigation_scene = get_tree().get_first_node_in_group("navigation")
 @onready var planning_scene = get_node("Planning_Phase")
+@onready var card_selection_scene = $CardSelectionPhase
 
 
 
@@ -23,10 +24,11 @@ func _ready() -> void:
 func _on_enemy_defeat():
 	#var navigation_scene = get_parent().get_node("Navigation")
 
-	Events._navigation_focus.emit(true, true)
+	#Events._navigation_focus.emit(true, true)
 	enemy_ui.visible = false
 	DOT.clear_active_effects()
-	queue_free()
+	$Attack_Phase.queue_free()
+	transition_to_card_selection_phase()
 	
 func _on_player_defeat():
 	var main_scene = get_parent()
@@ -60,7 +62,12 @@ func transition_to_planning_phase():
 	planning_scene.set("player", player)
 	player.copy_deck()
 	planning_scene.visible = true
-	location_panel.visible = false  # Ensure location panel is hidden
+	location_panel.visible = false
 	enemy_ui.visible = true
 	planning_scene.display_deck()
 	print(player.active_deck.size())
+
+func transition_to_card_selection_phase():
+	card_selection_scene.visible = true
+	card_selection_scene.set_enemy_deck(enemy.deck)
+	

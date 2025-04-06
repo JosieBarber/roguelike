@@ -22,6 +22,7 @@ func apply_effect(target, source) -> void:
 			damage += adjusted_damage
 			return damage
 	}
-	source.hand[1].temporary_effects.append(temp_effect)
+	if source.hand.size() >= 2:
+		source.hand[1].temporary_effects.append(temp_effect)
 	
 	print(source.hand[1].card_name, " has been amplified to do ", calculate_damage(target, source, source.hand[1].damage, source.hand[1].items), " damage.")

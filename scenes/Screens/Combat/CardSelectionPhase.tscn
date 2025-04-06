@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://by1outins8k1e"]
+
+[ext_resource type="Script" path="res://scripts/CombatScripts/card_selection_phase.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://brmqxf3lpcklu" path="res://assets/Combat/Battle Panels.png" id="2_6mnuh"]
+
+[node name="CardSelectionPhase" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_script")
+
+[node name="CardContainer" type="Node2D" parent="."]
+z_index = 10
+position = Vector2(136, 80)
+
+[node name="BattlePanels" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("2_6mnuh")
+centered = false
