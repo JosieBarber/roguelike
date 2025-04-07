@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bfw14idsdji" path="res://scenes/Screens/Combat/Attack_Phase.tscn" id="3_k7e02"]
 [ext_resource type="Script" path="res://scripts/CombatScripts/enemy.gd" id="4_d73mv"]
 [ext_resource type="PackedScene" uid="uid://secgp8pnl7r4" path="res://scenes/assets/Combat/ReadyButton.tscn" id="5_0hpti"]
-[ext_resource type="PackedScene" uid="uid://by1outins8k1e" path="res://scenes/screens/combat/CardSelectionPhase.tscn" id="6_bexr8"]
+[ext_resource type="PackedScene" uid="uid://by1outins8k1e" path="res://scenes/Screens/Combat/CardSelectionPhase.tscn" id="6_bexr8"]
 
 [node name="Combat" type="Control"]
 layout_mode = 3

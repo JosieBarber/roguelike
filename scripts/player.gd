@@ -42,7 +42,6 @@ func copy_deck():
 	active_deck = deck.duplicate()
 
 func _create_test_deck():
-	# Test function to create a deck of 15 random cards from the test card folder
 	deck.clear()
 	var test_cards = Cards.test_cards
 	
@@ -53,8 +52,6 @@ func _create_test_deck():
 		var card_instance = test_cards[random_index].new()
 		deck.append(card_instance)
 		test_cards.remove_at(random_index)
-	#deck.append(BlowThisJointCard.new())
-	#deck.append(HeartAttackCard.new())
 
 func prepare_deck() -> void:
 	active_deck = deck.duplicate()
@@ -65,10 +62,6 @@ func set_health(new_max_health: int, new_health: int):
 		health = max_health
 	else:
 		health = new_health
-	
-
-	
-	
 	emit_signal("player_health_changed", max_health, health)
 	print(player_name, " health is now ", health)
 	
