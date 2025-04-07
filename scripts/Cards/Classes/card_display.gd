@@ -9,7 +9,7 @@ var hoverable: bool
 static var current_hovered_card: CardDisplay = null
 var is_mouse_pressed: bool = false
 
-@onready var card_tooltip = $CardTooltip
+@onready var card_tooltip = $TooltipLayer/CardTooltip
 @onready var area = $Area2D
 @onready var card_sprite = $Sprite2D
 
@@ -45,7 +45,7 @@ func _on_mouse_entered():
 			current_hovered_card._reset_hover_state()
 		current_hovered_card = self
 		card_tooltip.show_tooltip()  # Ensure tooltip is shown
-		scale = Vector2(scale[0] * 1.2, scale[1] * 1.2)
+		#scale = Vector2(scale[0] * 1.2, scale[1] * 1.2)
 		z_index = 100
 
 func _on_mouse_exited():
@@ -56,5 +56,5 @@ func _reset_hover_state():
 	if current_hovered_card == self:
 		card_tooltip.hide_tooltip()  # Ensure tooltip is hidden
 	current_hovered_card = null
-	scale = Vector2(scale[0] * (1/1.2), scale[1] * (1/1.2))
+	#scale = Vector2(scale[0] * (1/1.2), scale[1] * (1/1.2))
 	z_index = 0

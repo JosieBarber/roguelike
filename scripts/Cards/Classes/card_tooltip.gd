@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var cardDisplay = get_parent()
+@onready var cardDisplay = get_parent().get_parent()
 var target_scale = Vector2(0, 0)
 var scale_speed = 20.0
 
@@ -13,7 +13,7 @@ var scale_speed = 20.0
 
 func _ready() -> void:
 	self.scale = Vector2(0, 0)  # Start hidden
-	
+	self.position = cardDisplay.global_position
 	card_sprite.texture = load(cardDisplay.card.sprite)
 	name_label.text = str(cardDisplay.card.card_name)
 	damage_label.text = str(cardDisplay.card.damage, " dmg")
@@ -22,12 +22,14 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	self.scale = self.scale.lerp(target_scale, scale_speed * delta)
+	self.position = cardDisplay.global_position
 
 func show_tooltip():
 	adjust_position()
 	self.visible = true
 	scale_speed = 20.0
-	target_scale = Vector2(1, 1) / Vector2(cardDisplay.scale[0], cardDisplay.scale[1])
+	#target_scale = Vector2(1, 1) / Vector2(cardDisplay.scale[0], cardDisplay.scale[1])
+	target_scale = Vector2(1,1)
 
 
 func adjust_position():

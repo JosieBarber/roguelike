@@ -35,7 +35,6 @@ func initialize(player_name_param: String, health_param: int):
 	temporary_effects = []
 
 func _ready():
-	max_health = 10
 	pass
 	
 func copy_deck():
@@ -73,8 +72,13 @@ func prepare_deck() -> void:
 	active_deck = deck.duplicate()
 
 func set_health(new_max_health: int, new_health: int):
-	health = max(new_health, max_health)
 	max_health = new_max_health
+	if max_health <= new_health:
+		health = max_health
+	else:
+		health = new_health
+	
+
 	
 	
 	emit_signal("player_health_changed", max_health, health)
