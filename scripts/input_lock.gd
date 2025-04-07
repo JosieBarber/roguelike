@@ -1,7 +1,7 @@
 extends Node
 
 var input_locked = false
-var lock_duration = 10
+var lock_duration = 0.02
 
 func lock_input(duration: float) -> void:
 	input_locked = true
@@ -15,4 +15,3 @@ func _lock_scene_input() -> void:
 	if input_locked:
 		return
 	lock_input(lock_duration)
-

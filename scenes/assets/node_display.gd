@@ -33,6 +33,8 @@ func _update_visual():
 
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 		if event is InputEventMouseButton and event.pressed:
+			if InputLock.input_locked:
+				return
 			Events._navigation_node_selected.emit(self)
 			print("Node selected in node display")
 		

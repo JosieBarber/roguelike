@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dlt4jm5yoy0ae"]
+[gd_scene load_steps=5 format=3 uid="uid://dlt4jm5yoy0ae"]
 
-[ext_resource type="PackedScene" uid="uid://b4yapeggeiust" path="res://scenes/screens/Clinic/ClinicMenu.tscn" id="1_7d36g"]
+[ext_resource type="PackedScene" uid="uid://b4yapeggeiust" path="res://scenes/Screens/Clinic/ClinicMenu.tscn" id="1_7d36g"]
 [ext_resource type="Script" path="res://scripts/ClinicScripts/clinic.gd" id="1_31gqd"]
-[ext_resource type="PackedScene" uid="uid://carkogouewn2v" path="res://scenes/screens/Clinic/CardShop.tscn" id="3_30g0q"]
+[ext_resource type="PackedScene" uid="uid://carkogouewn2v" path="res://scenes/Screens/Clinic/CardShop.tscn" id="3_30g0q"]
+[ext_resource type="Texture2D" uid="uid://cxepdetbf5htg" path="res://assets/Clinic/Clinic Background.png" id="4_vlr26"]
 
 [node name="Clinic" type="Node2D"]
 script = ExtResource("1_31gqd")
@@ -11,3 +12,8 @@ script = ExtResource("1_31gqd")
 
 [node name="CardShop" parent="." instance=ExtResource("3_30g0q")]
 visible = false
+
+[node name="ClinicBackground" type="Sprite2D" parent="."]
+show_behind_parent = true
+position = Vector2(132, 75)
+texture = ExtResource("4_vlr26")

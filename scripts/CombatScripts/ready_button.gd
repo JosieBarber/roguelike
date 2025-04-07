@@ -11,6 +11,8 @@ func _on_area_input_event(_viewport, event, _shape_idx):
 		emit_signal("ready_button_clicked")
 
 func _input(event):
+	if InputLock.input_locked:
+		return
 	if event is InputEventKey and event.pressed and event.keycode == KEY_SPACE:
 		if self.visible:
 			emit_signal("ready_button_clicked")
