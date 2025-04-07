@@ -21,6 +21,11 @@ Events="*res://scripts/events.gd"
 DOT="*res://scripts/CombatScripts/status_manager.gd"
 InputLock="*res://scripts/input_lock.gd"
 
+[debug]
+
+gdscript/warnings/unused_signal=0
+gdscript/warnings/integer_division=0
+
 [display]
 
 window/size/viewport_width=266
