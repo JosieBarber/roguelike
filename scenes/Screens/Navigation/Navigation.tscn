@@ -20,7 +20,7 @@ collide_with_areas = true
 
 [node name="SubViewport" type="SubViewport" parent="Node3D"]
 transparent_bg = true
-canvas_item_default_texture_filter = 0
+canvas_item_default_texture_filter = 3
 size = Vector2i(1217, 512)
 
 [node name="Sprite2D" type="Sprite2D" parent="Node3D/SubViewport"]

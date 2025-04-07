@@ -324,6 +324,7 @@ func _draw_line_between_nodes(node1: Node2D, node2: Node2D):
 	line.default_color = Color(1, 1, 1)
 	line.add_point(node1.position)
 	line.add_point(node2.position)
+	line.z_index = -1
 	nodes_container.add_child(line)
 
 func _transition_to_encounter(node: Node2D):

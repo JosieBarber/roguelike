@@ -73,8 +73,10 @@ func prepare_deck() -> void:
 	active_deck = deck.duplicate()
 
 func set_health(new_max_health: int, new_health: int):
-	health = new_health
+	health = max(new_health, max_health)
 	max_health = new_max_health
+	
+	
 	emit_signal("player_health_changed", max_health, health)
 	print(player_name, " health is now ", health)
 	

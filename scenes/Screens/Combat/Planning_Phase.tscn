@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://duk30r0o83e5r"]
+[gd_scene load_steps=4 format=3 uid="uid://duk30r0o83e5r"]
 
 [ext_resource type="Script" path="res://scripts/CombatScripts/planning.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://bq65dta8h2lp1" path="res://assets/Combat/Planning Phase Card Tray Mask.png" id="2_1dwho"]
 [ext_resource type="Texture2D" uid="uid://c2srqpfoln3w" path="res://assets/Combat/Planning Phase Card Tray.png" id="2_e3nvx"]
 
 [node name="Planning_Phase" type="Node2D"]
@@ -12,8 +13,14 @@ position = Vector2(133.5, 106.5)
 [node name="Active Deck" type="Node2D" parent="."]
 position = Vector2(133.5, 32.5)
 
-[node name="PlanningPhaseCardTray" type="Sprite2D" parent="."]
+[node name="PlanningPhaseCardTrayMask" type="Sprite2D" parent="Active Deck"]
+clip_children = 1
+position = Vector2(0, 17.48)
+scale = Vector2(0.99, 1)
+texture = ExtResource("2_1dwho")
+
+[node name="PlanningPhaseCardTray" type="Sprite2D" parent="Active Deck"]
 z_index = -1
-position = Vector2(133.5, 50)
+position = Vector2(0, 17.5)
 scale = Vector2(0.99, 1)
 texture = ExtResource("2_e3nvx")

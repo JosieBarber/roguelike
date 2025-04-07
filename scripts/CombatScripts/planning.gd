@@ -9,7 +9,7 @@ class_name Planning
 @onready var ui_scene = get_tree().get_first_node_in_group("Ui")
 @onready var location_panel = ui_scene.location_panel
 
-@onready var active_deck_object: Node2D = get_node("Active Deck")
+@onready var active_deck_object: Node2D = $"Active Deck/PlanningPhaseCardTrayMask"
 @onready var prepared_hand_object: Node2D = get_node("Prepared Hand")
 
 
@@ -49,13 +49,14 @@ func deselect_card(card: Card):
 
 func display_deck():
 	for child in active_deck_object.get_children():
-		child.queue_free()
+		if child is CardDisplay:
+			child.queue_free()
 	for i in range(player.active_deck.size()):
 		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
 		print(player.active_deck[i])
 		card_display.card = player.active_deck[i]
 		card_display.scale = Vector2(0.60, 0.60)
-		card_display.position = Vector2((i % 5 - 2) * 25, int(i / 5) * 35)
+		card_display.position = Vector2((i % 5 - 2) * 25, int(i / 5) * 35 - 17)
 		card_display.hoverable = true
 		card_display.connect("card_clicked", Callable(self, "_on_card_clicked"))
 		card_display.add_to_group("CardDisplays")
@@ -75,7 +76,7 @@ func display_prepared_hand():
 		prepared_hand_object.add_child(card_display)
 
 func _on_card_clicked(card, parent_node):
-	if parent_node.name == "Active Deck":
+	if parent_node == active_deck_object:
 		select_card(card)
 	elif parent_node.name == "Prepared Hand":
 		deselect_card(card)

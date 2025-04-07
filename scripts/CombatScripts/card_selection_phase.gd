@@ -5,6 +5,8 @@ class_name CardSelectionPhase
 @onready var card_container = $CardContainer
 @onready var player: Player = get_tree().get_first_node_in_group("player")
 
+@onready var ready_button = get_parent
+
 var selected_cards: Array = []
 var max_selectable_cards: int = 3
 
@@ -35,12 +37,6 @@ func select_card(card):
 		displayed_cards.erase(card)
 		display_cards()
 
-func deselect_card(card):
-	selected_cards.erase(card)
-			#displayed_cards.erase(card)
-
-	
-	display_cards()
 
 func display_cards():
 	for child in card_container.get_children():
@@ -54,14 +50,14 @@ func display_cards():
 		card_container.add_child(card_display)
 
 func _on_card_clicked(card, _parent):
-	if card in selected_cards:
-		print("Deslected:", card.card_name)
-		deselect_card(card)
-	else:
+	if card not in selected_cards:
 		print("Selected:", card.card_name)
 		select_card(card)
+	if selected_cards.size() >= max_selectable_cards:
+		confirm_selection()
 
-func _on_confirm_selection_pressed():
+func confirm_selection():
 	for card in selected_cards:
 		player.deck.append(card)
-	queue_free()
+	get_parent().queue_free()
+	Events._navigation_focus.emit(true, true)

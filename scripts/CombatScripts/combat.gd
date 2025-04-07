@@ -22,9 +22,6 @@ func _ready() -> void:
 	transition_to_planning_phase()
 
 func _on_enemy_defeat():
-	#var navigation_scene = get_parent().get_node("Navigation")
-
-	#Events._navigation_focus.emit(true, true)
 	enemy_ui.visible = false
 	DOT.clear_active_effects()
 	$Attack_Phase.queue_free()
