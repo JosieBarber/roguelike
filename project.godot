@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Events="*res://scripts/events.gd"
 DOT="*res://scripts/CombatScripts/status_manager.gd"
 InputLock="*res://scripts/input_lock.gd"
+Cards="*res://scripts/Cards/Classes/cards.gd"
 
 [debug]
 

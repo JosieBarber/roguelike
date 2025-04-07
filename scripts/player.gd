@@ -45,22 +45,10 @@ func copy_deck():
 func _create_test_deck():
 	# Test function to create a deck of 15 random cards from the test card folder
 	deck.clear()
-	var test_cards = []
-	var dir = DirAccess.open("res://scripts/Cards/TestCards/")
-	if dir != null:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if file_name.ends_with(".gd"):
-				var card_script = load("res://scripts/Cards/TestCards/" + file_name)
-				if card_script:
-					test_cards.append(card_script)
-			file_name = dir.get_next()
-		dir.list_dir_end()
-		print("Loaded test cards: ", test_cards)
-	else:
-		print("Failed to open directory: res://scripts/Cards/TestCards/")
+	var test_cards = Cards.test_cards
 	
+	print("Loaded test cards: ", test_cards)
+
 	while deck.size() < 10 and test_cards.size() > 0:
 		var random_index = randi() % test_cards.size()
 		var card_instance = test_cards[random_index].new()
