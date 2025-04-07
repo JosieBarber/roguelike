@@ -92,6 +92,7 @@ func _create_back_button():
 	button.connect("pressed", Callable(self, "_on_back_button_pressed"))
 
 func _on_back_button_pressed():
+	InputLock._lock_scene_input()
 	var navigation_scene = get_parent().get_node("Navigation")
 	var npc_ui = navigation_scene.get_parent().get_node("Ui").get_node("EnemyUi")
 	
