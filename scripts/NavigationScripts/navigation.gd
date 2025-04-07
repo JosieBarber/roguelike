@@ -331,11 +331,13 @@ func _transition_to_encounter(node: Node2D):
 	var node_type = node.node_type
 	match node_type:
 		NodeType.COMBAT:
+			InputLock._lock_scene_input()
 			print("Transitioning to combat")
 			var combat_scene = load("res://scenes/screens/Combat/Combat.tscn").instantiate()
 			get_tree().root.get_node("Main").add_child(combat_scene)  # Add to "Main" under root
 			player.copy_deck()
 		NodeType.CLINIC:
+			InputLock._lock_scene_input()
 			print("Transitioning to clinic")
 			var clinic_scene = load("res://scenes/screens/Clinic/Clinic.tscn").instantiate()
 			get_tree().root.get_node("Main").add_child(clinic_scene)  # Add to "Main" under root

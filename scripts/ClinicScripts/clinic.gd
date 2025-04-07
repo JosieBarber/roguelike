@@ -30,22 +30,24 @@ func _transition_to_health_shop():
 	self.add_child(health_shop_instance)
 
 func _transition_from_health_shop():
+	InputLock._lock_scene_input()
 	health_shop_instance.queue_free()
 	clinic_menu.visible = true
 
 func _transition_to_card_shop():
+	InputLock._lock_scene_input()
 	card_shop_instance.visible = true
 	player.prepare_deck()
 	card_shop_instance._display_player_deck()
 	clinic_menu.visible = false
 	
 func _transition_from_card_shop():
+	InputLock._lock_scene_input()
 	card_shop_instance.visible = false
 	clinic_menu.visible = true
 	
 func _transition_to_navigation():
+	InputLock._lock_scene_input()
 	navigation.visible = true
 	Events._navigation_focus.emit(true, true)
 	self.queue_free()
-	
-	

@@ -33,6 +33,8 @@ func _process(_delta):
 
 func _on_area_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if InputLock.input_locked:
+			return
 		if event.pressed:
 			is_mouse_pressed = true
 		elif not event.pressed and is_mouse_pressed:
