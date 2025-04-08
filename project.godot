@@ -13,6 +13,7 @@ config_version=5
 config/name="Roguelike"
 run/main_scene="res://scenes/Main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
+run/low_processor_mode=true
 config/icon="res://icon.svg"
 
 [autoload]
@@ -20,6 +21,17 @@ config/icon="res://icon.svg"
 Events="*res://scripts/events.gd"
 DOT="*res://scripts/CombatScripts/status_manager.gd"
 InputLock="*res://scripts/input_lock.gd"
+Cards="*res://scripts/Cards/Classes/cards.gd"
+
+[debug]
+
+gdscript/warnings/unused_signal=0
+gdscript/warnings/integer_division=0
+
+[debug]
+
+gdscript/warnings/unused_signal=0
+gdscript/warnings/integer_division=0
 
 [display]
 

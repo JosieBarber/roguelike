@@ -12,7 +12,7 @@ func _init() -> void:
 	value = 10
 	items = []
 
-func _apply_block(target, source, damage: int, items: Array):
-	damage = int(damage / 2)
-	source.set_health(source.max_health, source.health - damage)
-	return damage
+func _apply_block(_target, source, incoming_damage: int, _items: Array):
+	incoming_damage = int(incoming_damage / 2)
+	source.set_health(source.max_health, source.health - incoming_damage)
+	return incoming_damage

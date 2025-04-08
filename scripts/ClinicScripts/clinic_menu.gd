@@ -18,16 +18,26 @@ func _process(delta: float) -> void:
 
 # Handle input for the HealthShop label
 func _on_health_shop_input(_viewport, event, _shape_idx):
+	if InputLock.input_locked:
+		print("Input is locked, cannot do this interaction.")
+		return
 	if event is InputEventMouseButton and event.pressed:
 		clinic._transition_to_health_shop()
 		self.visible = false
 
 func _on_card_shop_input(_viewport, event, _shape_idx):
+	if InputLock.input_locked:
+		print("Input is locked, cannot do this interaction.")
+		return
 	if event is InputEventMouseButton and event.pressed:
+		
 		clinic._transition_to_card_shop()
 		self.visible = false
 		
 func _on_exit_clinic_input(_viewport, event, _shape_idx):
+	if InputLock.input_locked:
+		print("Input is locked, cannot do this interaction.")
+		return
 	if event is InputEventMouseButton and event.pressed:
 		clinic._transition_to_navigation()
 		self.visible = false

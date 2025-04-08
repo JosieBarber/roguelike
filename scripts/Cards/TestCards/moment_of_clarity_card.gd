@@ -12,7 +12,7 @@ func _init() -> void:
 	value = 20
 	items = []
 
-func apply_effect(target, source) -> void:
+func apply_effect(_target, source) -> void:
 	if source.cards_played_count == 0 and source.hand.size() == 1:
 		var clarity_effect = {
 			"damage_prevention": true,

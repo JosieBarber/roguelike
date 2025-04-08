@@ -8,6 +8,8 @@
 size = Vector2(64.5, 100)
 
 [node name="CardTooltip" type="Node2D"]
+z_index = 4096
+z_as_relative = false
 script = ExtResource("1_nq4fd")
 
 [node name="Card" type="Sprite2D" parent="."]

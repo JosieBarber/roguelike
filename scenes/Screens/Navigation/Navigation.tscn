@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b8m460nct2cep"]
 
-[ext_resource type="Script" path="res://scenes/NavigationTesting.gd" id="1_0omk4"]
-[ext_resource type="PackedScene" uid="uid://cgkdb7rsiqdti" path="res://scenes/screens/Navigation/NavigationMap.tscn" id="2_crddh"]
+[ext_resource type="Script" path="res://scenes/Screens/Navigation/NavigationTesting.gd" id="1_wkqft"]
+[ext_resource type="PackedScene" uid="uid://cgkdb7rsiqdti" path="res://scenes/Screens/Navigation/NavigationMap.tscn" id="2_crddh"]
 [ext_resource type="Texture2D" uid="uid://c6kpuclumlo20" path="res://assets/Combat/CombatCoinIcon.png" id="2_f3h6u"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_8n6pg"]
@@ -11,7 +11,7 @@ viewport_path = NodePath("Node3D/SubViewport")
 size = Vector3(12.17, 5.12, 0.001)
 
 [node name="Navigation" type="Node3D"]
-script = ExtResource("1_0omk4")
+script = ExtResource("1_wkqft")
 
 [node name="Node3D" type="Node3D" parent="."]
 
@@ -20,7 +20,7 @@ collide_with_areas = true
 
 [node name="SubViewport" type="SubViewport" parent="Node3D"]
 transparent_bg = true
-canvas_item_default_texture_filter = 0
+canvas_item_default_texture_filter = 3
 size = Vector2i(1217, 512)
 
 [node name="Sprite2D" type="Sprite2D" parent="Node3D/SubViewport"]

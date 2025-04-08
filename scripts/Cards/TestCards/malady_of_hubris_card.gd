@@ -13,7 +13,7 @@ func _init() -> void:
 	items = []
 
 
-func apply_effect(target, source) -> void:
+func apply_effect(target, _source) -> void:
 	print(target.name, " was hit with ", card_name, ", and took ", damage, " damage.")
 	var dot_damage = target.cards_played_count  # Calculate DOT damage based on cards played
 	print("Malady of hubris will deal: ", dot_damage, " per turn.")

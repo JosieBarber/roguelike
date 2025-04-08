@@ -35,7 +35,6 @@ func initialize(player_name_param: String, health_param: int):
 	temporary_effects = []
 
 func _ready():
-	max_health = 10
 	pass
 	
 func copy_deck():
@@ -43,38 +42,26 @@ func copy_deck():
 	active_deck = deck.duplicate()
 
 func _create_test_deck():
-	# Test function to create a deck of 15 random cards from the test card folder
 	deck.clear()
-	var test_cards = []
-	var dir = DirAccess.open("res://scripts/Cards/TestCards/")
-	if dir != null:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if file_name.ends_with(".gd"):
-				var card_script = load("res://scripts/Cards/TestCards/" + file_name)
-				if card_script:
-					test_cards.append(card_script)
-			file_name = dir.get_next()
-		dir.list_dir_end()
-		print("Loaded test cards: ", test_cards)
-	else:
-		print("Failed to open directory: res://scripts/Cards/TestCards/")
+	var test_cards = Cards.test_cards
 	
+	print("Loaded test cards: ", test_cards)
+
 	while deck.size() < 10 and test_cards.size() > 0:
 		var random_index = randi() % test_cards.size()
 		var card_instance = test_cards[random_index].new()
 		deck.append(card_instance)
 		test_cards.remove_at(random_index)
-	#deck.append(BlowThisJointCard.new())
-	#deck.append(HeartAttackCard.new())
 
 func prepare_deck() -> void:
 	active_deck = deck.duplicate()
 
 func set_health(new_max_health: int, new_health: int):
-	health = new_health
 	max_health = new_max_health
+	if max_health <= new_health:
+		health = max_health
+	else:
+		health = new_health
 	emit_signal("player_health_changed", max_health, health)
 	print(player_name, " health is now ", health)
 	

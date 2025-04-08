@@ -18,10 +18,11 @@ func apply_effect(target, source) -> void:
 	
 	# Add a temporary effect to amplify damage
 	var temp_effect = {
-		"_modify_damage": func(damage: int) -> int:
-			damage += adjusted_damage
-			return damage
+		"_modify_damage": func(damage_param: int) -> int:
+			damage_param += adjusted_damage
+			return damage_param
 	}
-	source.hand[1].temporary_effects.append(temp_effect)
+	if source.hand.size() >= 2:
+		source.hand[1].temporary_effects.append(temp_effect)
 	
 	print(source.hand[1].card_name, " has been amplified to do ", calculate_damage(target, source, source.hand[1].damage, source.hand[1].items), " damage.")

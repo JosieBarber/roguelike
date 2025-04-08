@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://d4g07fx3gvsh6"]
+[gd_scene load_steps=3 format=3 uid="uid://by1outins8k1e"]
 
 [ext_resource type="Script" path="res://scripts/CombatScripts/card_selection_phase.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://brmqxf3lpcklu" path="res://assets/Combat/Battle Panels.png" id="2_6mnuh"]

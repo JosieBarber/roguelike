@@ -68,6 +68,10 @@ func apply_damage(target, damage: int, source = null) -> void:
 					effect["remaining_instances"] -= 1
 					print(target.name, " prevented damage. Remaining instances: ", effect["remaining_instances"])
 					return
+				if effect.has("backswing") and effect["backswing"]:
+					effect["remaining_instances"] -= 1
+					effect["backswing"].call(adjusted_damage)
+				
 
 		# Remove expired effects
 		target.temporary_effects = target.temporary_effects.filter(

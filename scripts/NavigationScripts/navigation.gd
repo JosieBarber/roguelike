@@ -62,7 +62,7 @@ func _initialize_graph(intermediate_nodes: int, boss_count: int, clinic_count: i
 
 	# Ensure the total number of nodes matches the expected count (22 in this case)
 	while graph.size() < intermediate_nodes + 2:  # +2 for start and end nodes
-		var position = _get_valid_position(rng, area_width, area_height)
+		var node_position = _get_valid_position(rng, area_width, area_height)
 		var node_type = NodeType.BLANK
 		if combat_nodes > 0:
 			node_type = NodeType.COMBAT
@@ -71,7 +71,7 @@ func _initialize_graph(intermediate_nodes: int, boss_count: int, clinic_count: i
 			node_type = NodeType.BLANK
 			blank_nodes -= 1
 
-		var new_node = _create_navigation_node(position, node_type)
+		var new_node = _create_navigation_node(node_position, node_type)
 		graph[new_node] = []
 		intermediate_nodes_list.append(new_node)
 
@@ -256,9 +256,9 @@ func _get_valid_position(rng: RandomNumberGenerator, area_width: float, area_hei
 	while attempts < 100:  # Limit the number of attempts to prevent infinite loops
 		var x = rng.randf_range(current_node.position.x, area_width)  # Ensure x >= starting node's x
 		var y = rng.randf_range(0, area_height)
-		var position = Vector2(x, y)
-		if not _is_overlapping(position):
-			return position
+		var node_position = Vector2(x, y)
+		if not _is_overlapping(node_position):
+			return node_position
 		attempts += 1
 
 	# If no valid position is found, create a one-off branch further out vertically
@@ -267,9 +267,9 @@ func _get_valid_position(rng: RandomNumberGenerator, area_width: float, area_hei
 	offshoot_toggle = not offshoot_toggle  # Toggle for the next offshoot
 	return Vector2(fallback_x, fallback_y)
 
-func _is_overlapping(position: Vector2) -> bool:
+func _is_overlapping(node_position: Vector2) -> bool:
 	for node in graph.keys():
-		if node.position.distance_to(position) < node_distance:
+		if node.position.distance_to(node_position) < node_distance:
 			return true
 	return false
 
@@ -285,9 +285,9 @@ func _connect_to_existing_nodes(new_node: Node2D, rng: RandomNumberGenerator):
 			graph[new_node].append(node)
 			graph[node].append(new_node)
 
-func _create_navigation_node(position: Vector2, node_type: int) -> Node2D:
+func _create_navigation_node(node_position: Vector2, node_type: int) -> Node2D:
 	var node_display = preload("res://scenes/assets/NodeDisplay.tscn").instantiate()
-	node_display.position = position
+	node_display.position = node_position
 	node_display.node_type = node_type  # Directly set the node_type property
 	nodes_container.add_child(node_display)
 	node_display._update_visual()  # Ensure the node is drawn with the correct visuals
@@ -324,6 +324,7 @@ func _draw_line_between_nodes(node1: Node2D, node2: Node2D):
 	line.default_color = Color(1, 1, 1)
 	line.add_point(node1.position)
 	line.add_point(node2.position)
+	line.z_index = -1
 	nodes_container.add_child(line)
 
 func _transition_to_encounter(node: Node2D):
@@ -332,13 +333,13 @@ func _transition_to_encounter(node: Node2D):
 		NodeType.COMBAT:
 			InputLock._lock_scene_input()
 			print("Transitioning to combat")
-			var combat_scene = load("res://scenes/screens/Combat/Combat.tscn").instantiate()
+			var combat_scene = load("res://scenes/Screens/Combat/Combat.tscn").instantiate()
 			get_tree().root.get_node("Main").add_child(combat_scene)  # Add to "Main" under root
 			player.copy_deck()
 		NodeType.CLINIC:
 			InputLock._lock_scene_input()
 			print("Transitioning to clinic")
-			var clinic_scene = load("res://scenes/screens/Clinic/Clinic.tscn").instantiate()
+			var clinic_scene = load("res://scenes/Screens/Clinic/Clinic.tscn").instantiate()
 			get_tree().root.get_node("Main").add_child(clinic_scene)  # Add to "Main" under root
 			#self.visible = false
 		NodeType.BOSS:
@@ -399,10 +400,10 @@ func get_node_at_screen_position(screen_position: Vector2) -> Node2D:
 			var collision_shape = node.get_node("Area2D").get_node("CollisionShape2D") as CollisionShape2D
 			if collision_shape and collision_shape.shape:
 				var shape = collision_shape.shape
-				var transform = collision_shape.get_global_transform()
+				var shape_transform = collision_shape.get_global_transform()
 				if shape is CircleShape2D:
 					#print("node has shape of circle")
-					var center = transform.origin
+					var center = shape_transform.origin
 					var radius = shape.radius
 					#print(center.distance_to(screen_position))
 					#print(screen_position)
