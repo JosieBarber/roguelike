@@ -1,13 +1,13 @@
 extends Node2D
 
 @export var node_type: int
-@export var visited_icon: Texture = load("res://assets/Visited Icon.png")
-@export var combat_icon: Texture = load("res://assets/Combat Icon.png")
-@export var clinic_icon: Texture = load("res://assets/Clinic Icon.png")
-@export var blank_icon: Texture = load("res://assets/Empty Icon.png")
-@export var boss_icon: Texture = load("res://assets/Shop Icon.png")
+@export var visited_icon: Texture = load("res://assets/Icons/Map/BlankIcon.png")
+@export var combat_icon: Texture = load("res://assets/Icons/Map/CombatIcon.png")
+@export var clinic_icon: Texture = load("res://assets/Icons/Map/ClinicIcon.png")
+@export var blank_icon: Texture = load("res://assets/Icons/Map/BlankIcon.png")
+@export var boss_icon: Texture = load("res://assets/Icons/Map/BossIcon.png")
 
-var is_visited: bool = false
+var is_visited: bool = false 
 
 enum NodeType { COMBAT, CLINIC, BLANK, BOSS }
 
@@ -19,7 +19,7 @@ func _ready() -> void:
 func _update_visual():
 	var sprite = $Sprite2D
 	if is_visited:
-		sprite.texture = visited_icon
+		sprite.frame = 1
 	else:
 		match node_type:
 			NodeType.COMBAT:

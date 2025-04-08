@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dcx0sjgfpftx8"
-path="res://.godot/imported/Clinic Icon.png-16a80c6edcd86a4876f7ac40a050a79f.ctex"
+uid="uid://cd80h45p8v8pa"
+path="res://.godot/imported/BossIcon.png-5bdb171012bd48883b5a895da558966e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Clinic Icon.png"
-dest_files=["res://.godot/imported/Clinic Icon.png-16a80c6edcd86a4876f7ac40a050a79f.ctex"]
+source_file="res://assets/Icons/Map/BossIcon.png"
+dest_files=["res://.godot/imported/BossIcon.png-5bdb171012bd48883b5a895da558966e.ctex"]
 
 [params]
 

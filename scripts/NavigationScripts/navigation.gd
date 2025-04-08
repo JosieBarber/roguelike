@@ -3,12 +3,6 @@ extends Node2D
 class_name Navigation
 
 @onready var player: Player = get_tree().get_first_node_in_group("player")
-
-@onready var combat_icon: Texture = load("res://assets/Combat Icon.png")
-@onready var clinic_icon: Texture = load("res://assets/Clinic Icon.png")
-@onready var shop_icon: Texture = load("res://assets/Shop Icon.png")
-@onready var visited_icon: Texture = load("res://assets/Visited Icon.png")
-@onready var blank_icon: Texture = load("res://assets/Empty Icon.png")
 @onready var nodes_container: Node2D = $Map/Nodes
 
 var current_node: Node2D
@@ -34,12 +28,12 @@ func _initialize_graph(intermediate_nodes: int, boss_count: int, clinic_count: i
 
 	# Adjust area size based on the number of intermediate nodes (horizontal expansion only)
 	var area_width = 200 + intermediate_nodes * 20
-	var area_height = 90  # Fixed vertical space
+	var area_height = 90
 
 	# Create starting node
 	var start_node = _create_navigation_node(Vector2(0, area_height / 2), NodeType.BLANK)
 	current_node = start_node
-	graph[start_node] = []  # Initialize graph with the starting node
+	graph[start_node] = []
 
 	# Generate boss nodes evenly spaced
 	var boss_spacing = area_width / (boss_count + 1)
@@ -134,9 +128,9 @@ func _convert_lonely_combat_nodes_to_bosses():
 	for node in graph.keys():
 		if node.node_type == NodeType.COMBAT and graph[node].size() == 1:
 			print("Converting lonely combat node to boss")
-			node.node_type = NodeType.BOSS  # Directly update the node_type property
-			nodes[node] = false  # Ensure the node is not marked as visited
-			node._update_visual()  # Update visuals after changing the type
+			node.node_type = NodeType.BOSS
+			nodes[node] = false 
+			node._update_visual()
 
 func _ensure_boss_navigation(start_node: Node2D, end_node: Node2D):
 	for boss_node in graph.keys():
@@ -177,7 +171,7 @@ func _find_closest_node_to(target_node: Node2D) -> Node2D:
 func _sever_random_connections(percentage: float, end_node: Node2D):
 	var all_connections = []
 	for node in graph.keys():
-		var connections = graph.get(node, [])  # Use `get` to safely access dictionary values
+		var connections = graph.get(node, [])
 		for connected_node in connections:
 			if [connected_node, node] not in all_connections:  # Avoid duplicate pairs
 				all_connections.append([node, connected_node])
@@ -207,7 +201,7 @@ func _sever_random_connections(percentage: float, end_node: Node2D):
 
 func _ensure_complete_path(start_node: Node2D, end_node: Node2D):
 	var attempts = 0
-	while not _has_path_to_end(start_node, end_node) and attempts < 100:  # Limit iterations
+	while not _has_path_to_end(start_node, end_node) and attempts < 100:
 		var closest_pair = _find_closest_unconnected_nodes()
 		if closest_pair:
 			var node_a = closest_pair[0]
@@ -243,7 +237,7 @@ func _find_closest_unconnected_nodes() -> Array:
 		for j in range(i + 1, unconnected_nodes.size()):
 			var node_a = unconnected_nodes[i]
 			var node_b = unconnected_nodes[j]
-			if node_b not in graph[node_a]:  # Check if not already connected
+			if node_b not in graph[node_a]:
 				var distance = node_a.position.distance_to(node_b.position)
 				if distance < min_distance:
 					min_distance = distance
@@ -298,23 +292,23 @@ func _on_node_selected(node_display: Node2D):
 		current_node = node_display
 		$Map/PlayerIcon.position = current_node.position
 		_update_adjacent_nodes()
-		if not nodes.get(node_display, false):  # Use `get` to safely access dictionary values
-			var node_type = node_display.node_type  # Directly access the node_type property
+		if not nodes.get(node_display, false): 
+			var node_type = node_display.node_type 
 			match node_type:
 				NodeType.COMBAT, NodeType.CLINIC, NodeType.BOSS:
 					_transition_to_encounter(node_display)
-					nodes[node_display] = true  # Mark as visited only for non-blank nodes
+					nodes[node_display] = true 
 				NodeType.BLANK:
-					nodes[node_display] = false
+					nodes[node_display] = true
 			node_display.mark_as_visited()
-			node_display._update_visual()  # Ensure the node's visuals are updated
+			node_display._update_visual()
 
 func _update_adjacent_nodes():
-	adjacent_nodes = graph.get(current_node, [])  # Use `get` to safely access dictionary values
+	adjacent_nodes = graph.get(current_node, []) 
 
 func _draw_paths():
 	for node in graph.keys():
-		var connections = graph.get(node, [])  # Use `get` to safely access dictionary values
+		var connections = graph.get(node, []) 
 		for connected_node in connections:
 			_draw_line_between_nodes(node, connected_node)
 
@@ -334,17 +328,16 @@ func _transition_to_encounter(node: Node2D):
 			InputLock._lock_scene_input()
 			print("Transitioning to combat")
 			var combat_scene = load("res://scenes/Screens/Combat/Combat.tscn").instantiate()
-			get_tree().root.get_node("Main").add_child(combat_scene)  # Add to "Main" under root
+			get_tree().root.get_node("Main").add_child(combat_scene)  
 			player.copy_deck()
 		NodeType.CLINIC:
 			InputLock._lock_scene_input()
 			print("Transitioning to clinic")
 			var clinic_scene = load("res://scenes/Screens/Clinic/Clinic.tscn").instantiate()
-			get_tree().root.get_node("Main").add_child(clinic_scene)  # Add to "Main" under root
-			#self.visible = false
+			get_tree().root.get_node("Main").add_child(clinic_scene)  
+			
 		NodeType.BOSS:
 			print("Transitioning to boss")
-			# Add boss-specific logic here
 	
 
 func _connect_disconnected_groups():

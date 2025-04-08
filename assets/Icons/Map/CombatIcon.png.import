@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpv0cmn6l06nf"
-path="res://.godot/imported/Empty Icon.png-c15305cc1de0323f6d7e69be2d4f7c36.ctex"
+uid="uid://cneipsvbpkysf"
+path="res://.godot/imported/CombatIcon.png-cda5502de38f5db3d01e12fbf551dec4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Empty Icon.png"
-dest_files=["res://.godot/imported/Empty Icon.png-c15305cc1de0323f6d7e69be2d4f7c36.ctex"]
+source_file="res://assets/Icons/Map/CombatIcon.png"
+dest_files=["res://.godot/imported/CombatIcon.png-cda5502de38f5db3d01e12fbf551dec4.ctex"]
 
 [params]
 

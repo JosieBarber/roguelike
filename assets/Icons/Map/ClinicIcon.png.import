@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhmvqb3i8qkv1"
-path="res://.godot/imported/Question Mark Icon.png-3f9e167f2e9114309f3913dc2cb5bb89.ctex"
+uid="uid://c30437ipmonys"
+path="res://.godot/imported/ClinicIcon.png-99152d0e109235c9064a15d3df502fec.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Question Mark Icon.png"
-dest_files=["res://.godot/imported/Question Mark Icon.png-3f9e167f2e9114309f3913dc2cb5bb89.ctex"]
+source_file="res://assets/Icons/Map/ClinicIcon.png"
+dest_files=["res://.godot/imported/ClinicIcon.png-99152d0e109235c9064a15d3df502fec.ctex"]
 
 [params]
 
