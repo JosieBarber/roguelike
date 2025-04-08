@@ -12,9 +12,9 @@ func _init() -> void:
 	value = 15
 	items = []
 
-func apply_effect(target, source) -> void:
+func apply_effect(_target, source) -> void:
 	var prevention_effect = {
 		"damage_prevention": true,
 		"remaining_instances": 2
 	}
-	source.temporary_effects.append(prevention_effect)
+	source.apply_temporary_effect(prevention_effect)

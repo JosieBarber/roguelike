@@ -13,6 +13,6 @@ func _init() -> void:
 	items = []
 
 
-func apply_effect(target, source) -> void:
+func apply_effect(target, _source) -> void:
 	print(target.name, " was hit with ", card_name, ", and took ", damage, " damage.")
 	target.active_dot_effects.append({"damage": 3, "duration": 5, "card_type": "poison"})

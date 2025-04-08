@@ -28,6 +28,11 @@ Cards="*res://scripts/Cards/Classes/cards.gd"
 gdscript/warnings/unused_signal=0
 gdscript/warnings/integer_division=0
 
+[debug]
+
+gdscript/warnings/unused_signal=0
+gdscript/warnings/integer_division=0
+
 [display]
 
 window/size/viewport_width=266

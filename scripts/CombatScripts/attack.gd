@@ -28,17 +28,11 @@ func transition_to_planning_phase():
 	self.visible = false
 	DOT.end_round() #remove dot efects that end at the end of the round
 
-	var planning_scene = get_parent().get_node("Planning_Phase")
 	planning_scene.visible = true
 	planning_scene.location_panel.visible = false
 	planning_scene.refill_active_deck()
 	planning_scene.display_deck()
 	planning_scene.display_prepared_hand()
-	
-
-func calculate_damage(card, target):
-	# Deprecated: Use card's apply_effect method instead
-	pass
 
 func apply_damage(damage, target, damage_type):
 	if damage_type == "Type":

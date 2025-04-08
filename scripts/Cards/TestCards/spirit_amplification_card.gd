@@ -18,9 +18,9 @@ func apply_effect(target, source) -> void:
 	
 	# Add a temporary effect to amplify damage
 	var temp_effect = {
-		"_modify_damage": func(damage: int) -> int:
-			damage += adjusted_damage
-			return damage
+		"_modify_damage": func(damage_param: int) -> int:
+			damage_param += adjusted_damage
+			return damage_param
 	}
 	if source.hand.size() >= 2:
 		source.hand[1].temporary_effects.append(temp_effect)
