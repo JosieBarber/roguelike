@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btit65jxe25r2"
-path="res://.godot/imported/PlayerUIUpdate.png-1994f54b5159f17b1bcb9173585e7a68.ctex"
+uid="uid://73eg5yomjem"
+path="res://.godot/imported/CombatLocationIcon.png-0e0a3f8a896bd7b12e7e790d734c9cf5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/PlayerUIUpdate.png"
-dest_files=["res://.godot/imported/PlayerUIUpdate.png-1994f54b5159f17b1bcb9173585e7a68.ctex"]
+source_file="res://assets/UI/Location_Tab/CombatLocationIcon.png"
+dest_files=["res://.godot/imported/CombatLocationIcon.png-0e0a3f8a896bd7b12e7e790d734c9cf5.ctex"]
 
 [params]
 

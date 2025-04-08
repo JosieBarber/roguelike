@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://m3t5hrvb25ek"
-path="res://.godot/imported/Hearts.png-a3f17e272a5d2382298ec702f8369209.ctex"
+uid="uid://bfwxylyxvi1wf"
+path="res://.godot/imported/Metal panel.png-c8ba1f4f89a9a1d9de1fe6c1dc76162a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Hearts.png"
-dest_files=["res://.godot/imported/Hearts.png-a3f17e272a5d2382298ec702f8369209.ctex"]
+source_file="res://assets/UI/Player_Enemy/Metal panel.png"
+dest_files=["res://.godot/imported/Metal panel.png-c8ba1f4f89a9a1d9de1fe6c1dc76162a.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c72wfh34786jd"
-path="res://.godot/imported/Coin rough.png-2777a9dd53320c4e9fef74e8ed0cc482.ctex"
+uid="uid://bfws83fo1yi5u"
+path="res://.godot/imported/Gold Coin.png-e798ac81cd1e5d1ebc6cdb3a9d0e0c7d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Coin rough.png"
-dest_files=["res://.godot/imported/Coin rough.png-2777a9dd53320c4e9fef74e8ed0cc482.ctex"]
+source_file="res://assets/UI/Player_Enemy/Gold Coin.png"
+dest_files=["res://.godot/imported/Gold Coin.png-e798ac81cd1e5d1ebc6cdb3a9d0e0c7d.ctex"]
 
 [params]
 

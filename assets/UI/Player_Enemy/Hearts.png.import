@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2bos5xg43mmj"
-path="res://.godot/imported/Full Mockup.png-0516b095a6eab0c1d84920ba1d91eca8.ctex"
+uid="uid://m3t5hrvb25ek"
+path="res://.godot/imported/Hearts.png-71a425c39aef565420115f3aca211799.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Clinic/Full Mockup.png"
-dest_files=["res://.godot/imported/Full Mockup.png-0516b095a6eab0c1d84920ba1d91eca8.ctex"]
+source_file="res://assets/UI/Player_Enemy/Hearts.png"
+dest_files=["res://.godot/imported/Hearts.png-71a425c39aef565420115f3aca211799.ctex"]
 
 [params]
 

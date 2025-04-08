@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cujkbaqrnay66"
-path="res://.godot/imported/CardQueueSpace.png-d49c2f214c39e64d42f9bdba11a2921b.ctex"
+uid="uid://bacvui7o5t3ye"
+path="res://.godot/imported/EnemyIcon.png-765da0c9df9672e4257b82b77988359f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Combat/CardQueueSpace.png"
-dest_files=["res://.godot/imported/CardQueueSpace.png-d49c2f214c39e64d42f9bdba11a2921b.ctex"]
+source_file="res://assets/UI/Player_Enemy/EnemyIcon.png"
+dest_files=["res://.godot/imported/EnemyIcon.png-765da0c9df9672e4257b82b77988359f.ctex"]
 
 [params]
 

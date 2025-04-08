@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfwxylyxvi1wf"
-path="res://.godot/imported/Metal panel.png-c4464617975e9cf617f5848a7537c097.ctex"
+uid="uid://djnkctwwck5wr"
+path="res://.godot/imported/ClinicLocationIcon.png-2326357b896a546fd18fd4dc3bf99906.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Metal panel.png"
-dest_files=["res://.godot/imported/Metal panel.png-c4464617975e9cf617f5848a7537c097.ctex"]
+source_file="res://assets/UI/Location_Tab/ClinicLocationIcon.png"
+dest_files=["res://.godot/imported/ClinicLocationIcon.png-2326357b896a546fd18fd4dc3bf99906.ctex"]
 
 [params]
 

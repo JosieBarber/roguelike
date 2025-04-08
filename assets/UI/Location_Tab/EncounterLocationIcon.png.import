@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rcpbrmtsx6p7"
-path="res://.godot/imported/Player and Enemy UI Placeholders.png-fe748f45b3ec90ff46655811173c20ae.ctex"
+uid="uid://b1sg5o0bx5ju0"
+path="res://.godot/imported/EncounterLocationIcon.png-0ae2f2674a3c3bc94e28b6b4ebc67b24.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/Player and Enemy UI Placeholders.png"
-dest_files=["res://.godot/imported/Player and Enemy UI Placeholders.png-fe748f45b3ec90ff46655811173c20ae.ctex"]
+source_file="res://assets/UI/Location_Tab/EncounterLocationIcon.png"
+dest_files=["res://.godot/imported/EncounterLocationIcon.png-0ae2f2674a3c3bc94e28b6b4ebc67b24.ctex"]
 
 [params]
 

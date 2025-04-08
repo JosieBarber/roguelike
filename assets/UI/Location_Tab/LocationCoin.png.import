@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dybspg2o2pnh0"
-path="res://.godot/imported/TCOYS Combat MockUp Maybe final.png-f61a275063a333691ee7b27850237760.ctex"
+uid="uid://n0qsopodgrjc"
+path="res://.godot/imported/LocationCoin.png-4e6da89168b1a0d7fbeb42e99d7a2b21.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Combat/TCOYS Combat MockUp Maybe final.png"
-dest_files=["res://.godot/imported/TCOYS Combat MockUp Maybe final.png-f61a275063a333691ee7b27850237760.ctex"]
+source_file="res://assets/UI/Location_Tab/LocationCoin.png"
+dest_files=["res://.godot/imported/LocationCoin.png-4e6da89168b1a0d7fbeb42e99d7a2b21.ctex"]
 
 [params]
 
