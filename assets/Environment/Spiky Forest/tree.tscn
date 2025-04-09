@@ -4,7 +4,6 @@
 [ext_resource type="Script" path="res://assets/Environment/Spiky Forest/pink_tree.gd" id="2_4cddw"]
 
 [node name="Pink Tree" type="MeshInstance3D"]
-metadata/tree = null
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 billboard = 1

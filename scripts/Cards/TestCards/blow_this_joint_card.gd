@@ -15,7 +15,7 @@ func _init() -> void:
 func apply_effect(target, source) -> void:
 	var rng = RandomNumberGenerator.new()
 	var card_index = rng.randi_range(1, target.hand.size() - 1)
-	if target.hand.size() >= 1:
+	if target.hand.size() >= 2:
 		target.active_deck.append(target.hand[card_index])
 		target.hand.remove_at(card_index)
 	
