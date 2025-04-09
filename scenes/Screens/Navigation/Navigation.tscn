@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/Screens/Navigation/NavigationTesting.gd" id="1_wkqft"]
 [ext_resource type="PackedScene" uid="uid://cgkdb7rsiqdti" path="res://scenes/Screens/Navigation/NavigationMap.tscn" id="2_crddh"]
 [ext_resource type="Texture2D" uid="uid://c6kpuclumlo20" path="res://assets/Combat/CombatCoinIcon.png" id="2_f3h6u"]
-[ext_resource type="PackedScene" uid="uid://bakhjaln414xo" path="res://assets/Environment/Spiky Forest/tree.tscn" id="4_nsitd"]
+[ext_resource type="PackedScene" uid="uid://tv3j7kswgbpc" path="res://assets/Environment/Spiky Forest/tree cluster.tscn" id="5_k31jx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_31s6g"]
 sky_top_color = Color(0.32549, 0.376471, 0.301961, 1)
@@ -63,8 +63,253 @@ texture = SubResource("ViewportTexture_8n6pg")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Area3D"]
 shape = SubResource("BoxShape3D_6m7xy")
 
-[node name="MeshInstance3D" parent="Node3D" instance=ExtResource("4_nsitd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.84336, 1.80623, 0)
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.778868, 0.427781, -0.458658, -0.620581, 0.631507, -0.464842, 0.090795, 0.646685, 0.757334, -5.5, 0.85, 1.033)
+
+[node name="TreeContainer" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.185)
+
+[node name="Top Row" type="Node3D" parent="TreeContainer"]
+
+[node name="TreeCluster4" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.93294, 2.8633, 0)
+
+[node name="TreeCluster5" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.178, 2.8633, 0)
+
+[node name="TreeCluster6" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.39699, 2.8633, 0)
+
+[node name="TreeCluster7" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7934, 2.8633, 0)
+
+[node name="TreeCluster8" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.96681, 2.8633, 0)
+
+[node name="TreeCluster9" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.12483, 2.8633, 0)
+
+[node name="TreeCluster10" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35053, 2.8633, 0)
+
+[node name="TreeCluster11" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56511, 2.8633, 0)
+
+[node name="TreeCluster12" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20461, 2.8633, 0)
+
+[node name="TreeCluster13" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20461, 2.8633, 0)
+
+[node name="TreeCluster14" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.93294, 2.8633, 0)
+
+[node name="TreeCluster15" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.178, 2.8633, 0)
+
+[node name="TreeCluster16" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.39699, 2.8633, 0)
+
+[node name="TreeCluster17" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7934, 2.8633, 0)
+
+[node name="TreeCluster18" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.96681, 2.8633, 0)
+
+[node name="TreeCluster19" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.12483, 2.8633, 0)
+
+[node name="TreeCluster20" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35053, 2.8633, 0)
+
+[node name="TreeCluster21" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56511, 2.8633, 0)
+
+[node name="TreeCluster22" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20461, 2.8633, 0)
+
+[node name="TreeCluster23" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20461, 2.8633, 0)
+
+[node name="TreeCluster24" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.93294, 3.458, 0.16)
+
+[node name="TreeCluster25" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.178, 3.458, 0.16)
+
+[node name="TreeCluster26" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.39699, 3.458, 0.16)
+
+[node name="TreeCluster27" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7934, 3.458, 0.16)
+
+[node name="TreeCluster28" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.96681, 3.458, 0.16)
+
+[node name="TreeCluster29" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.12483, 3.458, 0.16)
+
+[node name="TreeCluster30" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35053, 3.458, 0.16)
+
+[node name="TreeCluster31" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56511, 3.458, 0.16)
+
+[node name="TreeCluster32" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20461, 3.458, 0.16)
+
+[node name="TreeCluster33" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20461, 3.458, 0.16)
+
+[node name="TreeCluster34" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.93294, 3.458, 0.16)
+
+[node name="TreeCluster35" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.178, 3.458, 0.16)
+
+[node name="TreeCluster36" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.39699, 3.458, 0.16)
+
+[node name="TreeCluster37" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7934, 3.458, 0.16)
+
+[node name="TreeCluster38" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.96681, 3.458, 0.16)
+
+[node name="TreeCluster39" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.12483, 3.458, 0.16)
+
+[node name="TreeCluster40" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35053, 3.458, 0.16)
+
+[node name="TreeCluster41" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56511, 3.458, 0.16)
+
+[node name="TreeCluster42" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20461, 3.458, 0.16)
+
+[node name="TreeCluster43" parent="TreeContainer/Top Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20461, 3.458, 0.16)
+
+[node name="Bottom Row" type="Node3D" parent="TreeContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.865, 0)
+
+[node name="TreeCluster4" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.93294, 2.8633, 0)
+
+[node name="TreeCluster5" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.178, 2.8633, 0)
+
+[node name="TreeCluster6" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.39699, 2.8633, 0)
+
+[node name="TreeCluster7" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7934, 2.8633, 0)
+
+[node name="TreeCluster8" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.96681, 2.8633, 0)
+
+[node name="TreeCluster9" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.12483, 2.8633, 0)
+
+[node name="TreeCluster10" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35053, 2.8633, 0)
+
+[node name="TreeCluster11" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56511, 2.8633, 0)
+
+[node name="TreeCluster12" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20461, 2.8633, 0)
+
+[node name="TreeCluster13" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20461, 2.8633, 0)
+
+[node name="TreeCluster14" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.93294, 2.8633, 0)
+
+[node name="TreeCluster15" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.178, 2.8633, 0)
+
+[node name="TreeCluster16" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.39699, 2.8633, 0)
+
+[node name="TreeCluster17" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7934, 2.8633, 0)
+
+[node name="TreeCluster18" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.96681, 2.8633, 0)
+
+[node name="TreeCluster19" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.12483, 2.8633, 0)
+
+[node name="TreeCluster20" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35053, 2.8633, 0)
+
+[node name="TreeCluster21" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56511, 2.8633, 0)
+
+[node name="TreeCluster22" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20461, 2.8633, 0)
+
+[node name="TreeCluster23" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20461, 2.8633, 0)
+
+[node name="TreeCluster24" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.93294, 3.458, 0.16)
+
+[node name="TreeCluster25" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.178, 3.458, 0.16)
+
+[node name="TreeCluster26" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.39699, 3.458, 0.16)
+
+[node name="TreeCluster27" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7934, 3.458, 0.16)
+
+[node name="TreeCluster28" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.96681, 3.458, 0.16)
+
+[node name="TreeCluster29" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.12483, 3.458, 0.16)
+
+[node name="TreeCluster30" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35053, 3.458, 0.16)
+
+[node name="TreeCluster31" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56511, 3.458, 0.16)
+
+[node name="TreeCluster32" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20461, 3.458, 0.16)
+
+[node name="TreeCluster33" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20461, 3.458, 0.16)
+
+[node name="TreeCluster34" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.93294, 3.458, 0.16)
+
+[node name="TreeCluster35" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.178, 3.458, 0.16)
+
+[node name="TreeCluster36" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.39699, 3.458, 0.16)
+
+[node name="TreeCluster37" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7934, 3.458, 0.16)
+
+[node name="TreeCluster38" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.96681, 3.458, 0.16)
+
+[node name="TreeCluster39" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.12483, 3.458, 0.16)
+
+[node name="TreeCluster40" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35053, 3.458, 0.16)
+
+[node name="TreeCluster41" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56511, 3.458, 0.16)
+
+[node name="TreeCluster42" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20461, 3.458, 0.16)
+
+[node name="TreeCluster43" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20461, 3.458, 0.16)

@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://tv3j7kswgbpc"]
+
+[ext_resource type="PackedScene" uid="uid://bakhjaln414xo" path="res://assets/Environment/Spiky Forest/tree.tscn" id="1_g8wxv"]
+
+[node name="TreeCluster" type="Node3D"]
+
+[node name="Pink Tree" parent="." instance=ExtResource("1_g8wxv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.305, 0)
+
+[node name="Pink Tree2" parent="." instance=ExtResource("1_g8wxv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.33, 0, 0)
+
+[node name="Pink Tree3" parent="." instance=ExtResource("1_g8wxv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.285, 0)
+
+[node name="Pink Tree4" parent="." instance=ExtResource("1_g8wxv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.26, -0.16, 0)
+
+[node name="Pink Tree5" parent="." instance=ExtResource("1_g8wxv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27, -0.155, 0)
+
+[node name="Pink Tree6" parent="." instance=ExtResource("1_g8wxv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.035, 0)
