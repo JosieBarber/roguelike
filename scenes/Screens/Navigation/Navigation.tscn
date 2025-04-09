@@ -1,8 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://b8m460nct2cep"]
+[gd_scene load_steps=9 format=3 uid="uid://b8m460nct2cep"]
 
 [ext_resource type="Script" path="res://scenes/Screens/Navigation/NavigationTesting.gd" id="1_wkqft"]
 [ext_resource type="PackedScene" uid="uid://cgkdb7rsiqdti" path="res://scenes/Screens/Navigation/NavigationMap.tscn" id="2_crddh"]
 [ext_resource type="Texture2D" uid="uid://c6kpuclumlo20" path="res://assets/Combat/CombatCoinIcon.png" id="2_f3h6u"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_31s6g"]
+sky_top_color = Color(0.32549, 0.376471, 0.301961, 1)
+sky_horizon_color = Color(0.662745, 0.688236, 0.65098, 1)
+sky_energy_multiplier = 0.0
+ground_bottom_color = Color(0.32549, 0.376471, 0.301961, 1)
+ground_horizon_color = Color(0.662745, 0.688236, 0.65098, 1)
+
+[sub_resource type="Sky" id="Sky_o1uai"]
+sky_material = SubResource("ProceduralSkyMaterial_31s6g")
+
+[sub_resource type="Environment" id="Environment_dordq"]
+background_mode = 1
+background_color = Color(0.32549, 0.376471, 0.301961, 1)
+sky = SubResource("Sky_o1uai")
+sdfgi_enabled = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_8n6pg"]
 viewport_path = NodePath("Node3D/SubViewport")
@@ -12,6 +28,9 @@ size = Vector3(12.17, 5.12, 0.001)
 
 [node name="Navigation" type="Node3D"]
 script = ExtResource("1_wkqft")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dordq")
 
 [node name="Node3D" type="Node3D" parent="."]
 
@@ -30,6 +49,7 @@ scale = Vector2(4, 4)
 texture = ExtResource("2_f3h6u")
 
 [node name="Navigation" parent="Node3D/SubViewport" instance=ExtResource("2_crddh")]
+texture_filter = 1
 
 [node name="Camera2D" type="Camera2D" parent="Node3D/SubViewport"]
 position = Vector2(608.5, 256)
