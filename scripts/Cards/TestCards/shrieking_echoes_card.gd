@@ -19,6 +19,7 @@ func apply_effect(_target, source) -> void:
 			return modified_damage
 	}
 	
-	for i in range(1,3):
+	
+	for i in range(1, min(3,source.hand.size() - 1)):
 		if source.hand[i]:
 			source.hand[i].temporary_effects.append(temp_effect)
