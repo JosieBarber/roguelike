@@ -192,7 +192,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20461, 3.458, 0.16)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20461, 3.458, 0.16)
 
 [node name="Bottom Row" type="Node3D" parent="TreeContainer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.865, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.865, -0.18)
 
 [node name="TreeCluster4" parent="TreeContainer/Bottom Row" instance=ExtResource("5_k31jx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.93294, 2.8633, 0)
