@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bakhjaln414xo"]
+
+[ext_resource type="Texture2D" uid="uid://d4g3w820eltn5" path="res://assets/Environment/Spiky Forest/BigTree.png" id="1_m1xhh"]
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+billboard = 1
+texture_filter = 2
+texture = ExtResource("1_m1xhh")
+hframes = 3
