@@ -12,6 +12,7 @@ var scale_speed = 20.0
 
 
 func _ready() -> void:
+	cardDisplay.connect("tree_exited", Callable(self, "_on_card_display_tree_exited"))
 	self.scale = Vector2(0, 0)  # Start hidden
 	self.position = cardDisplay.global_position
 	card_sprite.texture = load(cardDisplay.card.sprite)
@@ -60,3 +61,6 @@ func hide_tooltip():
 	scale_speed = 20.0
 	# await get_tree().create_timer(0.3).timeout
 	# self.visible = false
+	
+func _on_card_display_tree_exited():
+	queue_free()
