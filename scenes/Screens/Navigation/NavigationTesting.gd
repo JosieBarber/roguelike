@@ -10,12 +10,14 @@ extends Node3D
 @onready var player = get_tree().get_first_node_in_group("player")
 
 var focused: bool = true
-var scroll_speed: float = 10
+var scroll_speed: float = 50
 var min_x: float = -5.5
 var max_x: float = 0.0
+var target_camera_x: float
 
 func _ready():
 	Events.connect("_navigation_focus", Callable(self, "_on_navigation_focus"))
+	target_camera_x = camera_3d.position.x
 
 	# # Calculate navigation map bounds
 	# if navigation:
@@ -34,6 +36,9 @@ func _process(delta):
 	var camera = get_viewport().get_camera_3d()
 	if not camera:
 		return
+
+	# Smoothly move the camera towards the target position
+	camera_3d.position.x = lerp(camera_3d.position.x, target_camera_x, 0.1)
 
 	# Update the raycast's origin and target position based on the mouse position
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -95,8 +100,7 @@ func _on_navigation_focus(focused_param: bool, visible_param: bool):
 func _handle_scrolling(delta):
 	if Input.is_action_just_pressed("scroll_down"):
 		print("Scrolling up")
-		camera_3d.position.x = clamp(camera_3d.position.x - scroll_speed * delta, min_x, max_x)
-		print(camera_3d.position.x - scroll_speed * delta)
+		target_camera_x = clamp(camera_3d.position.x - scroll_speed * delta, min_x, max_x)
 	elif Input.is_action_just_pressed("scroll_up"):
 		print("Scrolling down")
-		camera_3d.position.x = clamp(camera_3d.position.x + scroll_speed * delta, min_x, max_x)
+		target_camera_x = clamp(camera_3d.position.x + scroll_speed * delta, min_x, max_x)
