@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://carkogouewn2v"]
+[gd_scene load_steps=10 format=3 uid="uid://carkogouewn2v"]
 
 [ext_resource type="Script" path="res://scripts/ClinicScripts/card_shop.gd" id="1_hg62n"]
 [ext_resource type="Texture2D" uid="uid://vqqi8eyvle6x" path="res://assets/Clinic/item_card_purchase.png" id="2_bx2vo"]
@@ -8,7 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://b0nwrng84fuwb" path="res://assets/Clinic/player_inventory_mask.png" id="5_k73ai"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ptiwf"]
-size = Vector2(67, 49)
+size = Vector2(73, 49)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_irltd"]
+size = Vector2(131, 69)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gr0di"]
 size = Vector2(106, 49)
@@ -30,6 +33,9 @@ texture = ExtResource("3_qtkki")
 [node name="MaskHitbox" type="CollisionShape2D" parent="CardPool/Area2D"]
 position = Vector2(19, 0)
 shape = SubResource("RectangleShape2D_ptiwf")
+
+[node name="OverallHitbox" type="CollisionShape2D" parent="CardPool/Area2D"]
+shape = SubResource("RectangleShape2D_irltd")
 
 [node name="ShoppingCart" type="Node2D" parent="CardPool"]
 position = Vector2(-40.5, 0)
