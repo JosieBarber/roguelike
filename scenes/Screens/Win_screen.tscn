@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://bae00trqtamml"]
+
+[ext_resource type="FontFile" uid="uid://sxw0026qgsl6" path="res://assets/fonts/m3x6.ttf" id="1_57rsb"]
+
+[node name="Win_Screen" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 22.0
+offset_top = 2.0
+offset_right = 254.0
+offset_bottom = 149.0
+theme_override_fonts/font = ExtResource("1_57rsb")
+theme_override_font_sizes/font_size = 32
+text = "You made it through another day! 
+Close and re-open the game to restart"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2

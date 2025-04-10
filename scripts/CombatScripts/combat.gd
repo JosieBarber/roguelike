@@ -50,6 +50,14 @@ func _ready() -> void:
 	transition_to_planning_phase()
 
 func _on_enemy_defeat():
+	# Check if the defeated enemy is the final boss
+	if self.has_meta("is_final_boss") and self.get_meta("is_final_boss") == true:
+		print("Final boss defeated. Showing win screen.")
+		get_tree().root.queue_free()
+		var win_scene = preload("res://scenes/Screens/Win_Screen.tscn").instantiate()
+		get_tree().root.add_child(win_scene)
+		return
+
 	enemy_ui.visible = false
 	DOT.clear_active_effects()
 	$Attack_Phase.queue_free()
