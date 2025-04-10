@@ -81,7 +81,7 @@ func deselect_card(card: Card):
 	display_prepared_hand()
 
 func display_deck():
-	for child in active_deck_object.get_children():
+	for child in active_deck_mask.get_children():
 		if child is CardDisplay:
 			child.queue_free()
 	for i in range(player.active_deck.size()):
@@ -118,7 +118,7 @@ func display_prepared_hand():
 		prepared_hand_object.add_child(card_display)
 
 func _on_card_clicked(card, parent_node):
-	if parent_node == active_deck_object:
+	if parent_node == active_deck_mask:
 		select_card(card)
 	elif parent_node.name == "Prepared Hand":
 		deselect_card(card)
