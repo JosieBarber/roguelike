@@ -6,7 +6,11 @@ var areas: Dictionary = {
 	"Forest": [
 		"res://scripts/CombatScripts/Enemies/self_heal.gd",
 		"res://scripts/CombatScripts/Enemies/card_play.gd",
-		"res://scripts/CombatScripts/Enemies/hubris.gd"
+		"res://scripts/CombatScripts/Enemies/hubris.gd",
+		"res://scripts/CombatScripts/Enemies/damage.gd",
+		"res://scripts/CombatScripts/Enemies/blocking.gd",
+		"res://scripts/CombatScripts/Enemies/upgrade.gd",
+		"res://scripts/CombatScripts/Enemies/heart_attack.gd"
 	],
 }
 

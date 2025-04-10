@@ -8,12 +8,12 @@ func _ready() -> void:
 	health = 30
 	deck = [
 		MaladyOfHubris.new(),
-        MaladyOfHubris.new(),
-        MaladyOfHubris.new(),
-        MaladyOfHubris.new(),
-        MaladyOfHubris.new(),
-        MaladyOfHubris.new(),
-        MaladyOfHubris.new(),
+		MaladyOfHubris.new(),
+		MaladyOfHubris.new(),
+		MaladyOfHubris.new(),
+		MaladyOfHubris.new(),
+		MaladyOfHubris.new(),
+		MaladyOfHubris.new(),
 
 	]
 	discard = []
