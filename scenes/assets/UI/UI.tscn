@@ -3,33 +3,36 @@
 [ext_resource type="Script" path="res://scripts/UI/ui.gd" id="1_eh5tm"]
 [ext_resource type="Texture2D" uid="uid://b4cmtmg2q4xp7" path="res://assets/UI/Location_Tab/TopCoinHolder.png" id="1_o6knr"]
 [ext_resource type="Texture2D" uid="uid://btapmw18rwyyj" path="res://assets/UI/Settings Tab.png" id="2_85i51"]
+[ext_resource type="Script" path="res://scenes/assets/UI/location_panel.gd" id="3_ba3nx"]
+[ext_resource type="Texture2D" uid="uid://8vobiw8a01in" path="res://assets/UI/Location_Tab/LocationCoinIcons.png" id="4_6pxov"]
 [ext_resource type="Texture2D" uid="uid://b4i12aah0d1o6" path="res://assets/UI/BagTabClosed.png" id="4_16f4x"]
-[ext_resource type="Texture2D" uid="uid://c6kpuclumlo20" path="res://assets/Combat/CombatCoinIcon.png" id="4_c32tx"]
-[ext_resource type="Texture2D" uid="uid://djnkctwwck5wr" path="res://assets/UI/Location_Tab/ClinicLocationIcon.png" id="5_p2bho"]
 [ext_resource type="PackedScene" uid="uid://baqtpucolw0dc" path="res://scenes/assets/UI/PlayerUI.tscn" id="6_8up8j"]
 [ext_resource type="PackedScene" uid="uid://c7gml4oy6pmch" path="res://scenes/assets/UI/EnemyUI.tscn" id="6_h1xe4"]
 [ext_resource type="Texture2D" uid="uid://n0qsopodgrjc" path="res://assets/UI/Location_Tab/LocationCoin.png" id="8_hcek7"]
 
-[node name="Ui" type="Node2D" groups=["Ui"]]
+[node name="Ui" type="Node2D" node_paths=PackedStringArray("location_panel", "settings_tab", "bag_tab", "player_panel", "npc_panel") groups=["Ui"]]
 script = ExtResource("1_eh5tm")
+location_panel = NodePath("location_panel")
+settings_tab = NodePath("SettingsTab")
+bag_tab = NodePath("BagTab")
+player_panel = NodePath("PlayerUi")
+npc_panel = NodePath("EnemyUi")
 
 [node name="location_panel" type="Sprite2D" parent="." groups=["PP"]]
 position = Vector2(133.5, 0)
 texture = ExtResource("1_o6knr")
 centered = false
 offset = Vector2(-25.5, 0)
-
-[node name="CombatCoinIcon" type="Sprite2D" parent="location_panel"]
-visible = false
-position = Vector2(0, 25.5)
-texture = ExtResource("4_c32tx")
+script = ExtResource("3_ba3nx")
 
 [node name="LocationCoin" type="Sprite2D" parent="location_panel"]
 position = Vector2(0, 25.5)
 texture = ExtResource("8_hcek7")
 
-[node name="ClinicLocationIcon" type="Sprite2D" parent="location_panel/LocationCoin"]
-texture = ExtResource("5_p2bho")
+[node name="LocationIcon" type="Sprite2D" parent="location_panel/LocationCoin"]
+texture = ExtResource("4_6pxov")
+hframes = 3
+frame = 1
 
 [node name="SettingsTab" type="Sprite2D" parent="." groups=["PP"]]
 position = Vector2(184.5, 0)

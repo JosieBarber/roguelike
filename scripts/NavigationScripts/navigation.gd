@@ -4,6 +4,8 @@ class_name Navigation
 
 @onready var player: Player = get_tree().get_first_node_in_group("player")
 @onready var nodes_container: Node2D = $Map/Nodes
+@onready var ui = get_tree().get_first_node_in_group("Ui")
+@onready var location_panel = ui.location_panel
 
 var current_node: Node2D
 var graph: Dictionary = {}  # Graph structure: {Node2D: [connected Node2D]}
@@ -19,6 +21,8 @@ var combat_proportion: float = 0.7  # Proportion of combat nodes
 var offshoot_toggle: bool = true  # Tracks whether the next offshoot is on the top or bottom
 
 func _ready():
+	print("UI is: ", ui.name)
+	print("Location panel is ", location_panel.name)
 	_initialize_graph(20, 1, 3)  # Example: 20 intermediate nodes, 1 boss, 2 clinics
 	Events.connect("_navigation_node_selected", Callable(self, "_on_node_selected"))
 
@@ -325,19 +329,25 @@ func _transition_to_encounter(node: Node2D):
 	var node_type = node.node_type
 	match node_type:
 		NodeType.COMBAT:
+			location_panel._set_coin_face(NodeType.COMBAT)
 			InputLock._lock_scene_input()
 			print("Transitioning to combat")
 			var combat_scene = load("res://scenes/Screens/Combat/Combat.tscn").instantiate()
 			get_tree().root.get_node("Main").add_child(combat_scene)  
 			player.copy_deck()
 		NodeType.CLINIC:
+			location_panel._set_coin_face(NodeType.CLINIC)
 			InputLock._lock_scene_input()
 			print("Transitioning to clinic")
 			var clinic_scene = load("res://scenes/Screens/Clinic/Clinic.tscn").instantiate()
 			get_tree().root.get_node("Main").add_child(clinic_scene)  
-			
 		NodeType.BOSS:
+			location_panel._set_coin_face(NodeType.BOSS)
 			print("Transitioning to boss")
+		NodeType.BLANK:
+			location_panel._set_coin_face(NodeType.BLANK)
+			print("Transitioning to blank node")
+		
 	
 
 func _connect_disconnected_groups():
