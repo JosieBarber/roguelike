@@ -28,17 +28,12 @@ Cards="*res://scripts/Cards/Classes/cards.gd"
 gdscript/warnings/unused_signal=0
 gdscript/warnings/integer_division=0
 
-[debug]
-
-gdscript/warnings/unused_signal=0
-gdscript/warnings/integer_division=0
-
 [display]
 
 window/size/viewport_width=266
 window/size/viewport_height=150
 window/size/initial_screen=5
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
 
 [global_group]
 
@@ -87,3 +82,4 @@ click={
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=true

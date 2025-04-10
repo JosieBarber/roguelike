@@ -4,7 +4,7 @@ class_name EgoTear
 
 func _init() -> void:
 	card_name = "Ego Tear"
-	effect = "Deals damage"
+	effect = "Deals 8 damage to target"
 	clause = "None"
 	card_type = "Type"
 	sprite = "res://assets/Card/EgoTearCard.png"

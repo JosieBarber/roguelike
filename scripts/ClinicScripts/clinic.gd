@@ -13,7 +13,12 @@ class_name Clinic
 @onready var clinic_menu = $ClinicMenu
 
 
+@onready var ui_scene = get_tree().get_first_node_in_group("Ui")
+@onready var npc_ui = ui_scene.npc_panel
+
 func _ready():
+	npc_ui.initialize_for_clinic()
+	npc_ui.visible = true
 	player.prepare_deck()
 	_transition_to_clinic()
 

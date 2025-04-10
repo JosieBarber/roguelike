@@ -39,5 +39,7 @@ func _on_exit_clinic_input(_viewport, event, _shape_idx):
 		print("Input is locked, cannot do this interaction.")
 		return
 	if event is InputEventMouseButton and event.pressed:
+		clinic.npc_ui.initialize_for_enemy()
+		clinic.npc_ui.visible = false
 		clinic._transition_to_navigation()
 		self.visible = false

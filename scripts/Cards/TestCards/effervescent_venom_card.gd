@@ -4,8 +4,8 @@ class_name EffervescentVenom
 
 func _init() -> void:
 	card_name = "Effervescent Venom"
-	effect = "Increases damage"
-	clause = "Next 6 instances of damage done by user by are increased 2"
+	effect = "Next 6 instances of damage done by user by are increased 2"
+	clause = ""
 	card_type = "Type"
 	sprite = "res://assets/Card/EffervescentVenomCard.png"
 	damage = 0

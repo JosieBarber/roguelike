@@ -1,11 +1,14 @@
 extends Node2D
 
+@onready var player_inventory_sprite = $PlayerInventory
 @onready var player_inventory_mask = $PlayerInventory/Mask
 @onready var mask_hitbox = $PlayerInventory/Area2D/MaskHitbox
 @onready var card_pool_mask = $CardPool/Mask
-@onready var card_pool_hitbox = $CardPool/Area2D/MaskHitbox
+@onready var card_pool_sprite = $CardPool
+# @onready var card_pool_mask_hitbox = $CardPool/Area2D/MaskHitbox
 @onready var shopping_cart_object = $CardPool/ShoppingCart
 @onready var ready_button = $ReadyButton
+@onready var exit_button = $ExitButton
 
 @onready var player = get_tree().get_first_node_in_group("player")
 @onready var clinic = get_parent()
@@ -23,7 +26,7 @@ func _ready() -> void:
 	_display_player_deck()
 	_display_card_pool()
 	ready_button.connect("ready_button_clicked", Callable(self, "_buy_shopping_cart_items"))
-	
+	exit_button.connect("exit_button_clicked", Callable(clinic, "_transition_from_card_shop"))
 func _display_player_deck():
 	player_deck = player.deck
 	for child in player_inventory_mask.get_children():
@@ -47,6 +50,7 @@ func _display_card_pool():
 		card_display.scale = Vector2(0.66, 0.66)
 		card_display.position = Vector2((i % 3 - 1) * 25, int(i / 3) * 35 - 7)  # 3 cards per row
 		card_pool_mask.add_child(card_display)
+		
 
 func _process(delta: float) -> void:
 	if self.visible:
@@ -54,9 +58,15 @@ func _process(delta: float) -> void:
 			clinic._transition_from_card_shop()
 
 		var inventory_global_rect = Rect2(
+			player_inventory_sprite.global_position - player_inventory_sprite.texture.get_size() / 2,
+			player_inventory_sprite.texture.get_size()
+		)
+
+		var inventory_mask_global_rect = Rect2(
 			player_inventory_mask.global_position - player_inventory_mask.texture.get_size() / 2,
 			player_inventory_mask.texture.get_size()
 		)
+		
 
 		for card_display in player_inventory_mask.get_children():
 			if card_display is Node2D and card_display.has_node("Area2D/CollisionShape2D"):
@@ -67,7 +77,7 @@ func _process(delta: float) -> void:
 						card_display.global_position - rect_size / 2,
 						rect_size
 					)
-					card_display.hoverable = card_global_rect.intersects(inventory_global_rect)
+					card_display.hoverable = card_global_rect.intersects(inventory_mask_global_rect) and inventory_global_rect.has_point(get_global_mouse_position())
 
 		# Check if the cursor is within the PlayerInventory
 		if inventory_global_rect.has_point(get_global_mouse_position()):
@@ -83,6 +93,11 @@ func _process(delta: float) -> void:
 
 		# Handle scrolling for CardPool
 		var card_pool_global_rect = Rect2(
+			card_pool_sprite.global_position - card_pool_sprite.texture.get_size() / 2,
+			card_pool_sprite.texture.get_size()
+		)
+
+		var card_pool_global_mask_rect = Rect2(
 			card_pool_mask.global_position - card_pool_mask.texture.get_size() / 2,
 			card_pool_mask.texture.get_size()
 		)
@@ -96,7 +111,8 @@ func _process(delta: float) -> void:
 						card_display.global_position - rect_size / 2,
 						rect_size
 					)
-					card_display.hoverable = card_global_rect.intersects(card_pool_global_rect)
+					card_display.hoverable = card_global_rect.intersects(card_pool_global_mask_rect) and card_pool_global_rect.has_point(get_global_mouse_position())
+
 
 		if card_pool_global_rect.has_point(get_global_mouse_position()):
 			if Input.is_action_just_pressed("scroll_up"):
@@ -162,22 +178,34 @@ func _buy_shopping_cart_items():
 		child.queue_free()
 
 
+#func load_test_cards():
+	#var dir = DirAccess.open("res://scripts/Cards/TestCards/")
+	#if dir != null:
+		#dir.list_dir_begin()
+		#var file_name = dir.get_next()
+		#while file_name != "":
+			#if file_name.ends_with(".gd"):
+				#var card_script = load("res://scripts/Cards/TestCards/" + file_name)
+				#if card_script:
+					## Instantiate the card script into an object
+					#var card_instance = card_script.new()
+					#card_pool.append(card_instance)
+				#else:
+					#print("Failed to load card script: ", file_name)
+			#file_name = dir.get_next()
+		#dir.list_dir_end()
+		#print("Loaded test cards: ", card_pool.size())
+	#else:
+		#print("Failed to open directory: res://scripts/Cards/TestCards/")
+		#
 func load_test_cards():
-	var dir = DirAccess.open("res://scripts/Cards/TestCards/")
-	if dir != null:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if file_name.ends_with(".gd"):
-				var card_script = load("res://scripts/Cards/TestCards/" + file_name)
-				if card_script:
-					# Instantiate the card script into an object
-					var card_instance = card_script.new()
-					card_pool.append(card_instance)
-				else:
-					print("Failed to load card script: ", file_name)
-			file_name = dir.get_next()
-		dir.list_dir_end()
-		print("Loaded test cards: ", card_pool.size())
-	else:
-		print("Failed to open directory: res://scripts/Cards/TestCards/")
+	#deck.clear()
+	var test_cards = Cards.test_cards
+	
+	print("Loaded test cards: ", test_cards)
+
+	while card_pool.size() < 6 and test_cards.size() > 0:
+		var random_index = randi() % test_cards.size()
+		var card_instance = test_cards[random_index].new()
+		card_pool.append(card_instance)
+		test_cards.remove_at(random_index)

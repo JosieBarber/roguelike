@@ -22,21 +22,31 @@ var afflictions: Array
 var selected_card_index: int = -1
 var cards_played_count: int = 0
 
-func initialize(enemy_name_param: String, health_param: int, deck_param: Array):
-	enemy_name = enemy_name_param
-	set_health(health_param, health_param)
-	hand = []
-	deck = deck_param
-	discard = []
-	active_deck = []
-	active_dot_effects = []
+# Virtual method for initialization, can be overridden by subclasses
+# func initialize(enemy_name_param: String = "", health_param: int = 0, deck_param: Array = []):
+# 	enemy_name = enemy_name_param
+# 	set_health(health_param, health_param)
+# 	hand = []
+# 	deck = deck_param
+# 	discard = []
+# 	active_deck = []
+# 	active_dot_effects = []
 
-func prepare_enemy() -> void:
-	var enemGen = enemyGeneration.new()
-	var possible_enemies = enemGen.get_possible_enemies("Forest")
-	var generated_enemy = possible_enemies[randi() % possible_enemies.size()]
-	initialize(generated_enemy["enemy_name"], generated_enemy["health"], generated_enemy["deck"])
-	generated_enemy.prepare_deck()
+# func prepare_enemy() -> void:
+# 	# If the current instance is a subclass, skip default enemy generation
+# 	# if self.get_class() != "Enemy":
+# 	# 	print("Custom enemy class detected, skipping default enemy generation.")
+# 	# 	return
+	
+# 	var enemGen = enemyGeneration.new()
+# 	var possible_enemies = enemGen.get_possible_enemies("Forest")
+# 	var generated_enemy = possible_enemies[randi() % possible_enemies.size()]
+# 	if generated_enemy is Enemy:
+# 		enemy_name = generated_enemy["enemy_name"]
+# 		set_health(generated_enemy["health"], generated_enemy["health"])
+# 		deck = generated_enemy["deck"]
+# 	initialize(enemy_name, health, deck)
+# 	generated_enemy.prepare_deck()
 	
 
 func prepare_deck() -> void:

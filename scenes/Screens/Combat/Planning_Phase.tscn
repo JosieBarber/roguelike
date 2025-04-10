@@ -14,7 +14,7 @@ size = Vector2(123, 68)
 script = ExtResource("2")
 
 [node name="Prepared Hand" type="Node2D" parent="."]
-position = Vector2(133.5, 106.5)
+position = Vector2(133.5, 104.5)
 
 [node name="Active Deck" type="Node2D" parent="."]
 position = Vector2(133.5, 32.5)

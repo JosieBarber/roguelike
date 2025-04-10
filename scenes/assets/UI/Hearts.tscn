@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bw5xmf8kb7pgs"]
+[gd_scene load_steps=4 format=3 uid="uid://bw5xmf8kb7pgs"]
 
-[ext_resource type="Texture2D" uid="uid://m3t5hrvb25ek" path="res://assets/UI/Hearts.png" id="1_dufya"]
+[ext_resource type="Texture2D" uid="uid://swqb377dic50" path="res://assets/UI/Player_Enemy/LargeHeart.png" id="2_601pv"]
 [ext_resource type="Script" path="res://scripts/UI/hearts.gd" id="2_hearts_script"]
+[ext_resource type="Texture2D" uid="uid://dyooyy8ktt5ma" path="res://assets/SmallHeart.png" id="3_gb448"]
 
 [node name="Hearts" type="Node2D"]
 position = Vector2(9, 0)
@@ -9,27 +10,24 @@ script = ExtResource("2_hearts_script")
 
 [node name="Heart1" type="Sprite2D" parent="."]
 position = Vector2(-16, 8)
-texture = ExtResource("1_dufya")
+texture = ExtResource("2_601pv")
 hframes = 5
 
 [node name="Heart2" type="Sprite2D" parent="."]
 position = Vector2(-8, 2)
-texture = ExtResource("1_dufya")
+texture = ExtResource("3_gb448")
 hframes = 5
-frame = 1
 
 [node name="Heart3" type="Sprite2D" parent="."]
-texture = ExtResource("1_dufya")
+texture = ExtResource("3_gb448")
 hframes = 5
-frame = 1
 
 [node name="Heart4" type="Sprite2D" parent="."]
 position = Vector2(8, 2)
-texture = ExtResource("1_dufya")
+texture = ExtResource("3_gb448")
 hframes = 5
-frame = 1
 
 [node name="Heart5" type="Sprite2D" parent="."]
 position = Vector2(16, 8)
-texture = ExtResource("1_dufya")
+texture = ExtResource("2_601pv")
 hframes = 5

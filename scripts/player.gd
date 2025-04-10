@@ -43,15 +43,21 @@ func copy_deck():
 
 func _create_test_deck():
 	deck.clear()
-	var test_cards = Cards.test_cards
+	var test_cards = [
+		BapCard.new(),
+		Scratch.new(),
+		LightningParry.new(),
+		Backswing.new(),
+		SpiritAmplification.new(),
+		SiphonLife.new(),
+		PreventativeMeasures.new()
+	]
 	
 	print("Loaded test cards: ", test_cards)
 
-	while deck.size() < 10 and test_cards.size() > 0:
-		var random_index = randi() % test_cards.size()
-		var card_instance = test_cards[random_index].new()
-		deck.append(card_instance)
-		test_cards.remove_at(random_index)
+	# Ensure the deck has exactly 7 cards
+	for card in test_cards:
+		deck.append(card)
 
 func prepare_deck() -> void:
 	active_deck = deck.duplicate()

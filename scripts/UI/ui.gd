@@ -1,7 +1,7 @@
 extends Node2D
 
-@onready var location_panel = $location_panel
-@onready var settings_tab = $SettingsTab
-@onready var bag_tab = $BagTab
-@onready var player_panel = $PlayerUi
-@onready var npc_panel = $EnemyUi
+@export var location_panel: Node2D
+@export var settings_tab: Node2D
+@export var bag_tab: Node2D
+@export var player_panel: Node2D
+@export var npc_panel: Node2D

@@ -4,7 +4,7 @@ class_name RapidDecomposition
 
 func _init() -> void:
 	card_name = "Rapid Decomposition"
-	effect = ""
+	effect = "Deals 2 damage at the start of next 7 turns"
 	clause = "None"
 	card_type = "Type"
 	sprite = "res://assets/Card/RapidDecompositionCard.png"

@@ -3,13 +3,14 @@ extends Node2D
 class_name Planning
 
 @onready var player: Player = get_tree().get_first_node_in_group("player")
-@onready var enemy: Enemy = get_parent().get_node("Enemy")
+@onready var enemy: Node2D = get_parent().get_node("Enemy")
 @onready var ready_button = get_parent().get_node("ReadyButton")
 
 @onready var ui_scene = get_tree().get_first_node_in_group("Ui")
 @onready var location_panel = ui_scene.location_panel
 
-@onready var active_deck_object: Node2D = $"Active Deck/PlanningPhaseCardTrayMask"
+@onready var active_deck_object = $"Active Deck/PlanningPhaseCardTray"
+@onready var active_deck_mask: Node2D = $"Active Deck/PlanningPhaseCardTrayMask"
 @onready var prepared_hand_object: Node2D = get_node("Prepared Hand")
 
 
@@ -37,7 +38,12 @@ func _process(delta: float) -> void:
 		active_deck_object.texture.get_size()
 	)
 
-	for card_display in active_deck_object.get_children():
+	var tray_global_mask_rect = Rect2(
+		active_deck_mask.global_position - active_deck_mask.texture.get_size() / 2,
+		active_deck_mask.texture.get_size()
+	)
+
+	for card_display in active_deck_mask.get_children():
 		if card_display is Node2D and card_display.has_node("Area2D/CollisionShape2D"):
 			var collision_shape = card_display.get_node("Area2D/CollisionShape2D") as CollisionShape2D
 			if collision_shape and collision_shape.shape is RectangleShape2D:
@@ -46,7 +52,7 @@ func _process(delta: float) -> void:
 					card_display.global_position - rect_size / 2,
 					rect_size
 				)
-				card_display.hoverable = card_global_rect.intersects(tray_global_rect)
+				card_display.hoverable = card_global_rect.intersects(tray_global_mask_rect) and tray_global_rect.has_point(get_global_mouse_position())
 
 func draw_hand():
 	player.hand.clear()
@@ -75,23 +81,23 @@ func deselect_card(card: Card):
 	display_prepared_hand()
 
 func display_deck():
-	for child in active_deck_object.get_children():
+	for child in active_deck_mask.get_children():
 		if child is CardDisplay:
 			child.queue_free()
 	for i in range(player.active_deck.size()):
 		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
-		print(player.active_deck[i])
+		# print(player.active_deck[i])
 		card_display.card = player.active_deck[i]
 		card_display.scale = Vector2(0.60, 0.60)
 		card_display.position = Vector2((i % 5 - 2) * 25, int(i / 5) * 35 - 17 - scroll_offset)
 		card_display.hoverable = true
 		card_display.connect("card_clicked", Callable(self, "_on_card_clicked"))
 		card_display.add_to_group("CardDisplays")
-		active_deck_object.add_child(card_display)
+		active_deck_mask.add_child(card_display)
 
 func _update_active_deck_positions() -> void:
-	for i in range(active_deck_object.get_children().size()):
-		var card_display = active_deck_object.get_child(i)
+	for i in range(active_deck_mask.get_children().size()):
+		var card_display = active_deck_mask.get_child(i)
 		if card_display is Node2D:
 			card_display.position = Vector2(
 				(i % 5 - 2) * 25,
@@ -112,7 +118,7 @@ func display_prepared_hand():
 		prepared_hand_object.add_child(card_display)
 
 func _on_card_clicked(card, parent_node):
-	if parent_node == active_deck_object:
+	if parent_node == active_deck_mask:
 		select_card(card)
 	elif parent_node.name == "Prepared Hand":
 		deselect_card(card)

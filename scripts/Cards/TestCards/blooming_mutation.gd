@@ -4,7 +4,7 @@ class_name BloomingMutation
 
 func _init() -> void:
 	card_name = "Blooming Mutation"
-	effect = "Makes the next card's effect happen twice"
+	effect = "Makes the next card's effect happen twice if the source is at max health"
 	clause = "None"
 	card_type = "Type"
 	sprite = "res://assets/Card/BloomingMutationCard.png"

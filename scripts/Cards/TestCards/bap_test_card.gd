@@ -4,7 +4,7 @@ class_name BapCard
 
 func _init() -> void:
 	card_name = "Bap"
-	effect = "Effect"
+	effect = "Damage opponent for 3 health"
 	clause = "Clause"
 	card_type = "Physical"
 	sprite = "res://assets/Card/TCOYSCard.png"

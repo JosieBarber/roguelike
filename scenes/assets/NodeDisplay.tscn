@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dtqvhxgrmka7x"]
 
 [ext_resource type="Script" path="res://scenes/assets/node_display.gd" id="1_bvoj0"]
-[ext_resource type="Texture2D" uid="uid://vig81h4gukr7" path="res://assets/Combat Icon.png" id="2_m3hpk"]
+[ext_resource type="Texture2D" uid="uid://cneipsvbpkysf" path="res://assets/Icons/Map/CombatIcon.png" id="2_slgjb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6qidc"]
 radius = 13.0
@@ -10,8 +10,9 @@ radius = 13.0
 script = ExtResource("1_bvoj0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("2_m3hpk")
+scale = Vector2(2, 2)
+texture = ExtResource("2_slgjb")
+vframes = 2
 
 [node name="Area2D" type="Area2D" parent="."]
 

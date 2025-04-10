@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bakhjaln414xo"]
+
+[ext_resource type="Texture2D" uid="uid://d4g3w820eltn5" path="res://assets/Environment/Spiky Forest/BigTree.png" id="1_m1xhh"]
+[ext_resource type="Script" path="res://assets/Environment/Spiky Forest/pink_tree.gd" id="2_4cddw"]
+
+[node name="Pink Tree" type="MeshInstance3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+billboard = 1
+texture_filter = 2
+texture = ExtResource("1_m1xhh")
+hframes = 3
+script = ExtResource("2_4cddw")

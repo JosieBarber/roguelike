@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://c7gml4oy6pmch"]
+
+[ext_resource type="Script" path="res://scripts/UI/npc_ui.gd" id="1_7oxr2"]
+[ext_resource type="Texture2D" uid="uid://bfwxylyxvi1wf" path="res://assets/UI/Player_Enemy/Metal panel.png" id="1_ywtdw"]
+[ext_resource type="Texture2D" uid="uid://bfws83fo1yi5u" path="res://assets/UI/Player_Enemy/Gold Coin.png" id="3_8v0mg"]
+[ext_resource type="PackedScene" uid="uid://bw5xmf8kb7pgs" path="res://scenes/assets/UI/Hearts.tscn" id="4_bokfx"]
+[ext_resource type="Texture2D" uid="uid://bacvui7o5t3ye" path="res://assets/UI/Player_Enemy/EnemyIcon.png" id="5_ms2vm"]
+[ext_resource type="Theme" uid="uid://c6mqy5npqrkqv" path="res://assets/fonts/Basic Font Theme.tres" id="6_1nalf"]
+
+[node name="EnemyUi" type="Node2D"]
+script = ExtResource("1_7oxr2")
+
+[node name="MetalPanel" type="Sprite2D" parent="."]
+texture = ExtResource("1_ywtdw")
+flip_h = true
+
+[node name="Coin" type="Sprite2D" parent="MetalPanel"]
+position = Vector2(-4.5, -1)
+texture = ExtResource("3_8v0mg")
+
+[node name="EnemyIcon" type="Sprite2D" parent="MetalPanel/Coin"]
+position = Vector2(0, 1)
+texture = ExtResource("5_ms2vm")
+
+[node name="Hearts" parent="MetalPanel" instance=ExtResource("4_bokfx")]
+position = Vector2(-4.5, -20.5)
+scale = Vector2(-1, 1)
+
+[node name="Health" type="Label" parent="MetalPanel"]
+offset_left = -8.0
+offset_top = -1.0
+offset_bottom = 12.0
+scale = Vector2(0.97, 0.97)
+theme = ExtResource("6_1nalf")
+theme_override_colors/font_color = Color(0.529412, 0.105882, 0.105882, 1)
+text = "25"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
