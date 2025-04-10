@@ -4,7 +4,7 @@ class_name ShriekingEchos
 
 func _init() -> void:
 	card_name = "Shrieking Echos"
-	effect = "Deals damage"
+	effect = "Adds 5 damage to the next 3 cards in hand"
 	clause = "None"
 	card_type = "Type"
 	sprite = "res://assets/Card/ShriekingEchoesCard.png"

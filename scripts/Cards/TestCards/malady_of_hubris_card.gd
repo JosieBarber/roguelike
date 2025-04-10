@@ -4,7 +4,7 @@ class_name MaladyOfHubris
 
 func _init() -> void:
 	card_name = "Malady of Hubris"
-	effect = ""
+	effect = "Deals damage equal to the number of cards played by the target at the start of next 3 turns"
 	clause = "None"
 	card_type = "Type"
 	sprite = "res://assets/Card/MaladyOfHubrisCard.png"

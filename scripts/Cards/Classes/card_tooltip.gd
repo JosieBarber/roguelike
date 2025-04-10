@@ -21,9 +21,6 @@ func _ready() -> void:
 		label.text = str(cardDisplay.card.card_name)
 	for label in effect_labels:
 		label.text = str(cardDisplay.card.effect)
-	#name_label.text = str(cardDisplay.card.card_name)
-	#effect.text = str(cardDisplay.card.effect)
-	#damage_label.text = str(cardDisplay.card.damage, " dmg")
 	adjust_position()
 
 

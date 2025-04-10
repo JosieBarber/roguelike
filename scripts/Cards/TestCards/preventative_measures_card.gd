@@ -4,8 +4,8 @@ class_name PreventativeMeasures
 
 func _init() -> void:
 	card_name = "Preventative Measures"
-	effect = "Prevents damage"
-	clause = "Next 2 instances of damage to the user are prevented"
+	effect = "Next 2 instances of damage to the user are prevented"
+	clause = ""
 	card_type = "Type"
 	sprite = "res://assets/Card/PreventativeMeasuresCard.png"
 	damage = 0

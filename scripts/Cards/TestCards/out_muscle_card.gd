@@ -4,7 +4,7 @@ class_name OutMuscle
 
 func _init() -> void:
 	card_name = "Out-Muscle"
-	effect = "Drains target of health equal to current healt minus 25"
+	effect = "Deals damage equal to half of the target's health"
 	clause = "Clause"
 	card_type = "Physical"
 	sprite = "res://assets/Card/OutMuscleCard.png"

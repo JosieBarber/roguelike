@@ -4,7 +4,7 @@ class_name SpiritAmplification
 
 func _init() -> void:
 	card_name = "Spirit Amplification"
-	effect = "Deals damage"
+	effect = "Deals 3 damage to target and increases damage of next card played by damage dealt"
 	clause = "None"
 	card_type = "Type"
 	sprite = "res://assets/Card/SpiritAmplificationCard.png"
@@ -24,5 +24,6 @@ func apply_effect(target, source) -> void:
 	}
 	if source.hand.size() >= 2:
 		source.hand[1].temporary_effects.append(temp_effect)
+		print(source.hand[1].card_name, " has been amplified to do ", calculate_damage(target, source, source.hand[1].damage, source.hand[1].items), " damage.")
+
 	
-	print(source.hand[1].card_name, " has been amplified to do ", calculate_damage(target, source, source.hand[1].damage, source.hand[1].items), " damage.")

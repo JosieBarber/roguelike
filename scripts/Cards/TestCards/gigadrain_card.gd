@@ -4,7 +4,7 @@ class_name GigaDrain
 
 func _init() -> void:
 	card_name = "Gigadrain"
-	effect = "Deals damage"
+	effect = "Deals 6 damage to target and heals the user for the same amount the card deals"
 	clause = "None"
 	card_type = "Type"
 	sprite = "res://assets/Card/GigadrainCard.png"

@@ -3,8 +3,8 @@ extends Card
 class_name BlowThisJointCard
 
 func _init() -> void:
-	card_name = "Lets Blow This Joint"
-	effect = "Deals damage"
+	card_name = "Blow This Joint"
+	effect = "Damage opponent for 3 health and put a card from their hand into your deck"
 	clause = "None"
 	card_type = "Magic"
 	sprite = "res://assets/Card/BlowThisJointCard.png"

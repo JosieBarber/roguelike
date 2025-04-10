@@ -4,7 +4,7 @@ class_name Acid
 
 func _init() -> void:
 	card_name = "Acid"
-	effect = "Deals damage"
+	effect = "Deals 5 damage at the start of next 2 turns"
 	clause = "None"
 	card_type = "Type"
 	sprite = "res://assets/Card/AcidCard.png"

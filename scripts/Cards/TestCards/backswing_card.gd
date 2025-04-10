@@ -4,7 +4,7 @@ class_name Backswing
 
 func _init() -> void:
 	card_name = "Backswing"
-	effect = "On the next time taking damage, deal that amount of damage to the opponent"
+	effect = "Next time being damaged, damage the opponent of the same amount"
 	clause = "None"
 	card_type = "Type"
 	sprite = "res://assets/Card/BackswingCard.png"

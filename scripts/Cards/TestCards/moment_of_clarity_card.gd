@@ -4,7 +4,7 @@ class_name MomentOfClarity
 
 func _init() -> void:
 	card_name = "Moment of Clarity"
-	effect = "Blocks all damage for the round"
+	effect = "Blocks all damage for the round if no other cards are played by user"
 	clause = "Only works if no other cards are played"
 	card_type = "Type"
 	sprite = "res://assets/Card/MomentOfClarityCard.png"

@@ -4,7 +4,7 @@ class_name VisciousMockery
 
 func _init() -> void:
 	card_name = "Vicious Mockery"
-	effect = "Deal 5 damage. If you have 30 or less health, deal an additional 5 damage. If you have 15 or less health, add a copy of one of your opponent's cards to your hand."
+	effect = "Deals 5 damage,  +5 if source's health is below 3/8 max, steals a card from the target if the source's health is below 3/16 max."
 	clause = "Clause"
 	card_type = "Type"
 	sprite = "res://assets/Card/ViciousMockeryCard.png"

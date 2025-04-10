@@ -4,7 +4,7 @@ class_name HeartAttackCard
 
 func _init() -> void:
 	card_name = "Heart Attack"
-	effect = "Deals damage"
+	effect = "Deals 10 damage to opponent and half of that damage to the user"
 	clause = "None"
 	card_type = "Type"
 	sprite = "res://assets/Card/HeartAttackCard.png"
