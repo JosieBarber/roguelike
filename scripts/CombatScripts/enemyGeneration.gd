@@ -5,6 +5,8 @@ class_name enemyGeneration
 var areas: Dictionary = {
 	"Forest": [
 		"res://scripts/CombatScripts/Enemies/self_heal.gd",
+		"res://scripts/CombatScripts/Enemies/card_play.gd",
+		"res://scripts/CombatScripts/Enemies/hubris.gd"
 	],
 }
 

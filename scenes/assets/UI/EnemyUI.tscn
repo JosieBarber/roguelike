@@ -7,10 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://bw5xmf8kb7pgs" path="res://scenes/assets/UI/Hearts.tscn" id="4_bokfx"]
 [ext_resource type="Theme" uid="uid://c6mqy5npqrkqv" path="res://assets/fonts/Basic Font Theme.tres" id="6_1nalf"]
 
-[node name="EnemyUi" type="Node2D" node_paths=PackedStringArray("npcIcon", "hearts")]
+[node name="EnemyUi" type="Node2D" node_paths=PackedStringArray("npcIcon")]
 script = ExtResource("1_7oxr2")
 npcIcon = NodePath("MetalPanel/Coin/Icon")
-hearts = NodePath("MetalPanel/Hearts")
 
 [node name="MetalPanel" type="Sprite2D" parent="."]
 texture = ExtResource("1_ywtdw")

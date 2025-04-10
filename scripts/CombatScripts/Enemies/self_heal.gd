@@ -3,7 +3,7 @@ extends Enemy
 class_name SelfHealEnemy
 
 func _ready() -> void:
-	enemy_name = "Card Play Enemy"
+	enemy_name = "Self Heal Enemy"
 	max_health = 50
 	health = 20
 	hand = []
