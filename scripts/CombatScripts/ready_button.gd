@@ -11,6 +11,8 @@ func _ready():
 	area.connect("input_event", Callable(self, "_on_area_input_event"))
 
 func _on_area_input_event(_viewport, event, _shape_idx):
+	if InputLock.input_locked:
+		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			space_bar_pressed = true

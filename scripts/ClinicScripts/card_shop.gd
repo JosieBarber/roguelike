@@ -8,6 +8,7 @@ extends Node2D
 # @onready var card_pool_mask_hitbox = $CardPool/Area2D/MaskHitbox
 @onready var shopping_cart_object = $CardPool/ShoppingCart
 @onready var ready_button = $ReadyButton
+@onready var exit_button = $ExitButton
 
 @onready var player = get_tree().get_first_node_in_group("player")
 @onready var clinic = get_parent()
@@ -25,7 +26,7 @@ func _ready() -> void:
 	_display_player_deck()
 	_display_card_pool()
 	ready_button.connect("ready_button_clicked", Callable(self, "_buy_shopping_cart_items"))
-	
+	exit_button.connect("exit_button_clicked", Callable(clinic, "_transition_from_card_shop"))
 func _display_player_deck():
 	player_deck = player.deck
 	for child in player_inventory_mask.get_children():

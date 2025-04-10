@@ -1,17 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://secgp8pnl7r4"]
 
-[ext_resource type="Script" path="res://scripts/CombatScripts/ready_button.gd" id="1_apcvh"]
-[ext_resource type="Texture2D" uid="uid://bpidbdanauljv" path="res://assets/Combat/StupidFuckassSpacebar.png" id="2_68kj4"]
+[ext_resource type="Script" path="res://scripts/CombatScripts/ready_button.gd" id="1_7hs3g"]
+[ext_resource type="Texture2D" uid="uid://bpidbdanauljv" path="res://assets/Combat/StupidFuckassSpacebar.png" id="2_yw2c1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_26rvg"]
 radius = 9.0
 height = 88.0
 
 [node name="ReadyButton" type="Node2D"]
-script = ExtResource("1_apcvh")
+script = ExtResource("1_7hs3g")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_68kj4")
+texture = ExtResource("2_yw2c1")
 vframes = 2
 
 [node name="Area2D" type="Area2D" parent="."]
