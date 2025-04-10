@@ -9,7 +9,8 @@ class_name Planning
 @onready var ui_scene = get_tree().get_first_node_in_group("Ui")
 @onready var location_panel = ui_scene.location_panel
 
-@onready var active_deck_object: Node2D = $"Active Deck/PlanningPhaseCardTrayMask"
+@onready var active_deck_object = $"Active Deck/PlanningPhaseCardTray"
+@onready var active_deck_mask: Node2D = $"Active Deck/PlanningPhaseCardTrayMask"
 @onready var prepared_hand_object: Node2D = get_node("Prepared Hand")
 
 
@@ -37,7 +38,12 @@ func _process(delta: float) -> void:
 		active_deck_object.texture.get_size()
 	)
 
-	for card_display in active_deck_object.get_children():
+	var tray_global_mask_rect = Rect2(
+		active_deck_mask.global_position - active_deck_mask.texture.get_size() / 2,
+		active_deck_mask.texture.get_size()
+	)
+
+	for card_display in active_deck_mask.get_children():
 		if card_display is Node2D and card_display.has_node("Area2D/CollisionShape2D"):
 			var collision_shape = card_display.get_node("Area2D/CollisionShape2D") as CollisionShape2D
 			if collision_shape and collision_shape.shape is RectangleShape2D:
@@ -46,7 +52,7 @@ func _process(delta: float) -> void:
 					card_display.global_position - rect_size / 2,
 					rect_size
 				)
-				card_display.hoverable = card_global_rect.intersects(tray_global_rect)
+				card_display.hoverable = card_global_rect.intersects(tray_global_mask_rect) and tray_global_rect.has_point(get_global_mouse_position())
 
 func draw_hand():
 	player.hand.clear()
@@ -87,11 +93,11 @@ func display_deck():
 		card_display.hoverable = true
 		card_display.connect("card_clicked", Callable(self, "_on_card_clicked"))
 		card_display.add_to_group("CardDisplays")
-		active_deck_object.add_child(card_display)
+		active_deck_mask.add_child(card_display)
 
 func _update_active_deck_positions() -> void:
-	for i in range(active_deck_object.get_children().size()):
-		var card_display = active_deck_object.get_child(i)
+	for i in range(active_deck_mask.get_children().size()):
+		var card_display = active_deck_mask.get_child(i)
 		if card_display is Node2D:
 			card_display.position = Vector2(
 				(i % 5 - 2) * 25,

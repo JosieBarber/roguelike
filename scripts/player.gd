@@ -47,7 +47,7 @@ func _create_test_deck():
 	
 	print("Loaded test cards: ", test_cards)
 
-	while deck.size() < 10 and test_cards.size() > 0:
+	while deck.size() < 7 and test_cards.size() > 0:
 		var random_index = randi() % test_cards.size()
 		var card_instance = test_cards[random_index].new()
 		deck.append(card_instance)

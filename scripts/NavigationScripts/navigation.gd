@@ -330,11 +330,12 @@ func _transition_to_encounter(node: Node2D):
 	match node_type:
 		NodeType.COMBAT:
 			location_panel._set_coin_face(NodeType.COMBAT)
-			InputLock._lock_scene_input()
+			
 			print("Transitioning to combat")
 			var combat_scene = load("res://scenes/Screens/Combat/Combat.tscn").instantiate()
 			get_tree().root.get_node("Main").add_child(combat_scene)  
 			player.copy_deck()
+			InputLock._lock_scene_input()
 		NodeType.CLINIC:
 			location_panel._set_coin_face(NodeType.CLINIC)
 			InputLock._lock_scene_input()
