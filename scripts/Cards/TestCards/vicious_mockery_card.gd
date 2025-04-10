@@ -1,6 +1,6 @@
 extends Card
 
-class_name VisciousMockery
+class_name ViciousMockery
 
 func _init() -> void:
 	card_name = "Vicious Mockery"

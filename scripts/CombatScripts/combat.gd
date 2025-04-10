@@ -17,7 +17,26 @@ var enemy_generation: enemyGeneration
 
 func _ready() -> void:
 	enemy_generation = enemyGeneration.new()
-	var possible_enemies = enemy_generation.get_possible_enemies("Forest")
+	var possible_enemies = []
+
+	# Check if this is the final boss encounter
+	if self.has_meta("is_final_boss") and self.get_meta("is_final_boss") == true:
+		print("Final boss encounter detected")
+		var finalBossScript = load("res://scripts/CombatScripts/Enemies/final_boss.gd")
+		if finalBossScript:
+			enemy_node.set_script(finalBossScript)
+			enemy_node.call("_ready")
+			enemy_node.set_health(enemy_node.max_health, enemy_node.health)
+			return
+
+	# Check if this is a boss encounter
+	if self.has_meta("is_boss_encounter") and self.get_meta("is_boss_encounter") == true:
+		print("Boss encounter detected")
+		possible_enemies = enemy_generation.get_boss_enemies()
+	else:
+		print("Regular encounter detected")
+		possible_enemies = enemy_generation.get_possible_enemies("Forest")
+
 	if possible_enemies.size() > 0:
 		var selected_enemy_script = possible_enemies[randi() % possible_enemies.size()]
 		enemy_node.set_script(selected_enemy_script)
@@ -35,10 +54,10 @@ func _on_enemy_defeat():
 	DOT.clear_active_effects()
 	$Attack_Phase.queue_free()
 	transition_to_card_selection_phase()
-	
+
 func _on_player_defeat():
 	var main_scene = get_parent()
-	
+
 	# Hide all nodes except Player UI
 	for child in main_scene.get_children():
 		if child.name != "Ui":

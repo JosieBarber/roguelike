@@ -52,6 +52,7 @@ func _initialize_graph(intermediate_nodes: int, boss_count: int, clinic_count: i
 	var end_position = Vector2(area_width, area_height / 2)
 	var end_node = _create_navigation_node(end_position, NodeType.BOSS)
 	graph[end_node] = []  # Ending boss node is also isolated
+	end_node.set_meta("is_final_boss", true)  # Mark this node as the final boss
 
 	# Generate intermediate nodes
 	var combat_nodes = int(intermediate_nodes * combat_proportion)
@@ -133,7 +134,7 @@ func _convert_lonely_combat_nodes_to_bosses():
 		if node.node_type == NodeType.COMBAT and graph[node].size() == 1:
 			print("Converting lonely combat node to boss")
 			node.node_type = NodeType.BOSS
-			nodes[node] = false 
+			nodes[node] = false
 			node._update_visual()
 
 func _ensure_boss_navigation(start_node: Node2D, end_node: Node2D):
@@ -296,23 +297,23 @@ func _on_node_selected(node_display: Node2D):
 		current_node = node_display
 		$Map/PlayerIcon.position = current_node.position
 		_update_adjacent_nodes()
-		if not nodes.get(node_display, false): 
-			var node_type = node_display.node_type 
+		if not nodes.get(node_display, false):
+			var node_type = node_display.node_type
 			match node_type:
 				NodeType.COMBAT, NodeType.CLINIC, NodeType.BOSS:
 					_transition_to_encounter(node_display)
-					nodes[node_display] = true 
+					nodes[node_display] = true
 				NodeType.BLANK:
 					nodes[node_display] = true
 			node_display.mark_as_visited()
 			node_display._update_visual()
 
 func _update_adjacent_nodes():
-	adjacent_nodes = graph.get(current_node, []) 
+	adjacent_nodes = graph.get(current_node, [])
 
 func _draw_paths():
 	for node in graph.keys():
-		var connections = graph.get(node, []) 
+		var connections = graph.get(node, [])
 		for connected_node in connections:
 			_draw_line_between_nodes(node, connected_node)
 
@@ -330,10 +331,17 @@ func _transition_to_encounter(node: Node2D):
 	match node_type:
 		NodeType.COMBAT:
 			location_panel._set_coin_face(NodeType.COMBAT)
-			
 			print("Transitioning to combat")
 			var combat_scene = load("res://scenes/Screens/Combat/Combat.tscn").instantiate()
-			get_tree().root.get_node("Main").add_child(combat_scene)  
+			get_tree().root.get_node("Main").add_child(combat_scene)
+			player.copy_deck()
+			InputLock._lock_scene_input()
+		NodeType.BOSS:
+			location_panel._set_coin_face(NodeType.BOSS)
+			print("Transitioning to boss")
+			var combat_scene = load("res://scenes/Screens/Combat/Combat.tscn").instantiate()
+			combat_scene.set_meta("is_boss_encounter", true)  # Set metadata for boss encounter
+			get_tree().root.get_node("Main").add_child(combat_scene)
 			player.copy_deck()
 			InputLock._lock_scene_input()
 		NodeType.CLINIC:
@@ -341,15 +349,10 @@ func _transition_to_encounter(node: Node2D):
 			InputLock._lock_scene_input()
 			print("Transitioning to clinic")
 			var clinic_scene = load("res://scenes/Screens/Clinic/Clinic.tscn").instantiate()
-			get_tree().root.get_node("Main").add_child(clinic_scene)  
-		NodeType.BOSS:
-			location_panel._set_coin_face(NodeType.BOSS)
-			print("Transitioning to boss")
+			get_tree().root.get_node("Main").add_child(clinic_scene)
 		NodeType.BLANK:
 			location_panel._set_coin_face(NodeType.BLANK)
 			print("Transitioning to blank node")
-		
-	
 
 func _connect_disconnected_groups():
 	var visited = []
@@ -395,8 +398,8 @@ func _connect_disconnected_groups():
 func get_node_at_screen_position(screen_position: Vector2) -> Node2D:
 	# Iterate through all nodes in the nodes_container to find one at the given position
 	for node in nodes_container.get_children():
-		
-		
+
+
 		if node is Node2D and node.has_node("Area2D") and node.get_node("Area2D").has_node("CollisionShape2D"):
 			#print(node.name)
 			#print("Nodes in container")

@@ -18,8 +18,8 @@ func _ready() -> void:
 		BoneSplinters.new(),
 		MaladyOfHubris.new(),
 		MaladyOfHubris.new(),
-        BapCard.new(),
-        BapCard.new(),
+		BapCard.new(),
+		BapCard.new(),
 	]
 	discard = []
 	active_deck = []
