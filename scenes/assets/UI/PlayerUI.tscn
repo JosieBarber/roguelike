@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://baqtpucolw0dc"]
+[gd_scene load_steps=7 format=3 uid="uid://baqtpucolw0dc"]
 
 [ext_resource type="Texture2D" uid="uid://bfwxylyxvi1wf" path="res://assets/UI/Player_Enemy/Metal panel.png" id="1_o22q1"]
 [ext_resource type="Script" path="res://scripts/UI/pc_ui.gd" id="1_t7c1y"]
 [ext_resource type="Texture2D" uid="uid://bfws83fo1yi5u" path="res://assets/UI/Player_Enemy/Gold Coin.png" id="3_v78gd"]
 [ext_resource type="PackedScene" uid="uid://bw5xmf8kb7pgs" path="res://scenes/assets/UI/Hearts.tscn" id="4_tpako"]
 [ext_resource type="Texture2D" uid="uid://dm35atftjuhxk" path="res://assets/UI/Player_Enemy/PlayerIcon.png" id="5_2qdcj"]
+[ext_resource type="Theme" uid="uid://c6mqy5npqrkqv" path="res://assets/fonts/Basic Font Theme.tres" id="6_thfia"]
 
 [node name="PlayerUi" type="Node2D"]
 script = ExtResource("1_t7c1y")
@@ -22,3 +23,16 @@ texture = ExtResource("5_2qdcj")
 
 [node name="Hearts" parent="MetalPanel" instance=ExtResource("4_tpako")]
 position = Vector2(4.5, -20.5)
+
+[node name="Health" type="Label" parent="MetalPanel"]
+offset_left = 1.135
+offset_top = -2.0
+offset_right = 9.135
+offset_bottom = 11.0
+scale = Vector2(0.97, 0.97)
+theme = ExtResource("6_thfia")
+theme_override_colors/font_color = Color(0.529412, 0.105882, 0.105882, 1)
+text = "25"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
