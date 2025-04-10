@@ -3,12 +3,13 @@
 [ext_resource type="Script" path="res://scripts/UI/npc_ui.gd" id="1_7oxr2"]
 [ext_resource type="Texture2D" uid="uid://bfwxylyxvi1wf" path="res://assets/UI/Player_Enemy/Metal panel.png" id="1_ywtdw"]
 [ext_resource type="Texture2D" uid="uid://bfws83fo1yi5u" path="res://assets/UI/Player_Enemy/Gold Coin.png" id="3_8v0mg"]
+[ext_resource type="Texture2D" uid="uid://ch6wcsgr0r0b6" path="res://assets/UI/Player_Enemy/NPCIcons.png" id="4_4sss4"]
 [ext_resource type="PackedScene" uid="uid://bw5xmf8kb7pgs" path="res://scenes/assets/UI/Hearts.tscn" id="4_bokfx"]
-[ext_resource type="Texture2D" uid="uid://bacvui7o5t3ye" path="res://assets/UI/Player_Enemy/EnemyIcon.png" id="5_ms2vm"]
 [ext_resource type="Theme" uid="uid://c6mqy5npqrkqv" path="res://assets/fonts/Basic Font Theme.tres" id="6_1nalf"]
 
-[node name="EnemyUi" type="Node2D"]
+[node name="EnemyUi" type="Node2D" node_paths=PackedStringArray("npcIcon")]
 script = ExtResource("1_7oxr2")
+npcIcon = NodePath("MetalPanel/Coin/Icon")
 
 [node name="MetalPanel" type="Sprite2D" parent="."]
 texture = ExtResource("1_ywtdw")
@@ -18,9 +19,10 @@ flip_h = true
 position = Vector2(-4.5, -1)
 texture = ExtResource("3_8v0mg")
 
-[node name="EnemyIcon" type="Sprite2D" parent="MetalPanel/Coin"]
+[node name="Icon" type="Sprite2D" parent="MetalPanel/Coin"]
 position = Vector2(0, 1)
-texture = ExtResource("5_ms2vm")
+texture = ExtResource("4_4sss4")
+hframes = 2
 
 [node name="Hearts" parent="MetalPanel" instance=ExtResource("4_bokfx")]
 position = Vector2(-4.5, -20.5)
