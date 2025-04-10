@@ -50,6 +50,7 @@ func _display_card_pool():
 		card_display.scale = Vector2(0.66, 0.66)
 		card_display.position = Vector2((i % 3 - 1) * 25, int(i / 3) * 35 - 7)  # 3 cards per row
 		card_pool_mask.add_child(card_display)
+		
 
 func _process(delta: float) -> void:
 	if self.visible:
@@ -177,22 +178,34 @@ func _buy_shopping_cart_items():
 		child.queue_free()
 
 
+#func load_test_cards():
+	#var dir = DirAccess.open("res://scripts/Cards/TestCards/")
+	#if dir != null:
+		#dir.list_dir_begin()
+		#var file_name = dir.get_next()
+		#while file_name != "":
+			#if file_name.ends_with(".gd"):
+				#var card_script = load("res://scripts/Cards/TestCards/" + file_name)
+				#if card_script:
+					## Instantiate the card script into an object
+					#var card_instance = card_script.new()
+					#card_pool.append(card_instance)
+				#else:
+					#print("Failed to load card script: ", file_name)
+			#file_name = dir.get_next()
+		#dir.list_dir_end()
+		#print("Loaded test cards: ", card_pool.size())
+	#else:
+		#print("Failed to open directory: res://scripts/Cards/TestCards/")
+		#
 func load_test_cards():
-	var dir = DirAccess.open("res://scripts/Cards/TestCards/")
-	if dir != null:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if file_name.ends_with(".gd"):
-				var card_script = load("res://scripts/Cards/TestCards/" + file_name)
-				if card_script:
-					# Instantiate the card script into an object
-					var card_instance = card_script.new()
-					card_pool.append(card_instance)
-				else:
-					print("Failed to load card script: ", file_name)
-			file_name = dir.get_next()
-		dir.list_dir_end()
-		print("Loaded test cards: ", card_pool.size())
-	else:
-		print("Failed to open directory: res://scripts/Cards/TestCards/")
+	#deck.clear()
+	var test_cards = Cards.test_cards
+	
+	print("Loaded test cards: ", test_cards)
+
+	while card_pool.size() < 6 and test_cards.size() > 0:
+		var random_index = randi() % test_cards.size()
+		var card_instance = test_cards[random_index].new()
+		card_pool.append(card_instance)
+		test_cards.remove_at(random_index)
