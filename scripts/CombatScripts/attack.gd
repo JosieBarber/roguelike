@@ -3,7 +3,7 @@ extends Node2D
 class_name Attack
 
 @onready var player: Player = get_tree().get_first_node_in_group("player")
-@onready var enemy: Enemy = get_tree().get_first_node_in_group("npc")
+@onready var enemy: Node2D = get_tree().get_first_node_in_group("npc")
 @onready var combat: Combat = get_parent()
 
 @onready var ready_button: Node2D = get_parent().get_node("ReadyButton")

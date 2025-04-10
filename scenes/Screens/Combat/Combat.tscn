@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bl83ryin8usen"]
+[gd_scene load_steps=6 format=3 uid="uid://bl83ryin8usen"]
 
 [ext_resource type="Script" path="res://scripts/CombatScripts/combat.gd" id="1_arqx6"]
 [ext_resource type="PackedScene" uid="uid://duk30r0o83e5r" path="res://scenes/Screens/combat/Planning_Phase.tscn" id="2_mdd02"]
 [ext_resource type="PackedScene" uid="uid://bfw14idsdji" path="res://scenes/Screens/combat/Attack_Phase.tscn" id="3_k7e02"]
-[ext_resource type="Script" path="res://scripts/CombatScripts/enemy.gd" id="4_d73mv"]
 [ext_resource type="PackedScene" uid="uid://secgp8pnl7r4" path="res://scenes/assets/Combat/ReadyButton.tscn" id="5_0hpti"]
 [ext_resource type="PackedScene" uid="uid://by1outins8k1e" path="res://scenes/Screens/combat/CardSelectionPhase.tscn" id="6_bexr8"]
 
@@ -22,7 +21,6 @@ visible = false
 visible = false
 
 [node name="Enemy" type="Node2D" parent="." groups=["npc"]]
-script = ExtResource("4_d73mv")
 
 [node name="ReadyButton" parent="." instance=ExtResource("5_0hpti")]
 position = Vector2(134, 138)

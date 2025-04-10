@@ -3,7 +3,7 @@ extends Node2D
 class_name Planning
 
 @onready var player: Player = get_tree().get_first_node_in_group("player")
-@onready var enemy: Enemy = get_parent().get_node("Enemy")
+@onready var enemy: Node2D = get_parent().get_node("Enemy")
 @onready var ready_button = get_parent().get_node("ReadyButton")
 
 @onready var ui_scene = get_tree().get_first_node_in_group("Ui")
@@ -86,7 +86,7 @@ func display_deck():
 			child.queue_free()
 	for i in range(player.active_deck.size()):
 		var card_display = preload("res://scenes/assets/CardDisplay.tscn").instantiate()
-		print(player.active_deck[i])
+		# print(player.active_deck[i])
 		card_display.card = player.active_deck[i]
 		card_display.scale = Vector2(0.60, 0.60)
 		card_display.position = Vector2((i % 5 - 2) * 25, int(i / 5) * 35 - 17 - scroll_offset)
