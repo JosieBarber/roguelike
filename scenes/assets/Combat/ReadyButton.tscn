@@ -4,17 +4,19 @@
 [ext_resource type="Texture2D" uid="uid://bpidbdanauljv" path="res://assets/Combat/StupidFuckassSpacebar.png" id="2_68kj4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_26rvg"]
-radius = 11.0
-height = 98.0
+radius = 9.0
+height = 88.0
 
 [node name="ReadyButton" type="Node2D"]
 script = ExtResource("1_apcvh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_68kj4")
+vframes = 2
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -3)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_26rvg")
